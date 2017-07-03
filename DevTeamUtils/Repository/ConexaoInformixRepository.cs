@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace DevTeamUtils.Repository
 {
-    public class AgendaTelefonicaRepository
+    public class ConexaoInformixRepository
     {
         private static string GetConnectionString()
         {
@@ -31,7 +31,7 @@ namespace DevTeamUtils.Repository
             }
         }
 
-        public static int Delete(AgendaTelefonica agendaTelefonica)
+        public static int Delete(ConexaoInformix conexaoInformix)
         {
             int resultado = -1;
             using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString()))
@@ -39,9 +39,9 @@ namespace DevTeamUtils.Repository
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    cmd.CommandText = "DELETE FROM AgendaTelefonica WHERE Id = @Id";
+                    cmd.CommandText = "DELETE FROM ConexaoInformix WHERE Id = @Id";
                     cmd.Prepare();
-                    cmd.Parameters.AddWithValue("@Id", agendaTelefonica.Id);
+                    cmd.Parameters.AddWithValue("@Id", conexaoInformix.Id);
                     try
                     {
                         resultado = cmd.ExecuteNonQuery();
@@ -59,7 +59,7 @@ namespace DevTeamUtils.Repository
             return resultado;
         }
 
-        public static int Insert(AgendaTelefonica agendaTelefonica)
+        public static int Insert(ConexaoInformix conexaoInformix)
         {
             int resultado = -1;
             using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString()))
@@ -67,14 +67,14 @@ namespace DevTeamUtils.Repository
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    cmd.CommandText = "INSERT INTO AgendaTelefonica(nome,telefone,cargo,local,observacao) " +
-                                      " VALUES (@nome,@telefone,@cargo,@local,@observacao)";
+                    cmd.CommandText = "INSERT INTO ConexaoInformix(NomeServidor,Ip,Porta,Usuario,Senha) " +
+                                      " VALUES (@NomeServidor,@Ip,@Porta,@Usuario,@Senha)";
                     cmd.Prepare();
-                    cmd.Parameters.AddWithValue("@nome", agendaTelefonica.Nome);
-                    cmd.Parameters.AddWithValue("@telefone", agendaTelefonica.Telefone);
-                    cmd.Parameters.AddWithValue("@cargo", agendaTelefonica.Cargo);
-                    cmd.Parameters.AddWithValue("@local", agendaTelefonica.Local);
-                    cmd.Parameters.AddWithValue("@observacao", agendaTelefonica.Observacao);
+                    cmd.Parameters.AddWithValue("@NomeServidor", conexaoInformix.NomeServidor);
+                    cmd.Parameters.AddWithValue("@Ip", conexaoInformix.Ip);
+                    cmd.Parameters.AddWithValue("@Porta", conexaoInformix.Porta);
+                    cmd.Parameters.AddWithValue("@Usuario", conexaoInformix.Usuario);
+                    cmd.Parameters.AddWithValue("@Senha", conexaoInformix.Senha);
                     try
                     {
                         resultado = cmd.ExecuteNonQuery();
@@ -92,7 +92,7 @@ namespace DevTeamUtils.Repository
             return resultado;
         }
 
-        public static int Update(AgendaTelefonica agendaTelefonica)
+        public static int Update(ConexaoInformix conexaoInformix)
         {
             int resultado = -1;
             using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString()))
@@ -100,16 +100,16 @@ namespace DevTeamUtils.Repository
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    cmd.CommandText = "UPDATE AgendaTelefonica SET nome=@nome, telefone=@telefone, cargo=@cargo, " +
-                        " local=@local,  observacao=@observacao " + 
+                    cmd.CommandText = "UPDATE ConexaoInformix SET NomeServidor=@NomeServidor, Ip=@Ip, Porta=@Porta, " +
+                        " Usuario=@Usuario,  Senha=@Senha " + 
                         " WHERE Id = @id";
                     cmd.Prepare();
-                    cmd.Parameters.AddWithValue("@Id", agendaTelefonica.Id);
-                    cmd.Parameters.AddWithValue("@nome", agendaTelefonica.Nome);
-                    cmd.Parameters.AddWithValue("@telefone", agendaTelefonica.Telefone);
-                    cmd.Parameters.AddWithValue("@cargo", agendaTelefonica.Cargo);
-                    cmd.Parameters.AddWithValue("@local", agendaTelefonica.Local);
-                    cmd.Parameters.AddWithValue("@observacao", agendaTelefonica.Observacao);
+                    cmd.Parameters.AddWithValue("@Id", conexaoInformix.Id);
+                    cmd.Parameters.AddWithValue("@NomeServidor", conexaoInformix.NomeServidor);
+                    cmd.Parameters.AddWithValue("@Ip", conexaoInformix.Ip);
+                    cmd.Parameters.AddWithValue("@Porta", conexaoInformix.Porta);
+                    cmd.Parameters.AddWithValue("@Usuario", conexaoInformix.Usuario);
+                    cmd.Parameters.AddWithValue("@Senha", conexaoInformix.Senha);
                     try
                     {
                         resultado = cmd.ExecuteNonQuery();

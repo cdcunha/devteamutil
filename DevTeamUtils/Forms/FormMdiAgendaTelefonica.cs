@@ -21,7 +21,7 @@ namespace DevTeamUtils.Forms
 
         private void CarregaDados()
         {
-            dataGridView1.DataSource = AgendaTelefonicaRepository.GetDataTable<SQLiteConnection, SQLiteDataAdapter>("Select * from AgendaTelefonica");
+            dataGridView1.DataSource = AgendaTelefonicaRepository.GetDataTable<SQLiteConnection, SQLiteDataAdapter>("Select * from AgendaTelefonica order by nome");
         }
 
         private AgendaTelefonica GetDadosDoGrid()
@@ -63,7 +63,9 @@ namespace DevTeamUtils.Forms
         {
             try
             {
-                DialogResult response = MessageBox.Show("Deseja deletar este registro?", "Deletar Item",
+                int linha;
+                linha = dataGridView1.CurrentRow.Index;
+                DialogResult response = MessageBox.Show("Deseja deletar este registro?\n" + dataGridView1[1, linha].Value.ToString(), "Deletar Item",
                       MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (response == DialogResult.Yes)
                 {
@@ -91,6 +93,17 @@ namespace DevTeamUtils.Forms
             {
                 MessageBox.Show("Erro : " + ex.Message);
             }
+        }
+
+        private void textBoxLocaliza_TextChanged(object sender, EventArgs e)
+        {
+            string qry = "Select * from AgendaTelefonica where Nome like '%" + textBoxLocaliza.Text + "%'";
+            dataGridView1.DataSource = AgendaTelefonicaRepository.GetDataTable<SQLiteConnection, SQLiteDataAdapter>(qry);
+        }
+
+        private void buttonAtualizar_Click(object sender, EventArgs e)
+        {
+            CarregaDados();
         }
     }
 }

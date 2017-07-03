@@ -5,28 +5,28 @@ using System.Windows.Forms;
 
 namespace DevTeamUtils.Forms
 {
-    public partial class FormAgendaTelefonica : Form
+    public partial class FormConexaoInformix : Form
     {
         private bool _IsInsert;
-        public FormAgendaTelefonica(AgendaTelefonica agendaTelefonica)
+        public FormConexaoInformix(ConexaoInformix conexaoInformix)
         {
             InitializeComponent();
 
-            if (agendaTelefonica.Id == 0)
+            if (conexaoInformix.Id == 0)
             {
-                textBoxId.Text = agendaTelefonica.Id.ToString();
-                textBoxNome.Focus();
+                textBoxId.Text = conexaoInformix.Id.ToString();
+                textBoxNomeServidor.Focus();
                 _IsInsert = true;
             }
             else
             {
                 _IsInsert = false;
-                textBoxId.Text = agendaTelefonica.Id.ToString();
-                textBoxNome.Text = agendaTelefonica.Nome;
-                textBoxTelefone.Text = agendaTelefonica.Telefone;
-                textBoxCargo.Text = agendaTelefonica.Cargo;
-                textBoxLocal.Text = agendaTelefonica.Local;
-                textBoxObservacao.Text = agendaTelefonica.Observacao;
+                textBoxId.Text = conexaoInformix.Id.ToString();
+                textBoxNomeServidor.Text = conexaoInformix.NomeServidor;
+                textBoxIp.Text = conexaoInformix.Ip;
+                textBoxPorta.Text = conexaoInformix.Porta.ToString();
+                textBoxUsuario.Text = conexaoInformix.Usuario;
+                textBoxSenha.Text = conexaoInformix.Senha;
             }
         }
 
@@ -40,18 +40,18 @@ namespace DevTeamUtils.Forms
             string inconsistencias = ValidaDados();
             if (inconsistencias == "")
             {
-                AgendaTelefonica agendaTelefonica = new AgendaTelefonica();
-                agendaTelefonica.Id = Convert.ToInt32(textBoxId.Text);
-                agendaTelefonica.Nome = textBoxNome.Text;
-                agendaTelefonica.Telefone = textBoxTelefone.Text;
-                agendaTelefonica.Cargo = textBoxCargo.Text;
-                agendaTelefonica.Local = textBoxLocal.Text;
-                agendaTelefonica.Observacao = textBoxObservacao.Text;
+                ConexaoInformix conexaoInformix = new ConexaoInformix();
+                conexaoInformix.Id = Convert.ToInt32(textBoxId.Text);
+                conexaoInformix.NomeServidor = textBoxNomeServidor.Text;
+                conexaoInformix.Ip = textBoxIp.Text;
+                conexaoInformix.Porta = Convert.ToInt32(textBoxPorta.Text);
+                conexaoInformix.Usuario = textBoxUsuario.Text;
+                conexaoInformix.Senha = textBoxSenha.Text;
                 try
                 {
                     if (_IsInsert)
                     {
-                        if (AgendaTelefonicaRepository.Insert(agendaTelefonica) > 0)
+                        if (ConexaoInformixRepository.Insert(conexaoInformix) > 0)
                         {
                             MessageBox.Show("Dados incluídos com sucesso.");
                             this.Close();
@@ -63,7 +63,7 @@ namespace DevTeamUtils.Forms
                     }
                     else
                     {
-                        if (AgendaTelefonicaRepository.Update(agendaTelefonica) > 0)
+                        if (ConexaoInformixRepository.Update(conexaoInformix) > 0)
                         {
                             MessageBox.Show("Dados atualizados com sucesso.");
                             this.Close();
@@ -89,14 +89,14 @@ namespace DevTeamUtils.Forms
         {
             string retorno = "";
 
-            if (textBoxNome.Text == string.Empty)
-                retorno += "Informe o Nome\n";
-            if (textBoxTelefone.Text == string.Empty)
-                retorno += "Informe o Telefone\n";
-            if (textBoxCargo.Text == string.Empty)
-                retorno += "Informe o Cargo\n";
-            if (textBoxLocal.Text == string.Empty)
-                retorno += "Informe o Local\n";
+            if (textBoxNomeServidor.Text == string.Empty)
+                retorno += "Informe o Nome do Servidor\n";
+            if (textBoxIp.Text == string.Empty)
+                retorno += "Informe o IP da conexão\n";
+            if (textBoxPorta.Text == string.Empty)
+                retorno += "Informe da Porta\n";
+            /*if (textBoxUsuario.Text == string.Empty)
+                retorno += "Informe o Usuário\n";*/
             return retorno;
         }
     }
