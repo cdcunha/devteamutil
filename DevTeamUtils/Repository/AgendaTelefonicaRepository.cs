@@ -1,13 +1,7 @@
 ﻿using DevTeamUtils.Models;
-using DevTeamUtils.Models.EqualityComparer;
-using DevTeamUtils.Serialization.Json;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevTeamUtils.Repository
 {
@@ -106,7 +100,7 @@ namespace DevTeamUtils.Repository
                 conn.Open();
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
-                    cmd.CommandText = "UPDATE alunos SET nome=@nome, telefone=@telefone, cargo=@cargo, " +
+                    cmd.CommandText = "UPDATE AgendaTelefonica SET nome=@nome, telefone=@telefone, cargo=@cargo, " +
                         " local=@local,  observacao=@observacao " + 
                         " WHERE Id = @id";
                     cmd.Prepare();

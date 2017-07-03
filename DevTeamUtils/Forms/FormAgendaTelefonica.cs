@@ -37,7 +37,8 @@ namespace DevTeamUtils.Forms
 
         private void buttonGravar_Click(object sender, System.EventArgs e)
         {
-            if (ValidaDados())
+            string inconsistencias = ValidaDados();
+            if (inconsistencias == "")
             {
                 AgendaTelefonica agendaTelefonica = new AgendaTelefonica();
                 agendaTelefonica.Id = Convert.ToInt32(textBoxId.Text);
@@ -53,6 +54,7 @@ namespace DevTeamUtils.Forms
                         if (AgendaTelefonicaRepository.Insert(agendaTelefonica) > 0)
                         {
                             MessageBox.Show("Dados incluídos com sucesso.");
+                            this.Close();
                         }
                         else
                         {
@@ -64,6 +66,7 @@ namespace DevTeamUtils.Forms
                         if (AgendaTelefonicaRepository.Update(agendaTelefonica) > 0)
                         {
                             MessageBox.Show("Dados atualizados com sucesso.");
+                            this.Close();
                         }
                         else
                         {
@@ -78,22 +81,22 @@ namespace DevTeamUtils.Forms
             }
             else
             {
-                MessageBox.Show("Dados inválidos.");
+                MessageBox.Show(inconsistencias);
             }
         }
 
-        private Boolean ValidaDados()
+        private string ValidaDados()
         {
-            bool retorno = true;
+            string retorno = "";
 
             if (textBoxNome.Text == string.Empty)
-                retorno = false;
+                retorno += "Informe o Nome\n";
             if (textBoxTelefone.Text == string.Empty)
-                retorno = false;
+                retorno += "Informe o Telefone\n";
             if (textBoxCargo.Text == string.Empty)
-                retorno = false;
+                retorno += "Informe o Cargo\n";
             if (textBoxLocal.Text == string.Empty)
-                retorno = false;
+                retorno += "Informe o Local\n";
             return retorno;
         }
     }
