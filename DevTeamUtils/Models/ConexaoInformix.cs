@@ -12,18 +12,14 @@ namespace DevTeamUtils.Models
         [Key]
         public long Id { get; set; }
 
-        [StringLength(2147483647)]
         public string NomeServidor { get; set; }
 
-        [StringLength(2147483647)]
         public string Ip { get; set; }
 
         public long? Porta { get; set; }
 
-        [StringLength(2147483647)]
         public string Usuario { get; set; }
 
-        [StringLength(2147483647)]
         public string Senha { get; set; }
     }
 }

@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "FormMdiAcionamentoAgfa";
             this.Text = "Acionamentos Josilton (AGFA)";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMdiAcionamentoAgfa_FormClosed);
             this.ResumeLayout(false);
 
         }

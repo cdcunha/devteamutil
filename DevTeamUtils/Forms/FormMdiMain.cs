@@ -17,6 +17,7 @@ namespace DevTeamUtils.Forms
             formMdiAgendaTelefonica.MdiParent = this;
             // Display the new form.
             formMdiAgendaTelefonica.Show();
+            formMdiAgendaTelefonica.Focus();
         }
 
         private void dadosDeConexõesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -26,6 +27,7 @@ namespace DevTeamUtils.Forms
             formMdiConexaoInformix.MdiParent = this;
             // Display the new form.
             formMdiConexaoInformix.Show();
+            formMdiConexaoInformix.Focus();
         }
 
         private void acionamentosJosiltonToolStripMenuItem_Click(object sender, EventArgs e)

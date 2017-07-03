@@ -9,7 +9,15 @@ namespace DevTeamUtils.Forms
     public partial class FormMdiAgendaTelefonica : Form
     {
         private static FormMdiAgendaTelefonica _Instance = new FormMdiAgendaTelefonica();
-        public static FormMdiAgendaTelefonica Instance { get { return _Instance; } }
+        public static FormMdiAgendaTelefonica Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                    _Instance = new FormMdiAgendaTelefonica();
+                return _Instance;
+            }
+        }
 
         private AgendaTelefonicaRepository _AgendaTelefonicaRepository = new AgendaTelefonicaRepository();
         private FormMdiAgendaTelefonica()
@@ -104,6 +112,15 @@ namespace DevTeamUtils.Forms
         private void buttonAtualizar_Click(object sender, EventArgs e)
         {
             CarregaDados();
+        }
+
+        private void FormMdiAgendaTelefonica_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_Instance != null)
+            {
+                _Instance.Dispose();
+                _Instance = null;
+            }
         }
     }
 }
