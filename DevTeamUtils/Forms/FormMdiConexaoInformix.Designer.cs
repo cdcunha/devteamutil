@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonExcluir = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonGerarIni = new System.Windows.Forms.Button();
             this.buttonTestar = new System.Windows.Forms.Button();
             this.buttonAtualizar = new System.Windows.Forms.Button();
             this.textBoxLocaliza = new System.Windows.Forms.TextBox();
@@ -38,6 +40,7 @@
             this.buttonIncluir = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -56,17 +59,19 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(719, 250);
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(850, 250);
             this.dataGridView1.TabIndex = 12;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonGerarIni);
             this.panel1.Controls.Add(this.buttonTestar);
             this.panel1.Controls.Add(this.buttonAtualizar);
             this.panel1.Controls.Add(this.textBoxLocaliza);
@@ -77,8 +82,19 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(719, 44);
+            this.panel1.Size = new System.Drawing.Size(850, 44);
             this.panel1.TabIndex = 15;
+            // 
+            // buttonGerarIni
+            // 
+            this.buttonGerarIni.Location = new System.Drawing.Point(426, 11);
+            this.buttonGerarIni.Name = "buttonGerarIni";
+            this.buttonGerarIni.Size = new System.Drawing.Size(75, 23);
+            this.buttonGerarIni.TabIndex = 17;
+            this.buttonGerarIni.Text = "Arquivo INI";
+            this.toolTip1.SetToolTip(this.buttonGerarIni, "Clique aqui para gerar arquivo INI");
+            this.buttonGerarIni.UseVisualStyleBackColor = true;
+            this.buttonGerarIni.Click += new System.EventHandler(this.buttonGerarIni_Click);
             // 
             // buttonTestar
             // 
@@ -102,7 +118,7 @@
             // 
             // textBoxLocaliza
             // 
-            this.textBoxLocaliza.Location = new System.Drawing.Point(478, 14);
+            this.textBoxLocaliza.Location = new System.Drawing.Point(559, 14);
             this.textBoxLocaliza.Name = "textBoxLocaliza";
             this.textBoxLocaliza.Size = new System.Drawing.Size(231, 20);
             this.textBoxLocaliza.TabIndex = 14;
@@ -111,7 +127,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(426, 17);
+            this.label1.Location = new System.Drawing.Point(507, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 13;
@@ -143,14 +159,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 44);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(719, 250);
+            this.panel2.Size = new System.Drawing.Size(850, 250);
             this.panel2.TabIndex = 16;
             // 
             // FormMdiConexaoInformix
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(719, 294);
+            this.ClientSize = new System.Drawing.Size(850, 294);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FormMdiConexaoInformix";
@@ -175,5 +191,7 @@
         private System.Windows.Forms.TextBox textBoxLocaliza;
         private System.Windows.Forms.Button buttonAtualizar;
         private System.Windows.Forms.Button buttonTestar;
+        private System.Windows.Forms.Button buttonGerarIni;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

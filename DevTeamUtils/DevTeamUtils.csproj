@@ -77,6 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConexaoInformixDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConexaoInformixDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormConexaoInformix.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +126,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ConexaoInformixRepository.cs" />
     <Compile Include="Repository\AgendaTelefonicaRepository.cs" />
+    <Compile Include="Utils\CryptographyHelper.cs" />
+    <Compile Include="Utils\IniFileHelper.cs" />
     <EmbeddedResource Include="Forms\FormConexaoInformix.resx">
       <DependentUpon>FormConexaoInformix.cs</DependentUpon>
     </EmbeddedResource>
@@ -149,6 +156,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ConexaoInformixDataSet.xsc">
+      <DependentUpon>ConexaoInformixDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ConexaoInformixDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ConexaoInformixDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ConexaoInformixDataSet.xss">
+      <DependentUpon>ConexaoInformixDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
