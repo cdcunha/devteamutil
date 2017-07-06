@@ -53,6 +53,8 @@
             // 
             // buttonExcluir
             // 
+            this.buttonExcluir.Image = global::DevTeamUtils.Properties.Resources.btn_delete;
+            this.buttonExcluir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonExcluir.Location = new System.Drawing.Point(183, 12);
             this.buttonExcluir.Name = "buttonExcluir";
             this.buttonExcluir.Size = new System.Drawing.Size(75, 23);
@@ -65,13 +67,15 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(846, 412);
+            this.dataGridView1.Size = new System.Drawing.Size(821, 250);
             this.dataGridView1.TabIndex = 12;
             // 
             // panel1
@@ -85,16 +89,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(846, 44);
+            this.panel1.Size = new System.Drawing.Size(850, 44);
             this.panel1.TabIndex = 13;
             // 
             // buttonAtualizar
             // 
+            this.buttonAtualizar.Image = global::DevTeamUtils.Properties.Resources.btn_update;
+            this.buttonAtualizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAtualizar.Location = new System.Drawing.Point(264, 11);
             this.buttonAtualizar.Name = "buttonAtualizar";
             this.buttonAtualizar.Size = new System.Drawing.Size(75, 23);
             this.buttonAtualizar.TabIndex = 15;
-            this.buttonAtualizar.Text = "Atualizar";
+            this.buttonAtualizar.Text = "  Atualizar";
             this.buttonAtualizar.UseVisualStyleBackColor = true;
             this.buttonAtualizar.Click += new System.EventHandler(this.buttonAtualizar_Click);
             // 
@@ -117,6 +123,8 @@
             // 
             // buttonIncluir
             // 
+            this.buttonIncluir.Image = global::DevTeamUtils.Properties.Resources.btn_new;
+            this.buttonIncluir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonIncluir.Location = new System.Drawing.Point(21, 12);
             this.buttonIncluir.Name = "buttonIncluir";
             this.buttonIncluir.Size = new System.Drawing.Size(75, 23);
@@ -127,6 +135,8 @@
             // 
             // buttonEditar
             // 
+            this.buttonEditar.Image = global::DevTeamUtils.Properties.Resources.btn_edit;
+            this.buttonEditar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonEditar.Location = new System.Drawing.Point(102, 12);
             this.buttonEditar.Name = "buttonEditar";
             this.buttonEditar.Size = new System.Drawing.Size(75, 23);
@@ -141,7 +151,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 44);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(846, 412);
+            this.panel2.Size = new System.Drawing.Size(850, 480);
             this.panel2.TabIndex = 14;
             // 
             // panel3
@@ -154,9 +164,9 @@
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 259);
+            this.panel3.Location = new System.Drawing.Point(0, 327);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(846, 197);
+            this.panel3.Size = new System.Drawing.Size(850, 197);
             this.panel3.TabIndex = 16;
             // 
             // label7
@@ -176,7 +186,7 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(8, 137);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(127, 16);
+            this.label8.Size = new System.Drawing.Size(122, 16);
             this.label8.TabIndex = 5;
             this.label8.Text = "3) Ouvir recados";
             // 
@@ -196,7 +206,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(8, 93);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(388, 16);
+            this.label5.Size = new System.Drawing.Size(377, 16);
             this.label5.TabIndex = 3;
             this.label5.Text = "2) Puxar chamada de outro ramal que estiver tocando";
             // 
@@ -217,7 +227,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(8, 32);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(164, 16);
+            this.label3.Size = new System.Drawing.Size(160, 16);
             this.label3.TabIndex = 1;
             this.label3.Text = "1) Transferir chamada";
             // 
@@ -227,7 +237,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(8, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(289, 16);
+            this.label2.Size = new System.Drawing.Size(280, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "Dicas de utilização de ramal da Regus:";
             // 
@@ -235,7 +245,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 456);
+            this.ClientSize = new System.Drawing.Size(850, 524);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

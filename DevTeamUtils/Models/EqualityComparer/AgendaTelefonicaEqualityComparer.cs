@@ -11,12 +11,13 @@ namespace DevTeamUtils.Models.EqualityComparer
 
         public override bool Equals(AgendaTelefonica x, AgendaTelefonica y)
         {
-            return x.Nome.ToUpperInvariant() == y.Nome.ToUpperInvariant();
+            return x.Nome.ToUpperInvariant() == y.Nome.ToUpperInvariant() && 
+                x.Cargo.ToUpperInvariant() == y.Cargo.ToUpperInvariant();
         }
 
         public override int GetHashCode(AgendaTelefonica obj)
         {
-            return obj.Nome.ToUpperInvariant().GetHashCode();
+            return obj.Nome.ToUpperInvariant().GetHashCode() ^ obj.Cargo.ToUpperInvariant().GetHashCode();
         }
     }
 }

@@ -58,7 +58,7 @@
             this.textBoxNome.Location = new System.Drawing.Point(104, 36);
             this.textBoxNome.Name = "textBoxNome";
             this.textBoxNome.Size = new System.Drawing.Size(157, 20);
-            this.textBoxNome.TabIndex = 0;
+            this.textBoxNome.TabIndex = 1;
             // 
             // textBoxTelefone
             // 
@@ -69,6 +69,8 @@
             // 
             // buttonGravar
             // 
+            this.buttonGravar.Image = global::DevTeamUtils.Properties.Resources.btn_ok;
+            this.buttonGravar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGravar.Location = new System.Drawing.Point(51, 175);
             this.buttonGravar.Name = "buttonGravar";
             this.buttonGravar.Size = new System.Drawing.Size(75, 23);
@@ -136,6 +138,8 @@
             // 
             // buttonSair
             // 
+            this.buttonSair.Image = global::DevTeamUtils.Properties.Resources.btn_getout;
+            this.buttonSair.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSair.Location = new System.Drawing.Point(150, 175);
             this.buttonSair.Name = "buttonSair";
             this.buttonSair.Size = new System.Drawing.Size(75, 23);
@@ -159,7 +163,7 @@
             this.textBoxId.Location = new System.Drawing.Point(104, 8);
             this.textBoxId.Name = "textBoxId";
             this.textBoxId.Size = new System.Drawing.Size(157, 20);
-            this.textBoxId.TabIndex = 12;
+            this.textBoxId.TabIndex = 0;
             // 
             // FormAgendaTelefonica
             // 

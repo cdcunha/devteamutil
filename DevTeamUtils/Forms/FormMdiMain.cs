@@ -22,12 +22,12 @@ namespace DevTeamUtils.Forms
 
         private void dadosDeConexõesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormMdiConexaoInformix formMdiConexaoInformix = FormMdiConexaoInformix.Instance;
+            FormMdiConexaoBD formMdiConexaoBD = FormMdiConexaoBD.Instance;
             // Set the Parent Form of the Child window.
-            formMdiConexaoInformix.MdiParent = this;
+            formMdiConexaoBD.MdiParent = this;
             // Display the new form.
-            formMdiConexaoInformix.Show();
-            formMdiConexaoInformix.Focus();
+            formMdiConexaoBD.Show();
+            formMdiConexaoBD.Focus();
         }
 
         private void acionamentosJosiltonToolStripMenuItem_Click(object sender, EventArgs e)
