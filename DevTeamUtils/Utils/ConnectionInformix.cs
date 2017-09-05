@@ -1,6 +1,4 @@
 ﻿using IBM.Data.Informix;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DevTeamUtils.Utils
 {
