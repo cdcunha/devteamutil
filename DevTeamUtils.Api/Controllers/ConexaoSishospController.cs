@@ -9,23 +9,23 @@ using System.Collections.Generic;
 namespace DevTeamUtils.Api.Controllers
 {
     [Controller]
-    public class ApoiadoController : Controller
+    public class ConexaoSishospController : Controller
     {
-        private readonly IApoiadoRepository _apoiadoRepository;
+        private readonly IConexaoSishospRepository _conexaoSishospRepository;
 
-        public ApoiadoController(MongoDbContext context)
+        public ConexaoSishospController(MongoDbContext context)
         {
-            _apoiadoRepository = context.GetApoiadoRepository();
+            _conexaoSishospRepository = context.GetConexaoSishospRepository();
         }
 
         [HttpGet("api/[controller]")]
         //[Route("api/[controller]")]
-        public IEnumerable<Apoiado> GetAll()
+        public IEnumerable<ConexaoSishosp> GetAll()
         {
-            return _apoiadoRepository.GetAll();
+            return _conexaoSishospRepository.GetAll();
         }
 
-        [HttpGet("api/[controller]/{id}", Name = "GetApoio")]
+        [HttpGet("api/[controller]/{id}", Name = "GetConexaoSishosp")]
         //[HttpGet]
         //[Route("api/[controller]/{id}")]
         public IActionResult GetById(Guid id)
@@ -42,7 +42,7 @@ namespace DevTeamUtils.Api.Controllers
             }
             else
             {
-                var item = _apoiadoRepository.Find(id);
+                var item = _conexaoSishospRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound();
@@ -55,25 +55,25 @@ namespace DevTeamUtils.Api.Controllers
         [Route("api/[controller]/{nome}")]
         public List<Apoiado> Get(string nome)
         {
-            var resultado = apoiados.Find(it => it.Nome.Contains(nome))
+            var resultado = conexaoSishosps.Find(it => it.Nome.Contains(nome))
                 .SortBy(it => it.Nome).Skip(0).Limit(50);
             if (!resultado.Any())
             {
                 Apoiado n = new Apoiado("José Maria");
-                apoiados.InsertOne(n);
+                conexaoSishosps.InsertOne(n);
 
                 n = new Apoiado("José Pedro");
-                apoiados.InsertOne(n);
+                conexaoSishosps.InsertOne(n);
 
                 n = new Apoiado("Carlos José");
                 n.Nome = "Monitor";
-                apoiados.InsertOne(n);
+                conexaoSishosps.InsertOne(n);
 
                 n = new Apoiado("Marilda Abravanel");
-                apoiados.InsertOne(n);
+                conexaoSishosps.InsertOne(n);
 
                 n = new Apoiado("Nivaldo Damasceno");
-                apoiados.InsertOne(n);
+                conexaoSishosps.InsertOne(n);
             }
 
             
@@ -86,33 +86,33 @@ namespace DevTeamUtils.Api.Controllers
         [HttpPost("api/[controller]")]
         //[ValidateAntiForgeryToken]
         //[Route("api/[controller]")]
-        public IActionResult Create([FromBody]JObject body)//[FromBody] Apoiado apoiado)
+        public IActionResult Create([FromBody]JObject body)//[FromBody] Apoiado conexaoSishosp)
         {
             if (string.IsNullOrEmpty(body.ToString()))
             {
                 return BadRequest();
             }
-            Apoiado apoiado = new Apoiado(((JValue)body.SelectToken("nome")).Value.ToString());
-            apoiado.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            ConexaoSishosp conexaoSishosp = new ConexaoSishosp();//(((JValue)body.SelectToken("nome")).Value.ToString());
+            conexaoSishosp.DeserializeJson(body); //Converte Json para o objeto Apoiado
 
             //Verifica se há inconsistência nos dados
-            ApoiadoAssertion apoiadoAssertion = new ApoiadoAssertion(apoiado, true);
-            if (apoiadoAssertion.Notifications.HasNotifications())
+            ConexaoSishospAssertion conexaoSishospAssertion = new ConexaoSishospAssertion(conexaoSishosp, true);
+            if (conexaoSishospAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(apoiadoAssertion.Notifications.Notify());
+                return new ObjectResult(conexaoSishospAssertion.Notifications.Notify());
             }
 
-            _apoiadoRepository.Add(apoiado);
-            //return CreatedAtRoute("GetApoio", new { id = apoiado.Id }, apoiado);
+            _conexaoSishospRepository.Add(conexaoSishosp);
+            //return CreatedAtRoute("GetApoio", new { id = conexaoSishosp.Id }, conexaoSishosp);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status201Created;
-            return new ObjectResult(apoiado);
+            return new ObjectResult(conexaoSishosp);
         }
 
         [HttpPut("api/[controller]/{id}")]
         //[HttpPut]
         //[Route("api/[controller]/{id}")]
-        public IActionResult Update(Guid id, [FromBody]dynamic body)//[FromBody]Apoiado apoiadoNew)
+        public IActionResult Update(Guid id, [FromBody]dynamic body)//[FromBody]Apoiado conexaoSishospNew)
         {
             if (string.IsNullOrEmpty(body.ToString()))
             {
@@ -120,28 +120,28 @@ namespace DevTeamUtils.Api.Controllers
             }
             
             //Verifica se o registro existe na base
-            var apoiadoFounded = _apoiadoRepository.Find(id);
-            if (apoiadoFounded == null)
+            var conexaoSishospFounded = _conexaoSishospRepository.Find(id);
+            if (conexaoSishospFounded == null)
             {
                 return NotFound();
             }
 
-            Apoiado apoiadoNew = new Apoiado();
-            apoiadoNew = apoiadoFounded;
-            apoiadoNew.DeserializeJson(body); //Converte Json para o objeto Apoiado
-            apoiadoNew.SetDataAlteracao();
+            ConexaoSishosp conexaoSishospNew = new ConexaoSishosp();
+            conexaoSishospNew = conexaoSishospFounded;
+            conexaoSishospNew.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            conexaoSishospNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados
-            ApoiadoAssertion apoiadoAssertion = new ApoiadoAssertion(apoiadoNew);
-            if (apoiadoAssertion.Notifications.HasNotifications())
+            ConexaoSishospAssertion conexaoSishospAssertion = new ConexaoSishospAssertion(conexaoSishospNew);
+            if (conexaoSishospAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(apoiadoAssertion.Notifications.Notify());
+                return new ObjectResult(conexaoSishospAssertion.Notifications.Notify());
             }
-            _apoiadoRepository.Update(apoiadoNew);
+            _conexaoSishospRepository.Update(conexaoSishospNew);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(apoiadoNew);
+            return new ObjectResult(conexaoSishospNew);
         }
 
         [HttpDelete("api/[controller]/{id}")]
@@ -149,26 +149,26 @@ namespace DevTeamUtils.Api.Controllers
         //[Route("api/[controller]/{id}")]
         public IActionResult Delete(Guid id)
         {
-            /*Apoiado apoiado = GetDetail(id);
-            DeleteResult result = apoiados.DeleteOne(Builders<Apoiado>.Filter.Eq(p => p.Id, ObjectId.Parse(id)));
+            /*Apoiado conexaoSishosp = GetDetail(id);
+            DeleteResult result = conexaoSishosps.DeleteOne(Builders<Apoiado>.Filter.Eq(p => p.Id, ObjectId.Parse(id)));
             if (result.DeletedCount < 1)
             {
-                if (apoiado == null)
-                    apoiado = new Apoiado("Erro detelando");
-                apoiado.Notifications.Handle("500", "O Registro não foi encontrado");
+                if (conexaoSishosp == null)
+                    conexaoSishosp = new Apoiado("Erro detelando");
+                conexaoSishosp.Notifications.Handle("500", "O Registro não foi encontrado");
             }
-            return apoiado;
+            return conexaoSishosp;
             */
-            var apoiado = _apoiadoRepository.Find(id);
-            if (apoiado == null)
+            var conexaoSishosp = _conexaoSishospRepository.Find(id);
+            if (conexaoSishosp == null)
             {
                 return NotFound();
             }
 
-            _apoiadoRepository.Remove(id);
+            _conexaoSishospRepository.Remove(id);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(apoiado);
+            return new ObjectResult(conexaoSishosp);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace Sani.Api.Controllers
+namespace DevTeamUtils.Api.Controllers
 {
     public static class ControllersUtils
     {
@@ -9,7 +9,7 @@ namespace Sani.Api.Controllers
             //string connectionString = "mongodb://localhost:27017";
             //MongoClient client = new MongoClient(connectionString);
             IsConnected(client);
-            return client.GetDatabase("Sani");
+            return client.GetDatabase("DevTeamUtils");
         }
 
         public static MongoClient GetMongoClient(string connectionString)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sani.Api.Notifications
+namespace DevTeamUtils.Api.Notifications
 {
     public class NotificationHandler
     {

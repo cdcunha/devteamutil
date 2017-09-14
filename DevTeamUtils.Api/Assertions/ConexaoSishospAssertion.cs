@@ -1,31 +1,32 @@
-﻿using Sani.Api.Notifications;
+﻿using DevTeamUtils.Api.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sani.Api.Assertions
+namespace DevTeamUtils.Api.Assertions
 {
-    public class ApoiadoAssertion : BaseAssertion
+    public class ConexaoSishospAssertion : BaseAssertion
     {
-        public ApoiadoAssertion(Models.Apoiado apoiado, bool canIdNull = false) : base()
+        public ConexaoSishospAssertion(Models.ConexaoSishosp conexaoSishosp, bool canIdNull = false) : base()
         {
-            if (apoiado == null)
+            if (conexaoSishosp == null)
             {
                 throw new Exception("O parâmetro apoiado não pode ser nulo [classe VoluntarioAssertion]");
             }
 
             if (!canIdNull)
             {
-                if (apoiado.Id == Guid.Empty)
+                if (conexaoSishosp.Id == Guid.Empty)
                     SetNofication("500", "O ID não pode ser nulo");
             }
 
-            if (string.IsNullOrEmpty(apoiado.Nome))
+            if (string.IsNullOrEmpty(conexaoSishosp.NomeServidor))
                 SetNofication("500", "Informe o Nome");
 
-            if (!apoiado.DataNascimento.HasValue)
+            /*if (!apoiado.DataNascimento.HasValue)
                 SetNofication("500", "Informe a Data de Nascimento");
+                */
         }
     }
 }

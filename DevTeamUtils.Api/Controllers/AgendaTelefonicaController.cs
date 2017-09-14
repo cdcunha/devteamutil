@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using Sani.Api.Assertions;
-using Sani.Api.Models;
-using Sani.Api.Repository;
+using DevTeamUtils.Api.Assertions;
+using DevTeamUtils.Api.Models;
+using DevTeamUtils.Api.Repository;
 using System;
 using System.Collections.Generic;
 
-namespace Sani.Api.Controllers
+namespace DevTeamUtils.Api.Controllers
 {
     [Controller]
-    public class VoluntarioController : Controller
+    public class AgendaTelefonicaController : Controller
     {
-        private readonly IVoluntarioRepository _voluntarioRepository;
+        private readonly IAgendaTelefonicaRepository _agendaTelefonicaRepository;
 
-        public VoluntarioController(MongoDbContext context)
+        public AgendaTelefonicaController(MongoDbContext context)
         {
-            _voluntarioRepository = context.GetVoluntarioRepository();
+            _agendaTelefonicaRepository = context.GetVoluntarioRepository();
         }
 
         [HttpGet("api/[controller]")]
         //[Route("api/[controller]")]
-        public IEnumerable<Voluntario> Get()
+        public IEnumerable<AgendaTelefonica> Get()
         {
-            return _voluntarioRepository.GetAll();
+            return _agendaTelefonicaRepository.GetAll();
         }
 
-        [HttpGet("api/[controller]/{id}", Name = "GetVoluntario")]
+        [HttpGet("api/[controller]/{id}", Name = "GetAgendaTelefonica")]
         //[Route("api/[controller]/{id}")]
         public IActionResult GetById(System.Guid id)
         {
@@ -41,7 +41,7 @@ namespace Sani.Api.Controllers
             }
             else
             {
-                var item = _voluntarioRepository.Find(id);
+                var item = _agendaTelefonicaRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound();
@@ -54,26 +54,26 @@ namespace Sani.Api.Controllers
         [Route("api/[controller]/{nome}")]
         public List<Voluntario> Get(string nome)
         {
-            var resultado = voluntarios.Find(it => it.Nome.Contains(nome)).SortBy(it => it.Nome).Skip(0).Limit(50);
-            //var resultado = voluntarios.Find(Builders<Voluntario>.Filter.Eq("Id", ObjectId.Parse(id)));
+            var resultado = agendaTelefonicas.Find(it => it.Nome.Contains(nome)).SortBy(it => it.Nome).Skip(0).Limit(50);
+            //var resultado = agendaTelefonicas.Find(Builders<Voluntario>.Filter.Eq("Id", ObjectId.Parse(id)));
             #region
             if (!resultado.Any())
             {
                 Voluntario n = new Voluntario("dr. José Maria");
-                voluntarios.InsertOne(n);
+                agendaTelefonicas.InsertOne(n);
 
                 n = new Voluntario("dr. José Pedro");
-                voluntarios.InsertOne(n);
+                agendaTelefonicas.InsertOne(n);
 
                 n = new Voluntario("dr. Carlos José");
                 n.Nome = "Monitor";
-                voluntarios.InsertOne(n);
+                agendaTelefonicas.InsertOne(n);
 
                 n = new Voluntario("dra. Marilda Abravanel");
-                voluntarios.InsertOne(n);
+                agendaTelefonicas.InsertOne(n);
 
                 n = new Voluntario("dr. Nivaldo Damasceno");
-                voluntarios.InsertOne(n);
+                agendaTelefonicas.InsertOne(n);
             }
             #endregion
             return resultado.ToList();
@@ -83,27 +83,27 @@ namespace Sani.Api.Controllers
         [HttpPost("api/[controller]")]
         //[ValidateAntiForgeryToken]
         //[Route("api/[controller]")]
-        public IActionResult Create([FromBody]dynamic body)//[FromBody] Voluntario voluntario)
+        public IActionResult Create([FromBody]dynamic body)//[FromBody] Voluntario agendaTelefonica)
         {
             if (string.IsNullOrEmpty(body.ToString()))
             {
                 return BadRequest();
             }
-            Voluntario voluntario = new Voluntario(((JValue)body.SelectToken("nome")).Value.ToString());
-            voluntario.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            AgendaTelefonica agendaTelefonica = new AgendaTelefonica();//(((JValue)body.SelectToken("nome")).Value.ToString());
+            agendaTelefonica.DeserializeJson(body); //Converte Json para o objeto Apoiado
 
             //Verifica se há inconsistência nos dados
-            VoluntarioAssertion voluntarioAssertion = new VoluntarioAssertion(voluntario, true);
-            if (voluntarioAssertion.Notifications.HasNotifications())
+            AgendaTelefonicaAssertion agendaTelefonicaAssertion = new AgendaTelefonicaAssertion(agendaTelefonica, true);
+            if (agendaTelefonicaAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(voluntarioAssertion.Notifications.Notify());
+                return new ObjectResult(agendaTelefonicaAssertion.Notifications.Notify());
             }
 
-            _voluntarioRepository.Add(voluntario);
+            _agendaTelefonicaRepository.Add(agendaTelefonica);
             //return CreatedAtRoute("GetApoio", new { id = apoiado.Id }, apoiado);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status201Created;
-            return new ObjectResult(voluntario);
+            return new ObjectResult(agendaTelefonica);
         }
 
         [HttpPut("api/[controller]/{id}")]
@@ -116,43 +116,43 @@ namespace Sani.Api.Controllers
             }
 
             //Verifica se o registro existe na base
-            var voluntarioFounded = _voluntarioRepository.Find(id);
-            if (voluntarioFounded == null)
+            var agendaTelefonicaFounded = _agendaTelefonicaRepository.Find(id);
+            if (agendaTelefonicaFounded == null)
             {
                 return NotFound();
             }
 
-            Voluntario voluntarioNew = new Voluntario();
-            voluntarioNew = voluntarioFounded;
-            voluntarioNew.DeserializeJson(body); //Converte Json para o objeto Apoiado
-            voluntarioNew.SetDataAlteracao();
+            AgendaTelefonica agendaTelefonicaNew = new AgendaTelefonica();
+            agendaTelefonicaNew = agendaTelefonicaFounded;
+            agendaTelefonicaNew.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            agendaTelefonicaNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados
-            VoluntarioAssertion voluntarioAssertion = new VoluntarioAssertion(voluntarioNew);
-            if (voluntarioAssertion.Notifications.HasNotifications())
+            AgendaTelefonicaAssertion agendaTelefonicaAssertion = new AgendaTelefonicaAssertion(agendaTelefonicaNew);
+            if (agendaTelefonicaAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(voluntarioAssertion.Notifications.Notify());
+                return new ObjectResult(agendaTelefonicaAssertion.Notifications.Notify());
             }
-            _voluntarioRepository.Update(voluntarioNew);
+            _agendaTelefonicaRepository.Update(agendaTelefonicaNew);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(voluntarioNew);
+            return new ObjectResult(agendaTelefonicaNew);
         }
 
         [HttpDelete("api/[controller]/{id}")]
         //[Route("api/[controller]/{id}")]
         public IActionResult Delete(System.Guid id)
         {
-            var voluntario = _voluntarioRepository.Find(id);
-            if (voluntario == null)
+            var agendaTelefonica = _agendaTelefonicaRepository.Find(id);
+            if (agendaTelefonica == null)
             {
                 return NotFound();
             }
 
-            _voluntarioRepository.Remove(id);
+            _agendaTelefonicaRepository.Remove(id);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(voluntario);
+            return new ObjectResult(agendaTelefonica);
         }
     }
 }

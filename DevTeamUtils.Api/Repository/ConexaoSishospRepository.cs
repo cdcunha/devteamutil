@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DevTeamUtils.Api.Repository
 {
-    public class ConexaoSishospRepository : IApoiadoRepository
+    public class ConexaoSishospRepository : IConexaoSishospRepository
     {
         private readonly MongoDbContext _context;
 
@@ -18,17 +18,17 @@ namespace DevTeamUtils.Api.Repository
                 Add(new ConexaoSishosp());
         }
 
-        public void Add(ConexaoSishosp conexaoDB)
+        public void Add(ConexaoSishosp conexaoSishosp)
         {
-            _context.Apoiados.InsertOne(conexaoDB);
+            _context.ConexaoSishosps.InsertOne(conexaoSishosp);
 
-            //_context.Apoiados.Add(apoiado);
+            //_context.Apoiados.Add(conexaoSishosp);
             //_context.SaveChanges();
         }
 
         public ConexaoSishosp Find(Guid id)
         {
-            var resultado = _context.Apoiados.Find(Builders<ConexaoSishosp>.Filter.Eq("_id", id)).FirstOrDefault();
+            var resultado = _context.ConexaoSishosps.Find(Builders<ConexaoSishosp>.Filter.Eq("_id", id)).FirstOrDefault();
             return resultado;
         }
 
@@ -40,17 +40,17 @@ namespace DevTeamUtils.Api.Repository
 
         public void Remove(Guid id)
         {
-            _context.Apoiados.DeleteOne(Builders<ConexaoSishosp>.Filter.Eq(p => p.Id, id));
+            _context.ConexaoSishosps.DeleteOne(Builders<ConexaoSishosp>.Filter.Eq(p => p.Id, id));
 
-            //var apoiado = _context.Apoiados.First(t => t.Id == id);
-            //_context.Apoiados.Remove(apoiado);
-           // _context.SaveChanges();
+            //var conexaoSishosp = _context.ConexaoSishosps.First(t => t.Id == id);
+            //_context.Apoiados.Remove(conexaoSishosp);
+            // _context.SaveChanges();
         }
 
-        public void Update(ConexaoSishosp conexaoDB)
+        public void Update(ConexaoSishosp conexaoSishosp)
         {
-            _context.Apoiados.ReplaceOne(Builders<ConexaoSishosp>.Filter.Eq(p => p.Id, conexaoDB.Id), conexaoDB);
-            //_context.Apoiados.Update(apoiado);
+            _context.ConexaoSishosps.ReplaceOne(Builders<ConexaoSishosp>.Filter.Eq(p => p.Id, conexaoSishosp.Id), conexaoSishosp);
+            //_context.ConexaoSishosps.Update(conexaoSishosp);
             //_context.SaveChanges();
         }
     }
