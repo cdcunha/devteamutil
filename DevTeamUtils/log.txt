@@ -1,0 +1,15 @@
+*****    Connection successful     *****
+*****    Table creation successful     *****
+Inserting into table with the command: insert into transactiontable values(1, 'ORIGINAL NAME');
+Update table with the command: update transactiontable set name='NAME UPDATED' where id='1';
+Transaction Commited. Observe table contents
+Results after executing the command: select * from transactiontable
+1 ----- NAME UPDATED             
+Update table with the command: update transactiontable set name='NAME ROLLEDBACK' where id='1';
+Observe table contents before rollback
+Results after executing the command: select * from transactiontable
+1 ----- NAME ROLLEDBACK          
+Observe table contents after rollback
+Results after executing the command: select * from transactiontable
+1 ----- NAME UPDATED             
+*****    Transactions demo has successfully executed!  *****

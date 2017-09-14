@@ -1,0 +1,368 @@
+﻿<h3>Novo Apoiado</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <!--
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="apoiado in vm.apoiados">
+                        <td class="text-center">{{ apoiado.id }}</td>
+                        <td>{{ apoiado.nome }}</td>
+                        <td class="text-center">
+                            <div class="button-group">
+                                <button class="btn btn-default btn-sm" ng-click="vm.loadApoiado(apoiado)"><i class="fa fa-edit">Editar</i></button>
+                                <button class="btn btn-danger btn-sm" ng-click="vm.removeApoiado(apoiado)"><i class="fa fa-remove">Apagar</i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        -->
+
+        <form name="formApoiado">
+            <div class="col-md4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Apoiado</div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
+                            <label for="nome">Nome</label>
+                            <input ng-model="vm.apoiado.nome"
+                                    ng-minlength="3"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="nome"
+                                    name="nome"
+                                    placeholder="Ex.: José dos Anzóis"
+                                    required />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.nome.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                            <!--<span style="color: red" ng-show="formApoiado.nome.$invalid">
+                                <p ng-show="formApoiado.nome.$error.required" class="error-messages">
+                                    O {{ formApoiado.$error.required[0].$name }} é obrigatório.
+                                </p>
+                                <p ng-show="formApoiado.nome.$dirty && formApoiado.nome.$error.minlength" class="error-messages">
+                                    O {{ formApoiado.$error.minlength[0].$name }} está muito curto. Mínimo {{ formApoiado.$error.minlength[0].$attributes.minlength }} caracteres.
+                                </p>
+                                <p ng-show="formApoiado.nome.$dirty && formApoiado.nome.$error.maxlength" class="error-messages">
+                                    O {{ formApoiado.$error.maxlength[0].$name }} está muito longo. Máximo {{ formApoiado.$error.maxlength[0].$attributes.maxlength }} caracteres.
+                                </p>
+                            </span>
+                            -->
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : nomeMae.$invalid }">
+                            <label for="nomeMae">Nome da Mãe</label>
+                            <input ng-model="vm.apoiado.nomeMae"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="nomeMae"
+                                    name="nomeMae"
+                                    placeholder="Ex.: Maria Filisbina" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.nomeMae.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                            <!--<span style="color: red" ng-show="formApoiado.nomeMae.$dirty && formApoiado.nomeMae.$invalid">
+                                <p ng-show="formApoiado.nomeMae.$error.maxlength" class="error-messages">
+                                    O Nome da Mãe está muito longo. Máximo 100 caracteres.
+                                </p>
+                            </span>
+                            -->
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : nomePai.$invalid }">
+                            <label for="nomePai">Nome do Pai</label>
+                            <input ng-model="vm.apoiado.nomePai"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="nomePai"
+                                    name="nomePai"
+                                    placeholder="Ex.: João Catanduva" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.nomePai.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : telefone.$invalid }">
+                            <label for="telefone">Telefone</label>
+                            <input ng-model="vm.apoiado.telefone"
+                                   ui-mask="(99) 9999-9999"
+                                   ng-pattern="/^\([1-9]{2}\)[0-9]{4}-[0-9]{4}$/"
+                                   type="text"
+                                   class="form-control"
+                                   id="telefone"
+                                   name="telefone"
+                                   placeholder="Ex.: (11) 5555-9999" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.telefone.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : celular.$invalid }">
+                            <label for="celular">Celular</label>
+                            <input ng-model="vm.apoiado.celular"
+                                   ui-mask="(99) 9?9999-9999"
+                                   ng-pattern="/^\([1-9]{2}\)[0-9]{4,5}-[0-9]{4}$/"
+                                   type="text"
+                                   class="form-control"
+                                   id="celular"
+                                   name="celular"
+                                   placeholder="Ex.: (11) 95555-9999" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.celular.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : email.$invalid }">
+                            <label for="email">E-mail</label>
+                            <input ng-model="vm.apoiado.email"
+                                   ng-maxlength="100"
+                                   type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Ex.: exemplo@gmail.com" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.email.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : logradouro.$invalid }">
+                            <label for="logradouro">Endereço</label>
+                            <input ng-model="vm.apoiado.logradouro"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="logradouro"
+                                    name="logradouro"
+                                    placeholder="Ex.: Rua da Paz" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.logradouro.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : numeroLogradouro.$invalid }">
+                            <label for="numeroLogradouro">Número</label>
+                            <input ng-model="vm.apoiado.numeroLogradouro"
+                                    ng-maxlength="20"
+                                    type="text"
+                                    class="form-control"
+                                    id="numeroLogradouro"
+                                    name="numeroLogradouro"
+                                    placeholder="Ex.: 101" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.numeroLogradouro.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : complementoLogradouro.$invalid }">
+                            <label for="complementoLogradouro">Complemento</label>
+                            <input ng-model="vm.apoiado.complementoLogradouro"
+                                    ng-maxlength="60"
+                                    type="text"
+                                    class="form-control"
+                                    id="complementoLogradouro"
+                                    name="complementoLogradouro"
+                                    placeholder="Ex.: Ap.4 Bc.5" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.complementoLogradouro.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : bairro.$invalid }">
+                            <label for="bairro">Bairro</label>
+                            <input ng-model="vm.apoiado.bairro"
+                                    ng-maxlength="60"
+                                    type="text"
+                                    class="form-control"
+                                    id="bairro"
+                                    name="bairro"
+                                    placeholder="Ex.: Jd dos Eucalíptos" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.bairro.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : cidade.$invalid }">
+                            <label for="cidade">Cidade</label>
+                            <input ng-model="vm.apoiado.cidade"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="cidade"
+                                    name="cidade"
+                                    placeholder="Ex.: Brusque" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.cidade.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : uf.$invalid }">
+                            <label for="uf">UF</label>
+                            <input ng-model="vm.apoiado.uf"
+                                    maxlength="2"
+                                    ng-maxlength="2"
+                                    type="text"
+                                    class="form-control"
+                                    id="uf"
+                                    name="uf"
+                                    placeholder="Ex.: SC" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.uf.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : estadoCivil.$invalid }">
+                            <label for="estadoCivil">Estado Civil</label>
+                            <input ng-model="vm.apoiado.estadoCivil"
+                                    ng-maxlength="50"
+                                    type="text"
+                                    class="form-control"
+                                    id="estadoCivil"
+                                    name="estadoCivil"
+                                    placeholder="Ex.: Casado" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.estadoCivil.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : qtdeDependentes.$invalid }">
+                            <label for="qtdeDependentes">Qtde Dependentes</label>
+                            <input ng-model="vm.apoiado.qtdeDependentes"
+                                    min="0"
+                                    max="20"
+                                    type="number"
+                                    class="form-control"
+                                    id="qtdeDependentes"
+                                    name="qtdeDependentes"
+                                    placeholder="Ex.: 1" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.qtdeDependentes.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dataNascimento.$invalid }">
+                            <label for="dataNascimento">Data de Nascimento</label>
+                            <input ng-model="vm.apoiado.dataNascimento"
+                                   type="date"
+                                   min="{{vm.minBirthDate | date:'dd/MM/yyyy'}}"
+                                   max="{{vm.maxBirthDate | date:'dd/MM/yyyy'}}"
+                                   class="form-control"
+                                   id="dataNascimento"
+                                   name="dataNascimento"
+                                   placeholder="Ex.: 19/12/1964"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.dataNascimento.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : ramoAtividade.$invalid }">
+                            <label for="ramoAtividade">Ramo Atividade</label>
+                            <input ng-model="vm.apoiado.ramoAtividade"
+                                    ng-maxlength="50"
+                                    type="text"
+                                    class="form-control"
+                                    min="endMinBirthDate" max="endMaxBirthDate"
+                                    id="ramoAtividade"
+                                    name="ramoAtividade"
+                                    placeholder="Ex.: Agricultura" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.ramoAtividade.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : possuiVinculoCarteira.$invalid }">
+                            <label for="possuiVinculoCarteira">Possui Vinculo na Carteira</label>
+                            <input ng-model="vm.apoiado.possuiVinculoCarteira"
+                                    type="checkbox"
+                                    class="form-control"
+                                    id="possuiVinculoCarteira"
+                                    name="possuiVinculoCarteira"
+                                    placeholder="Ex.: Possui Vinculo na Carteira" />
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : tempoExperiencia.$invalid }">
+                            <label for="tempoExperiencia">Tempo de Experiencia</label>
+                            <input ng-model="vm.apoiado.tempoExperiencia"
+                                    min="0"
+                                    max="30"
+                                    type="number"
+                                    class="form-control"
+                                    id="tempoExperiencia"
+                                    name="tempoExperiencia"
+                                    placeholder="Ex.: 10 anos" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.tempoExperiencia.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : observacao.$invalid }">
+                            <label for="observacao">Observação</label>
+                            <input ng-model="vm.apoiado.observacao"
+                                    ng-maxlength="2000"
+                                    type="text"
+                                    class="form-control"
+                                    id="observacao"
+                                    name="observacao"
+                                    placeholder="Ex.: Observação" />
+                            <div class="alert-danger">
+                                <div ng-messages="formApoiado.observacao.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center">
+                            <button type="button"
+                                    class="btn btn-primary btn-lg"
+                                    ng-disabled="formApoiado.$invalid"
+                                    ng-click="vm.save()">
+                                Salvar
+                            </button>
+                            <button type="button"
+                                    class="btn btn-default btn-lg"
+                                    ng-click="vm.cancel()">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!--<pre>formApoiado = {{formApoiado | json}}</pre><br />-->
+
+    </div>
+</div>
