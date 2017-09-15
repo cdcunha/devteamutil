@@ -1,0 +1,51 @@
+﻿<h3 class="text-center">Conexões</h3>
+
+<a href="#/conexoes/create" class="btn btn-success btn-lg pull-right">
+    <i class="fa fa-plus"></i> Adicionar
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Sistema</th>
+			<th class="text-left">BD</th>
+			<th class="text-left">Nome</th>
+            <th class="text-left">Ip</th>
+            <th class="text-left">Porta</th>
+            <th class="text-left">Usuario</th>
+            <th class="text-left">Usuario</th>
+			<th class="text-left">Senha</th>
+			<th class="text-left">Status</th>
+			<th class="text-left">Data Status</th>
+            <th class="text-left">Criado em</th>
+            <th class="text-left">Alterado em</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="8">
+                <input type="text" class="form-control" ng-model="filter_conexao" value="" placeholder="Filtrar..." />
+            </td>
+        </tr>
+        <tr ng-repeat="conexao in vm.conexoes | filter: filter_conexao">
+            <td class="text-left">{{ conexao.sistema }}</td>
+			<td class="text-left">{{ conexao.bancoDados }}</td>
+			<td class="text-left">{{ conexao.nomeServidor }}</td>
+            <td class="text-left">{{ conexao.ip }}</td>
+            <td class="text-left">{{ conexao.porta }}</td>
+            <td class="text-left">{{ conexao.usuario }}</td>
+            <td class="text-left">{{ conexao.senha }}</td>
+			<td class="text-left">{{ conexao.status }}</td>
+			<td class="text-left">{{ conexao.dataStatus | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-left">{{ conexao.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-left">{{ conexao.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <a href="#/conexoes/edit/{{ conexao.id }}" class="btn btn-group btn-default btn-sm"><i class="fa fa-edit">Editar</i></a>
+                    <a href="#/conexoes/remove/{{ conexao.id }}" class="btn btn-group btn-danger btn-sm"><i class="fa fa-remove">Apagar</i></a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

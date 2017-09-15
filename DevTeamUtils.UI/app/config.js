@@ -3,9 +3,9 @@
 
     SETTINGS = { 'SERVICE_URL': 'http://localhost:56914/' };
 
-    angular.module('sani').constant('SETTINGS', SETTINGS);
+    angular.module('devTeamUtil').constant('SETTINGS', SETTINGS);
     
-    angular.module('sani').directive('ageLimit', function () {
+    angular.module('devTeamUtil').directive('ageLimit', function () {
         return {
             link: function ($scope, $element, $attrs, ngModelCtrl) {
                 var settings = {

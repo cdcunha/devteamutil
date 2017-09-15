@@ -13,22 +13,22 @@ namespace DevTeamUtils.Api
         {
             IMongoDatabase _mongoDatabase = ControllersUtils.GetDatabase(mongoClient);
 
-            ConexaoSishosps = _mongoDatabase.GetCollection<ConexaoSishosp>("ConexaoSishosp");
-            AgendaTelefonicas = _mongoDatabase.GetCollection<AgendaTelefonica>("AgendaTelefonica");
+            Conexoes = _mongoDatabase.GetCollection<Conexao>("Conexao");
+            Contatos = _mongoDatabase.GetCollection<Contato>("Contato");
         }
 
-        public IConexaoSishospRepository GetConexaoSishospRepository()
+        public IConexaoRepository GetConexaoRepository()
         {
-            return new ConexaoSishospRepository(this);
+            return new ConexaoRepository(this);
         }
 
-        public IAgendaTelefonicaRepository GetVoluntarioRepository()
+        public IContatoRepository GetVoluntarioRepository()
         {
-            return new AgendaTelefonicaRepository(this);
+            return new ContatoRepository(this);
         }
 
-        public IMongoCollection<ConexaoSishosp> ConexaoSishosps { get; set; }
-        public IMongoCollection<AgendaTelefonica> AgendaTelefonicas { get; set; }
+        public IMongoCollection<Conexao> Conexoes { get; set; }
+        public IMongoCollection<Contato> Contatos { get; set; }
         
     }
 }

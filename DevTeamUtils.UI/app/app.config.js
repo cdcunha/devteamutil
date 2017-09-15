@@ -1,56 +1,56 @@
-﻿angular.module('sani').config(['$locationProvider', function ($locationProvider) {
+﻿angular.module('devTeamUtil').config(['$locationProvider', function ($locationProvider) {
     $locationProvider.hashPrefix('');
 }]);
 
-angular.module('sani')
+angular.module('devTeamUtil')
     .config([
         '$routeProvider', function ($routeProvider) {
             $routeProvider
             /****************************************
-            * Apoiado
+            * Conexao
             *****************************************/
-            .when('/apoiados', {
-                controller: 'ApoiadoListCtrl',
+            .when('/conexoes', {
+                controller: 'ConexaoListCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/apoiado/index.html'
+                templateUrl: 'app/templates/conexao/index.html'
             })
-            .when('/apoiados/create', {
-                controller: 'ApoiadoCreateCtrl',
+            .when('/conexoes/create', {
+                controller: 'ConexaoCreateCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/apoiado/create.html'
+                templateUrl: 'app/templates/conexao/create.html'
             })
-            .when('/apoiados/edit/:id', {
-                controller: 'ApoiadoEditCtrl',
+            .when('/conexoes/edit/:id', {
+                controller: 'ConexaoEditCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/apoiado/edit.html'
+                templateUrl: 'app/templates/conexao/edit.html'
             })
-            .when('/apoiados/remove/:id', {
-                controller: 'ApoiadoRemoveCtrl',
+            .when('/conexoes/remove/:id', {
+                controller: 'ConexaoRemoveCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/apoiado/remove.html'
+                templateUrl: 'app/templates/conexao/remove.html'
             })
             /****************************************
-            * Voluntarios
+            * Contatos
             *****************************************/
-            .when('/voluntarios', {
-                controller: 'VoluntarioListCtrl',
+            .when('/contatos', {
+                controller: 'ContatoListCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/voluntario/index.html'
+                templateUrl: 'app/templates/contato/index.html'
             })
-            .when('/voluntarios/create', {
-                controller: 'VoluntarioCreateCtrl',
+            .when('/contatos/create', {
+                controller: 'ContatoCreateCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/voluntario/create.html'
+                templateUrl: 'app/templates/contato/create.html'
             })
-            .when('/voluntarios/edit/:id', {
-                controller: 'VoluntarioEditCtrl',
+            .when('/contatos/edit/:id', {
+                controller: 'ContatoEditCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/voluntario/edit.html'
+                templateUrl: 'app/templates/contato/edit.html'
             })
-            .when('/voluntarios/remove/:id', {
-                controller: 'VoluntarioRemoveCtrl',
+            .when('/contatos/remove/:id', {
+                controller: 'ContatoRemoveCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/voluntario/edit.html'
+                templateUrl: 'app/templates/contato/edit.html'
             })
             .otherwise({
                 redirectTo: '/'
