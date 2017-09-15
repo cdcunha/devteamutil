@@ -9,21 +9,11 @@
         vm.contatos = [];
         vm.contato = {
             id: '',
-            nome: '',
+            name: '',
             telefone: '',
-            celular: '',
-            email: '',
-            logradouro: '',
-            numeroLogradouro: '',
-            complementoLogradouro: '',
-            bairro: '',
-            cidade: '',
-            uf: '',
-            estadoCivil: '',
-            dataNascimento: '',
-            profissao: '',
+            cargo: '',
+            local: '',
             observacao: '',
-            ativo: '',
             dataCriacao: '',
             dataAlteracao: ''
         };
@@ -67,13 +57,16 @@
                 if (error.status === 401)
                     toastr.error("Você não tem permissão para ver esta página<br/><button type='button' class='btn clear'>Ok</button>", 'Requisição não autorizada');
                 else {
-                    if (error.data === '') {
+                    if (error.statusText != '')
                         toastr.error(error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
-                    }
                     else {
-                        var erros = error.data;
-                        for (var i = 0; i < erros.length; ++i) {
-                            toastr.error(erros[i].value + "<br/><button type='button' class='btn clear'>Ok</button>", 'Falha na Requisição');
+                        if (error.data === null)
+                            toastr["error"]("Erro indeterminado<br/><button type='button' class='btn clear'>Ok</button>", 'Erro indeterminado');
+                        else {
+                            var erros = error.data;
+                            for (var i = 0; i < erros.length; ++i) {
+                                toastr.error(erros[i].value + "<br/><button type='button' class='btn clear'>Ok</button>", 'Falha na Requisição');
+                            }
                         }
                     }
                 }   
@@ -100,21 +93,11 @@
         function clearContato() {
             vm.contato = {
                 id: '',
-                nome: '',
+                name: '',
                 telefone: '',
-                celular: '',
-                email: '',
-                logradouro: '',
-                numeroLogradouro: '',
-                complementoLogradouro: '',
-                bairro: '',
-                cidade: '',
-                uf: '',
-                estadoCivil: '',
-                dataNascimento: '',
-                profissao: '',
+                cargo: '',
+                local: '',
                 observacao: '',
-                ativo: '',
                 dataCriacao: '',
                 dataAlteracao: ''
             };

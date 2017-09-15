@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var SETTINGS = { 'SERVICE_URL': 'http://localhost:56914/api/Contato' };
+    var SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/api/Contato' };
 
     angular.module('devTeamUtil').factory('ContatoFactory', ContatoFactory);
 

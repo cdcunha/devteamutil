@@ -17,37 +17,29 @@
         vm.conexoes = [];
         vm.conexao = {
             id: 0,
-            name: '',
-            nomeMae: '',
-            nomePai: '',
-            logradouro: '',
-            numeroLogradouro: '',
-            complementoLogradouro: '',
-            bairro: '',
-            cidade: '',
-            uf: '',
-            estadoCivil: '',
-            telefone: '',
-            celular: '',
-            email: '',
-            qtdeDependentes: 0,
-            dataNascimento: '',
-            ramoAtividade: '',
-            possuiVinculoCarteira: false,
-            tempoExperiencia: 0,
-            observacao: '',
-            ativo: '',
+            sistema: '',
+            sistemas: ["SISHOSP"],
+            bancoDados: '',
+            bancosDeDados: ["Informix", "Oracle"],
+            nomeServidor: '',
+            ip: '',
+            porta: '',
+            usuario: '',
+            senha: '',
+            status: '',
+            dataStatus: '',
             dataCriacao: '',
             dataAlteracao: ''
         };
         vm.save = save;
         vm.cancel = cancel;
 
-        var today = new Date();
+        /*var today = new Date();
         today.setYear(today.getFullYear() - 16);
         vm.minBirthDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         today.setYear(today.getFullYear() - 90);
         vm.maxBirthDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        */
         
         function save() {
             ConexaoFactory.post(vm.conexao)
@@ -55,7 +47,7 @@
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Conexão <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Conexão Cadastrada");
+                toastr.success("Conexão <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Conexão Cadastrada");
                 $location.path('/conexoes');
             }
 
@@ -63,13 +55,16 @@
                 if (error.status === 401)
                     toastr.error("Você não tem permissão para ver esta página<br/><button type='button' class='btn clear'>Ok</button>", 'Requisição não autorizada');
                 else {
-                    if (error.data === '') {
+                    if (error.statusText != '')
                         toastr.error(error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
-                    }
                     else {
-                        var erros = error.data;
-                        for (var i = 0; i < erros.length; ++i) {
-                            toastr.error(erros[i].value + "<br/><button type='button' class='btn clear'>Ok</button>", 'Falha na Requisição');
+                        if (error.data === null)
+                            toastr["error"]("Erro indeterminado<br/><button type='button' class='btn clear'>Ok</button>", 'Erro indeterminado');
+                        else {
+                            var erros = error.data;
+                            for (var i = 0; i < erros.length; ++i) {
+                                toastr.error(erros[i].value + "<br/><button type='button' class='btn clear'>Ok</button>", 'Falha na Requisição');
+                            }
                         }
                     }
                 }   
@@ -95,26 +90,17 @@
         function clearConexao() {
             vm.conexao = {
                 id: 0,
-                name: '',
-                nomeMae: '',
-                nomePai: '',
-                logradouro: '',
-                numeroLogradouro: '',
-                complementoLogradouro: '',
-                bairro: '',
-                cidade: '',
-                uf: '',
-                estadoCivil: '',
-                telefone: '',
-                celular: '',
-                email: '',
-                qtdeDependentes: 0,
-                dataNascimento: '',
-                ramoAtividade: '',
-                possuiVinculoCarteira: false,
-                tempoExperiencia: 0,
-                observacao: '',
-                ativo: '',
+                sistema: '',
+                sistemas: ["SISHOSP"],
+                bancoDados: '',
+                bancosDeDados: ["Informix", "Oracle"],
+                nomeServidor: '',
+                ip: '',
+                porta: '',
+                usuario: '',
+                senha: '',
+                status: '',
+                dataStatus: '',
                 dataCriacao: '',
                 dataAlteracao: ''
             };

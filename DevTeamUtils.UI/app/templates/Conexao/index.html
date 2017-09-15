@@ -1,7 +1,7 @@
 ﻿<h3 class="text-center">Conexões</h3>
 
-<a href="#/conexoes/create" class="btn btn-success btn-lg pull-right">
-    <i class="fa fa-plus"></i> Adicionar
+<a href="#/conexoes/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Conexão">
+    <i class="fa fa-plus"></i> +
 </a>
 
 <table class="table table-striped">
@@ -42,8 +42,8 @@
             <td class="text-left">{{ conexao.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a href="#/conexoes/edit/{{ conexao.id }}" class="btn btn-group btn-default btn-sm"><i class="fa fa-edit">Editar</i></a>
-                    <a href="#/conexoes/remove/{{ conexao.id }}" class="btn btn-group btn-danger btn-sm"><i class="fa fa-remove">Apagar</i></a>
+                    <a href="#/conexoes/edit/{{ conexao.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Conexão"><i class="fa fa-edit">Editar</i></a>
+                    <a href="#/conexoes/remove/{{ conexao.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Conexão"><i class="fa fa-remove">Apagar</i></a>
                 </div>
             </td>
         </tr>

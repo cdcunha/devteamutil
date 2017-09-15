@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    SETTINGS = { 'SERVICE_URL': 'http://localhost:56914/' };
+    SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/' };
 
     angular.module('devTeamUtil').constant('SETTINGS', SETTINGS);
     

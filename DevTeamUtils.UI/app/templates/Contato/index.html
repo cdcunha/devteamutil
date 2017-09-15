@@ -1,7 +1,7 @@
 ﻿<h3>Contato</h3>
 
-<a href="#/contatos/create" class="btn btn-success btn-lg pull-right">
-    <i class="fa fa-plus"></i> Adicionar
+<a href="#/contatos/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Contato">
+    <i class="fa fa-plus"></i> +
 </a>
 
 <table class="table table-striped">
@@ -33,8 +33,8 @@
             <td class="text-left">{{ contato.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a href="#/contatos/edit/{{ contato.id }}" class="btn btn-group btn-default btn-sm"><i class="fa fa-edit">Editar</i></a>
-                    <a href="#/contatos/remove/{{ contato.id }}" class="btn btn-group btn-danger btn-sm"><i class="fa fa-remove">Apagar</i></a>
+                    <a href="#/contatos/edit/{{ contato.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Contato"><i class="fa fa-edit">Editar</i></a>
+                    <a href="#/contatos/remove/{{ contato.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Contato"><i class="fa fa-remove">Apagar</i></a>
                 </div>
             </td>
         </tr>

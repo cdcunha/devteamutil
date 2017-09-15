@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    var SETTINGS = { 'SERVICE_URL': 'http://localhost:56914/api/Conexao' };
+    var SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/api/Conexao' };
 
     angular.module('devTeamUtil').factory('ConexaoFactory', ConexaoFactory);
 

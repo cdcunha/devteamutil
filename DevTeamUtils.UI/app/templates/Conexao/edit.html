@@ -19,22 +19,22 @@
                         
 						<div class="form-group" ng-class="{ 'has-error' : sistema.$invalid }">
                             <label for="sistema">Sistema</label>
-                            <input ng-model="vm.conexao.sistema"
-                                    type="checkbox"
+                            <select ng-model="vm.conexao.sistema" ng-options="x for x in vm.conexao.sistemas"
                                     class="form-control"
                                     id="sistema"
                                     name="sistema"
-                                    placeholder="Ex.: SISHOSP" />
+                                    placeholder="Ex.: SISHOSP"
+                                    required></select>
                         </div>
 						
                         <div class="form-group" ng-class="{ 'has-error' : bancoDados.$invalid }">
                             <label for="bancoDados">Banco de Dados</label>
-                            <input ng-model="vm.conexao.bancoDados"
-                                    type="checkbox"
+                            <select ng-model="vm.conexao.bancoDados" ng-options="x for x in vm.conexao.bancosDeDados"
                                     class="form-control"
                                     id="bancoDados"
                                     name="bancoDados"
-                                    placeholder="Ex.: Informix" />
+                                    placeholder="Ex.: Informix"
+                                    required></select>
                         </div>
 						
 						<div class="form-group" ng-class="{ 'has-error' : nomeServidor.$invalid }">
@@ -62,7 +62,7 @@
                             <label for="ip">Ip</label>
                             <input ng-model="vm.conexao.ip"
                                     ui-mask="999.999.999.999"
-                                    ng-pattern='/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\.[0-9]{3}$/'
+                                    ng-pattern='/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/'
                                     type="text"
                                     class="form-control"
                                     id="ip"
@@ -101,7 +101,7 @@
                                    name="usuario"
                                    placeholder="Ex.: desenv" />
                             <div class="alert-danger">
-                                <div ng-messages="formConexao.ng-maxlength="100".$error">
+                                <div ng-messages="formConexao.usuario.$error">
                                     <div ng-messages-include="app/templates/messages.html"></div>
                                 </div>
                             </div>

@@ -12,22 +12,22 @@ angular.module('devTeamUtil')
             .when('/conexoes', {
                 controller: 'ConexaoListCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/conexao/index.html'
+                templateUrl: 'app/templates/Conexao/index.html'
             })
             .when('/conexoes/create', {
                 controller: 'ConexaoCreateCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/conexao/create.html'
+                templateUrl: 'app/templates/Conexao/create.html'
             })
             .when('/conexoes/edit/:id', {
                 controller: 'ConexaoEditCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/conexao/edit.html'
+                templateUrl: 'app/templates/Conexao/edit.html'
             })
             .when('/conexoes/remove/:id', {
                 controller: 'ConexaoRemoveCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/conexao/remove.html'
+                templateUrl: 'app/templates/Conexao/remove.html'
             })
             /****************************************
             * Contatos
@@ -35,22 +35,22 @@ angular.module('devTeamUtil')
             .when('/contatos', {
                 controller: 'ContatoListCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/contato/index.html'
+                templateUrl: 'app/templates/Contato/index.html'
             })
             .when('/contatos/create', {
                 controller: 'ContatoCreateCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/contato/create.html'
+                templateUrl: 'app/templates/Contato/create.html'
             })
             .when('/contatos/edit/:id', {
                 controller: 'ContatoEditCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/contato/edit.html'
+                templateUrl: 'app/templates/Contato/edit.html'
             })
             .when('/contatos/remove/:id', {
                 controller: 'ContatoRemoveCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/contato/edit.html'
+                templateUrl: 'app/templates/Contato/edit.html'
             })
             .otherwise({
                 redirectTo: '/'
