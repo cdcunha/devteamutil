@@ -4,7 +4,7 @@ choice /M "Importar os dados do arquivo contato.csv"
 goto contato%ERRORLEVEL%
 
 :contato1
-mongoimport -d DevTeam -c Contato --type csv --file contato.csv --headerline
+mongoimport -d DevTeamUtils -c Contato --type csv --file contato.csv --headerline
 
 
 :contato2
@@ -14,8 +14,8 @@ choice /M "Importar os dados do arquivo conexao.csv"
 goto conexao%ERRORLEVEL%
 
 :conexao1
-mongoimport -d DevTeam -c Conexao --type csv --file conexao.csv --headerline
+mongoimport -d DevTeamUtils -c Conexao --type csv --file conexao.csv --headerline
 
 :conexao2
 @echo .
-@echo "Concluido"
+@echo Concluido
