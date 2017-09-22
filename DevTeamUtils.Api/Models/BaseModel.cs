@@ -14,7 +14,7 @@ namespace DevTeamUtils.Api.Models
         [DataMember]
         [BsonId(IdGenerator = typeof(GuidGenerator))]
         public System.Guid Id { get; set; }
-
+        
         [DataMember]
         [BsonRepresentation(BsonType.Boolean)]
         public bool Ativo { get; set; }

@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver;
-using DevTeamUtils.Api.Controllers;
+﻿using DevTeamUtils.Api.Controllers;
 using DevTeamUtils.Api.Models;
 using DevTeamUtils.Api.Repository;
+using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 
 namespace DevTeamUtils.Api
 {
@@ -11,10 +11,10 @@ namespace DevTeamUtils.Api
         //private IMongoDatabase _mongoDatabase;
         public MongoDbContext(MongoClient mongoClient)
         {
-            IMongoDatabase _mongoDatabase = ControllersUtils.GetDatabase(mongoClient);
-
-            Conexoes = _mongoDatabase.GetCollection<Conexao>("Conexao");
-            Contatos = _mongoDatabase.GetCollection<Contato>("Contato");
+            MongoDatabaseBase _mongoDatabase = (ControllersUtils.GetDatabase(mongoClient)) as MongoDatabaseBase;
+            
+            Conexoes = (_mongoDatabase.GetCollection<Conexao>("Conexao")) as MongoCollectionBase<Conexao>;
+            Contatos = (_mongoDatabase.GetCollection<Contato>("Contato")) as MongoCollectionBase<Contato>;
         }
 
         public IConexaoRepository GetConexaoRepository()
@@ -27,8 +27,8 @@ namespace DevTeamUtils.Api
             return new ContatoRepository(this);
         }
 
-        public IMongoCollection<Conexao> Conexoes { get; set; }
-        public IMongoCollection<Contato> Contatos { get; set; }
+        public MongoCollectionBase<Conexao> Conexoes { get; set; }
+        public MongoCollectionBase<Contato> Contatos { get; set; }
         
     }
 }

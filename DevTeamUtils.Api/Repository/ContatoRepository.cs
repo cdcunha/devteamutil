@@ -1,5 +1,5 @@
-﻿using MongoDB.Driver;
-using DevTeamUtils.Api.Models;
+﻿using DevTeamUtils.Api.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;

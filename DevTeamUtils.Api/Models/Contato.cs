@@ -1,8 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace DevTeamUtils.Api.Models

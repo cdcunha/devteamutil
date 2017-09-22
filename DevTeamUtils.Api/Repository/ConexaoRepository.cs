@@ -13,7 +13,7 @@ namespace DevTeamUtils.Api.Repository
         public ConexaoRepository(MongoDbContext context)
         {
             _context = context;
-            var resultado = _context.Conexoes.Find(FilterDefinition<DevTeamUtils.Api.Models.Conexao>.Empty).Skip(1);
+            var resultado = _context.Conexoes.Find(FilterDefinition<Conexao>.Empty).Skip(1);
             if (!resultado.Any())
                 Add(new Conexao());
         }
@@ -52,6 +52,36 @@ namespace DevTeamUtils.Api.Repository
             _context.Conexoes.ReplaceOne(Builders<Conexao>.Filter.Eq(p => p.Id, conexao.Id), conexao);
             //_context.Conexoes.Update(conexao);
             //_context.SaveChanges();
+        }
+
+        private Conexao CsvToConexao(string csvLine)
+        {
+            string[] values = csvLine.Split(',');
+            Conexao conexao = new Conexao();
+            conexao.Sistema = values[0];
+            conexao.BancoDados = values[1];
+            conexao.NomeServidor = values[2];
+            conexao.Ip = values[3];
+            conexao.Porta = Convert.ToInt32(values[4]);
+            conexao.Usuario = values[5];
+            conexao.Senha = values[6];
+            conexao.Status = values[7];
+            //conexao.DataStatus = values[8];
+
+            return conexao;
+        }
+
+
+        public void Import()
+        {
+            List<Conexao> conexoes = System.IO.File.ReadAllLines(@"C:\Projects\DevTeamUtils")
+                                           .Skip(1)
+                                           .Select(v => CsvToConexao(v))
+                                           .ToList();
+            foreach (Conexao item in conexoes)
+            {
+                Add(item);
+            }
         }
     }
 }

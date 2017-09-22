@@ -1,9 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace DevTeamUtils.Api.Models
@@ -43,8 +41,8 @@ namespace DevTeamUtils.Api.Models
         public string Status { get; set; }
 
         [DataMember]
-        [BsonDateTimeOptions(DateOnly = true, Kind = System.DateTimeKind.Local)]
-        public System.DateTime? DataStatus { get; set; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime? DataStatus { get; set; }
 
         [BsonConstructor]
         public Conexao() : base() { }

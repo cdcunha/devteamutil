@@ -19,3 +19,4 @@ mongoimport -d DevTeamUtils -c Conexao --type csv --file conexao.csv --headerlin
 :conexao2
 @echo .
 @echo Concluido
+pause

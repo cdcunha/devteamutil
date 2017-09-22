@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using DevTeamUtils.Api.Assertions;
+﻿using DevTeamUtils.Api.Assertions;
 using DevTeamUtils.Api.Models;
 using DevTeamUtils.Api.Repository;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
@@ -19,15 +19,15 @@ namespace DevTeamUtils.Api.Controllers
         }
 
         [HttpGet("api/[controller]")]
-        //[Route("api/[controller]")]
+        [EnableCors("AllowAll")]
         public IEnumerable<Contato> Get()
         {
             return _contatoRepository.GetAll();
         }
 
         [HttpGet("api/[controller]/{id}", Name = "GetContato")]
-        //[Route("api/[controller]/{id}")]
-        public IActionResult GetById(System.Guid id)
+        [EnableCors("AllowAll")]
+        public IActionResult GetById(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -49,40 +49,9 @@ namespace DevTeamUtils.Api.Controllers
                 return new ObjectResult(item);
             }
         }
-
-        /*[HttpGet]
-        [Route("api/[controller]/{nome}")]
-        public List<Voluntario> Get(string nome)
-        {
-            var resultado = contatos.Find(it => it.Nome.Contains(nome)).SortBy(it => it.Nome).Skip(0).Limit(50);
-            //var resultado = contatos.Find(Builders<Voluntario>.Filter.Eq("Id", ObjectId.Parse(id)));
-            #region
-            if (!resultado.Any())
-            {
-                Voluntario n = new Voluntario("dr. José Maria");
-                contatos.InsertOne(n);
-
-                n = new Voluntario("dr. José Pedro");
-                contatos.InsertOne(n);
-
-                n = new Voluntario("dr. Carlos José");
-                n.Nome = "Monitor";
-                contatos.InsertOne(n);
-
-                n = new Voluntario("dra. Marilda Abravanel");
-                contatos.InsertOne(n);
-
-                n = new Voluntario("dr. Nivaldo Damasceno");
-                contatos.InsertOne(n);
-            }
-            #endregion
-            return resultado.ToList();
-        }
-        */
         
         [HttpPost("api/[controller]")]
-        //[ValidateAntiForgeryToken]
-        //[Route("api/[controller]")]
+        [EnableCors("AllowAll")]
         public IActionResult Create([FromBody]dynamic body)//[FromBody] Voluntario contato)
         {
             if (string.IsNullOrEmpty(body.ToString()))
@@ -107,7 +76,7 @@ namespace DevTeamUtils.Api.Controllers
         }
 
         [HttpPut("api/[controller]/{id}")]
-        //[Route("api/[controller]/{id}")]
+        [EnableCors("AllowAll")]
         public IActionResult Update(Guid id, [FromBody]dynamic body)//[FromBody]Voluntario item)
         {
             if (string.IsNullOrEmpty(body.ToString()))
@@ -141,8 +110,8 @@ namespace DevTeamUtils.Api.Controllers
         }
 
         [HttpDelete("api/[controller]/{id}")]
-        //[Route("api/[controller]/{id}")]
-        public IActionResult Delete(System.Guid id)
+        [EnableCors("AllowAll")]
+        public IActionResult Delete(Guid id)
         {
             var contato = _contatoRepository.Find(id);
             if (contato == null)

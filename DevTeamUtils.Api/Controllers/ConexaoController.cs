@@ -5,6 +5,7 @@ using DevTeamUtils.Api.Models;
 using DevTeamUtils.Api.Repository;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 
 namespace DevTeamUtils.Api.Controllers
 {
@@ -19,15 +20,27 @@ namespace DevTeamUtils.Api.Controllers
         }
 
         [HttpGet("api/[controller]")]
-        //[Route("api/[controller]")]
+        [EnableCors("AllowAll")]
         public IEnumerable<Conexao> GetAll()
         {
             return _conexaoRepository.GetAll();
         }
 
+        [HttpGet("api/[controller]/import")]
+        public IActionResult Import()
+        {
+            try
+            {
+
+                return Ok();
+            }
+            catch
+            {
+                return Forbid();
+            }
+        }
+
         [HttpGet("api/[controller]/{id}", Name = "GetConexao")]
-        //[HttpGet]
-        //[Route("api/[controller]/{id}")]
         public IActionResult GetById(Guid id)
         {
             if (id == Guid.Empty)
@@ -51,41 +64,8 @@ namespace DevTeamUtils.Api.Controllers
             }
         }
 
-        /*[HttpGet]
-        [Route("api/[controller]/{nome}")]
-        public List<Apoiado> Get(string nome)
-        {
-            var resultado = conexoes.Find(it => it.Nome.Contains(nome))
-                .SortBy(it => it.Nome).Skip(0).Limit(50);
-            if (!resultado.Any())
-            {
-                Apoiado n = new Apoiado("José Maria");
-                conexoes.InsertOne(n);
-
-                n = new Apoiado("José Pedro");
-                conexoes.InsertOne(n);
-
-                n = new Apoiado("Carlos José");
-                n.Nome = "Monitor";
-                conexoes.InsertOne(n);
-
-                n = new Apoiado("Marilda Abravanel");
-                conexoes.InsertOne(n);
-
-                n = new Apoiado("Nivaldo Damasceno");
-                conexoes.InsertOne(n);
-            }
-
-            
-            //Notifications.Handle("TESTE", "Teste de erro");
-
-            //return CreateResponse(HttpStatusCode.Created, resultado);
-            return resultado.ToList();
-        }*/
-
         [HttpPost("api/[controller]")]
-        //[ValidateAntiForgeryToken]
-        //[Route("api/[controller]")]
+        [EnableCors("AllowAll")]
         public IActionResult Create([FromBody]JObject body)//[FromBody] Apoiado conexao)
         {
             if (string.IsNullOrEmpty(body.ToString()))
@@ -110,8 +90,7 @@ namespace DevTeamUtils.Api.Controllers
         }
 
         [HttpPut("api/[controller]/{id}")]
-        //[HttpPut]
-        //[Route("api/[controller]/{id}")]
+        [EnableCors("AllowAll")]
         public IActionResult Update(Guid id, [FromBody]dynamic body)//[FromBody]Apoiado conexaoNew)
         {
             if (string.IsNullOrEmpty(body.ToString()))
@@ -145,8 +124,7 @@ namespace DevTeamUtils.Api.Controllers
         }
 
         [HttpDelete("api/[controller]/{id}")]
-        //[HttpDelete]
-        //[Route("api/[controller]/{id}")]
+        [EnableCors("AllowAll")]
         public IActionResult Delete(Guid id)
         {
             /*Apoiado conexao = GetDetail(id);
