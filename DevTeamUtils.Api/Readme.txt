@@ -2,7 +2,7 @@
 	mongod
 
 Para iniciar o mongoDb em outra pasta:
-	mongod.exe --dbpath c:\db_MongoDB
+	mongod.exe --dbpath C:\Projects\DevTeamUtils\DevTeamUtils.Data
 
 Ccriar arquivo mongod.conf na pasta bin do mongoDB com o seguinte conteúdo:
 	dbpath = c:/data/db

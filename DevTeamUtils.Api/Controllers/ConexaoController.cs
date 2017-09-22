@@ -26,18 +26,11 @@ namespace DevTeamUtils.Api.Controllers
             return _conexaoRepository.GetAll();
         }
 
-        [HttpGet("api/[controller]/import")]
-        public IActionResult Import()
+        [HttpGet("api/[controller]/import", Name = "ImportConexao")]
+        public IActionResult Import(string pathAndFile)
         {
-            try
-            {
-
-                return Ok();
-            }
-            catch
-            {
-                return Forbid();
-            }
+            _conexaoRepository.Import(pathAndFile);
+            return Ok();
         }
 
         [HttpGet("api/[controller]/{id}", Name = "GetConexao")]

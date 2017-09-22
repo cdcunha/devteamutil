@@ -25,6 +25,13 @@ namespace DevTeamUtils.Api.Controllers
             return _contatoRepository.GetAll();
         }
 
+        [HttpGet("api/[controller]/import", Name = "ImportContato")]
+        public IActionResult Import(string pathAndFile)
+        {
+            _contatoRepository.Import(pathAndFile);
+            return Ok();
+        }
+
         [HttpGet("api/[controller]/{id}", Name = "GetContato")]
         [EnableCors("AllowAll")]
         public IActionResult GetById(Guid id)

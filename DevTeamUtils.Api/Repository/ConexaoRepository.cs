@@ -72,9 +72,9 @@ namespace DevTeamUtils.Api.Repository
         }
 
 
-        public void Import()
+        public void Import(string pathAndFile)
         {
-            List<Conexao> conexoes = System.IO.File.ReadAllLines(@"C:\Projects\DevTeamUtils")
+            List<Conexao> conexoes = System.IO.File.ReadAllLines(pathAndFile)
                                            .Skip(1)
                                            .Select(v => CsvToConexao(v))
                                            .ToList();

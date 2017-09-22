@@ -53,5 +53,33 @@ namespace DevTeamUtils.Api.Repository
             //_context.Contatos.Update(apoiado);
             //_context.SaveChanges();
         }
+
+        private Contato CsvToContato(string csvLine)
+        {
+            string[] values = csvLine.Split(',');
+            Contato contato = new Contato();
+            
+            contato.Nome = values[0];
+            contato.Telefone = values[1];
+            contato.Cargo = values[2];
+            contato.Local = values[3];
+            contato.Observacao = values[4];
+            //conexao.DataStatus = values[8];
+
+            return contato;
+        }
+
+
+        public void Import(string pathAndFile)
+        {
+            List<Contato> contatos = System.IO.File.ReadAllLines(pathAndFile)
+                                           .Skip(1)
+                                           .Select(v => CsvToContato(v))
+                                           .ToList();
+            foreach (Contato item in contatos)
+            {
+                Add(item);
+            }
+        }
     }
 }

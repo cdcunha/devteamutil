@@ -11,6 +11,6 @@ namespace DevTeamUtils.Api.Repository
         Conexao Find(Guid id);
         void Remove(Guid id);
         void Update(Conexao conexao);
-        void Import();
+        void Import(string pathAndFile);
     }
 }

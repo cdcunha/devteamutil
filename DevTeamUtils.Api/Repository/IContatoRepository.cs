@@ -11,5 +11,6 @@ namespace DevTeamUtils.Api.Repository
         Contato Find(Guid id);
         void Remove(Guid id);
         void Update(Contato contato);
+        void Import(string pathAndFile);
     }
 }
