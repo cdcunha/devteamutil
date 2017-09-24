@@ -50,7 +50,7 @@ angular.module('devTeamUtil')
             .when('/contatos/remove/:id', {
                 controller: 'ContatoRemoveCtrl',
                 controllerAs: 'vm',
-                templateUrl: 'app/templates/Contato/edit.html'
+                templateUrl: 'app/templates/Contato/remove.html'
             })
             .otherwise({
                 redirectTo: '/'

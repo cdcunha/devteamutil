@@ -58,7 +58,7 @@
                             <label for="telefone">Telefone</label>
                             <input ng-model="vm.contato.telefone"
                                    ui-mask="(99) 9999-9999"
-                                   ng-pattern="/^\([1-9]{2}\)[0-9]{4}-[0-9]{4}$/"
+                                   ng-pattern="/^\([1-9]{2}\)[0-9]{4,5}-[0-9]{4}$/"
                                    type="text"
                                    class="form-control"
                                    id="telefone"

@@ -12,8 +12,6 @@
             <th class="text-left">Cargo</th>
             <th class="text-left">Local</th>
             <th class="text-left">Observacao</th>
-            <th class="text-left">Criado em</th>
-            <th class="text-left">Alterado em</th>
             <th class="text-center"></th>
         </tr>
     </thead>
@@ -29,8 +27,6 @@
             <td class="text-left">{{ contato.cargo }}</td>
             <td class="text-left">{{ contato.local }}</td>
             <td class="text-left">{{ contato.observacao }}</td>
-            <td class="text-left">{{ contato.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
-            <td class="text-left">{{ contato.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
                     <a href="#/contatos/edit/{{ contato.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Contato"><i class="fa fa-edit">Editar</i></a>

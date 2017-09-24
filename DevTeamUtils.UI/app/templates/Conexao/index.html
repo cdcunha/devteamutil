@@ -13,12 +13,9 @@
             <th class="text-left">Ip</th>
             <th class="text-left">Porta</th>
             <th class="text-left">Usuario</th>
-            <th class="text-left">Usuario</th>
 			<th class="text-left">Senha</th>
 			<th class="text-left">Status</th>
 			<th class="text-left">Data Status</th>
-            <th class="text-left">Criado em</th>
-            <th class="text-left">Alterado em</th>
             <th class="text-center"></th>
         </tr>
     </thead>
@@ -38,8 +35,6 @@
             <td class="text-left">{{ conexao.senha }}</td>
 			<td class="text-left">{{ conexao.status }}</td>
 			<td class="text-left">{{ conexao.dataStatus | date: 'dd/MM/yyyy HH:mm' }}</td>
-            <td class="text-left">{{ conexao.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
-            <td class="text-left">{{ conexao.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
                     <a href="#/conexoes/edit/{{ conexao.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Conexão"><i class="fa fa-edit">Editar</i></a>
