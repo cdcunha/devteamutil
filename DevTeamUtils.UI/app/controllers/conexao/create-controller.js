@@ -18,7 +18,7 @@
         vm.conexao = {
             id: 0,
             sistema: '',
-            sistemas: ["SISHOSP"],
+            sistemas: ["Sishosp"],
             bancoDados: '',
             bancosDeDados: ["Informix", "Oracle"],
             nomeServidor: '',

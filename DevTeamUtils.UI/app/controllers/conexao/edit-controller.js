@@ -24,6 +24,8 @@
 
             function success(response) {
                 vm.conexao = response;
+                vm.conexao.sistemas = ["Sishosp"];
+                vm.conexao.bancosDeDados = ["Informix", "Oracle"];
                 /*var arDate = response.dataNascimento.substring(0, 10).split('-');
                 vm.conexao.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                 */
