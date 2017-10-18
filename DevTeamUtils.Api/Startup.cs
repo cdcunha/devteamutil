@@ -65,8 +65,12 @@ namespace DevTeamUtils.Api
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sani API V1");
+            {   
+                #if DEBUG
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeveTeamUtils API v1 (DEBUG)");
+                #else
+                    c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "DeveTeamUtils API v1 (RELEASE)");
+                #endif
             });
         }
     }
