@@ -1,0 +1,139 @@
+﻿<h3>Novo Contato</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <!--
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Contato</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="contato in vm.contatos">
+                        <td class="text-center">{{ contato.id }}</td>
+                        <td>{{ contato.nome }}</td>
+                        <td class="text-center">
+                            <div class="button-group">
+                                <button class="btn btn-default btn-sm" ng-click="vm.loadContato(contato)"><i class="fa fa-edit">Editar</i></button>
+                                <button class="btn btn-danger btn-sm" ng-click="vm.removeContato(contato)"><i class="fa fa-remove">Apagar</i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        -->
+
+        <form name="formContato">
+            <div class="col-md4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Contato</div>
+                    <div class="panel-body">					
+                        <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
+                            <label for="nome">Nome</label>
+                            <input ng-model="vm.contato.nome"
+                                   ng-minlength="3"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="nome"
+                                   name="nome"
+                                   placeholder="Ex.: José dos Anzóis"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formContato.nome.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+			
+                        <div class="form-group" ng-class="{ 'has-error' : telefone.$invalid }">
+                            <label for="telefone">Telefone</label>
+                            <input ng-model="vm.contato.telefone"
+                                   ui-mask="(99) 9999-9999"
+                                   ng-pattern="/^\([1-9]{2}\)[0-9]{4,5}-[0-9]{4}$/"
+                                   type="text"
+                                   class="form-control"
+                                   id="telefone"
+                                   name="telefone"
+                                   placeholder="Ex.: (11)3568-3555" 
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formContato.telefone.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : cargo.$invalid }">
+                            <label for="cargo">Cargo</label>
+                            <input ng-model="vm.contato.cargo"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="cargo"
+                                   name="cargo"
+                                   placeholder="Ex.: Arquiteto de Software" />
+                            <div class="alert-danger">
+                                <div ng-messages="formContato.cargo.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : local.$invalid }">
+                            <label for="local">Local</label>
+                            <input ng-model="vm.contato.local"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="local"
+                                   name="local"
+                                   placeholder="Ex.: Curitiba-PR" />
+                            <div class="alert-danger">
+                                <div ng-messages="formContato.local.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : observacao.$invalid }">
+                            <label for="observacao">Observação</label>
+                            <input ng-model="vm.contato.observacao"
+                                   ng-maxlength="100"
+                                   type="observacao"
+                                   class="form-control"
+                                   id="observacao"
+                                   name="observacao"
+                                   placeholder="Ex.: Acrescentar qualquer observação" />
+                            <div class="alert-danger">
+                                <div ng-messages="formContato.observacao.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center">
+                            <button type="button"
+                                    class="btn btn-primary btn-lg"
+                                    ng-disabled="formContato.$invalid"
+                                    ng-click="vm.save()">
+                                Salvar
+                            </button>
+                            <button type="button"
+                                    class="btn btn-default btn-lg"
+                                    ng-click="vm.cancel()">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

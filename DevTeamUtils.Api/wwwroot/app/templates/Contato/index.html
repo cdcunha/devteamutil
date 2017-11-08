@@ -1,0 +1,38 @@
+﻿<h3>Contato</h3>
+
+<a href="#/contatos/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Contato">
+    <i class="fa fa-plus"></i> +
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Nome</th>
+            <th class="text-left">Telefone</th>
+            <th class="text-left">Cargo</th>
+            <th class="text-left">Local</th>
+            <th class="text-left">Observação</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="8">
+                <input type="text" class="form-control" ng-model="filter_contato" value="" placeholder="Filtrar..." />
+            </td>
+        </tr>
+        <tr ng-repeat="contato in vm.contatos | filter: filter_contato">
+            <td class="text-left">{{ contato.nome }}</td>
+            <td class="text-left">{{ contato.telefone }}</td>
+            <td class="text-left">{{ contato.cargo }}</td>
+            <td class="text-left">{{ contato.local }}</td>
+            <td class="text-left">{{ contato.observacao }}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <a href="#/contatos/edit/{{ contato.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Contato"><i class="fa fa-edit">Editar</i></a>
+                    <a href="#/contatos/remove/{{ contato.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Contato"><i class="fa fa-remove">Apagar</i></a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

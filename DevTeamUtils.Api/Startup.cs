@@ -49,6 +49,10 @@ namespace DevTeamUtils.Api
         [Microsoft.AspNetCore.Cors.EnableCors("AllowAll")]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            //app.UseFileServer();
+
             loggerFactory.AddConsole();
             app.UseStatusCodePages();
             //env.EnvironmentName = EnvironmentName.Production;

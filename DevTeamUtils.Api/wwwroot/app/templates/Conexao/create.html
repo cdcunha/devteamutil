@@ -1,0 +1,164 @@
+﻿<h3>Nova Conexão</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <!--
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="conexao in vm.conexoes">
+                        <td class="text-center">{{ conexao.id }}</td>
+                        <td>{{ conexao.nome }}</td>
+                        <td class="text-center">
+                            <div class="button-group">
+                                <button class="btn btn-default btn-sm" ng-click="vm.loadConexao(conexao)"><i class="fa fa-edit">Editar</i></button>
+                                <button class="btn btn-danger btn-sm" ng-click="vm.removeConexao(conexao)"><i class="fa fa-remove">Apagar</i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        -->
+
+        <form name="formConexao">
+            <div class="col-md4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Conexao</div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{ 'has-error' : sistema.$invalid }">
+                            <label for="sistema">Sistema</label>
+                            <select ng-model="vm.conexao.sistema" ng-options="x for x in vm.conexao.sistemas"
+                                    class="form-control"
+                                    id="sistema"
+                                    name="sistema"
+                                    placeholder="Ex.: SISHOSP"
+                                    required >
+                            </select>
+                        </div>
+						
+						<div class="form-group" ng-class="{ 'has-error' : bancoDados.$invalid }">
+                            <label for="bancoDados">Banco de Dados</label>
+                            <select ng-model="vm.conexao.bancoDados" ng-options="x for x in vm.conexao.bancosDeDados"
+                                    class="form-control"
+                                    id="bancoDados"
+                                    name="bancoDados"
+                                    placeholder="Ex.: Informix"
+                                    required></select>
+                        </div>
+						
+						<div class="form-group" ng-class="{ 'has-error' : nomeServidor.$invalid }">
+                            <label for="nomeServidor">Nome do Seridor</label>
+                            <input ng-model="vm.conexao.nomeServidor"
+                                    ng-minlength="3"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="nomeServidor"
+                                    name="nomeServidor"
+                                    placeholder="Ex.: fabrica1"
+                                    required />
+                            <div class="alert-danger">
+                                <div ng-messages="formConexao.nomeServidor.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="form-group" ng-class="{ 'has-error' : ip.$invalid }">
+                            <label for="ip">Ip</label>
+                            <input ng-model="vm.conexao.ip"
+                                    ui-mask="999.999.999.999"
+                                    ng-pattern='/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/'
+                                    type="text"
+                                    class="form-control"
+                                    id="ip"
+                                    name="ip"
+                                    placeholder="Ex.: 10.0.37.166" />
+                            <div class="alert-danger">
+                                <div ng-messages="formConexao.ip.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="form-group" ng-class="{ 'has-error' : porta.$invalid }">
+                            <label for="porta">Porta</label>
+                            <input ng-model="vm.conexao.porta"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="porta"
+                                    name="porta"
+                                    placeholder="Ex.: 1530" />
+                            <div class="alert-danger">
+                                <div ng-messages="formConexao.porta.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="form-group" ng-class="{ 'has-error' : usuario.$invalid }">
+                            <label for="usuario">Usuário</label>
+                            <input ng-model="vm.conexao.usuario"
+							       ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="usuario"
+                                   name="usuario"
+                                   placeholder="Ex.: desenv" />
+                            <div class="alert-danger">
+                                <div ng-messages="formConexao.usuario.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="form-group" ng-class="{ 'has-error' : senha.$invalid }">
+                            <label for="senha">Senha</label>
+                            <input ng-model="vm.conexao.senha"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="senha"
+                                   name="senha"
+                                   placeholder="Ex.: Amil2015" />
+                            <div class="alert-danger">
+                                <div ng-messages="formConexao.senha.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-center">
+                            <button type="button"
+                                    class="btn btn-primary btn-lg"
+                                    ng-disabled="formConexao.$invalid"
+                                    ng-click="vm.save()">
+                                Salvar
+                            </button>
+                            <button type="button"
+                                    class="btn btn-default btn-lg"
+                                    ng-click="vm.cancel()">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!--<pre>formConexao = {{formConexao | json}}</pre><br />-->
+
+    </div>
+</div>
