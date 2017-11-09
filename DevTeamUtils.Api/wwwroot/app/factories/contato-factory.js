@@ -1,9 +1,8 @@
 ﻿(function () {
     'use strict';
 
-    //var SETTINGS = { 'SERVICE_URL': 'http://localhost:18066/api/Contato' };
     //var SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/api/Contato' };
-    var SETTINGS = { 'SERVICE_URL': 'http://amlnotpr398ht3:51640/api/Contato' };
+    var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/api/Contato' };
 
     angular.module('devTeamUtil').factory('ContatoFactory', ContatoFactory);
 

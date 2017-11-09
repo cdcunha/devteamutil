@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
-    var SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/api/Conexao' };
-    //var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3/api/Conexao' };
+    //var SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/api/Conexao' };
+    var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/api/Conexao' };
 
     angular.module('devTeamUtil').factory('ConexaoFactory', ConexaoFactory);
 

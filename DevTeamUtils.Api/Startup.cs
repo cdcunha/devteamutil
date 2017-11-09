@@ -9,10 +9,11 @@ namespace DevTeamUtils.Api
 {
     public class Startup
     {
-        /*public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }*/
+        }
+		/*
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -22,6 +23,7 @@ namespace DevTeamUtils.Api
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
+		*/
 
         public IConfiguration Configuration { get; }
 

@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
     <link href="/resources/icons/favicon.ico" rel="icon" type="image/x-icon">
-    <link href="wwwroot/css/bootstrap.css" rel="stylesheet" />
-    <link href="wwwroot/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="wwwroot/css/toastr.min.css" rel="stylesheet" />
-    <link href="wwwroot/css/devteamutil.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/toastr.min.css" />
+    <link rel="stylesheet" href="css/ng-table_3.0.1/ng-table.min.css" />
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -38,31 +38,33 @@
         </div>
     </div>
 
-    <script src="wwwroot/js/jquery/jquery-3.2.1.js"></script>
-    <script src="wwwroot/js/bootstrap/bootstrap.js"></script>
-    <script src="wwwroot/js/toastr.min.js"></script>
-    <script src="wwwroot/js/angular/angular.js"></script>
-    <script src="wwwroot/js/angular/angular-messages.js"></script>
-    <script src="wwwroot/js/angular/angular-route.js"></script>
-    <script src="wwwroot/js/angular-ui-mask/mask.min.js"></script>
-    <script src="wwwroot/js/angular-ui-validate/validate.min.js"></script>
+    <script src="js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular/angular-messages.js"></script>
+    <script src="js/angular/angular-route.js"></script>
+    <script src="js/angular-ui-mask/mask.min.js"></script>
+    <script src="js/angular-ui-validate/validate.min.js"></script>
 
-    <script src="wwwroot/app/app.module.js"></script>
-    <script src="wwwroot/app/app.config.js"></script>
+    <script src="js/ng-table_3.0.1/ng-table.min.js"></script>
+    
+    <script src="app/app.module.js"></script>
+    <script src="app/app.config.js"></script>
 
-    <script src="wwwroot/app/config.js"></script>
+    <script src="app/config.js"></script>
 
-    <script src="wwwroot/app/factories/conexao-factory.js"></script>
-    <script src="wwwroot/app/factories/contato-factory.js"></script>
+    <script src="app/factories/conexao-factory.js"></script>
+    <script src="app/factories/contato-factory.js"></script>
 
-    <script src="wwwroot/app/controllers/conexao/list-controller.js"></script>
-    <script src="wwwroot/app/controllers/conexao/create-controller.js"></script>
-    <script src="wwwroot/app/controllers/conexao/edit-controller.js"></script>
-    <script src="wwwroot/app/controllers/conexao/remove-controller.js"></script>
-    <script src="wwwroot/app/controllers/contato/list-controller.js"></script>
-    <script src="wwwroot/app/controllers/contato/create-controller.js"></script>
-    <script src="wwwroot/app/controllers/contato/edit-controller.js"></script>
-    <script src="wwwroot/app/controllers/contato/remove-controller.js"></script>
+    <script src="app/controllers/conexao/list-controller.js"></script>
+    <script src="app/controllers/conexao/create-controller.js"></script>
+    <script src="app/controllers/conexao/edit-controller.js"></script>
+    <script src="app/controllers/conexao/remove-controller.js"></script>
+    <script src="app/controllers/contato/list-controller.js"></script>
+    <script src="app/controllers/contato/create-controller.js"></script>
+    <script src="app/controllers/contato/edit-controller.js"></script>
+    <script src="app/controllers/contato/remove-controller.js"></script>
 
     <script>
         toastr.options = { "closeButton": true, "tapToDismiss": true, "preventDuplicates": true, "timeOut": 0, "extendedTimeOut": 0 };

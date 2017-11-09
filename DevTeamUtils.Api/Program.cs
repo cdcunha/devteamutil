@@ -35,7 +35,7 @@ namespace DevTeamUtils.Api
                 .PreferHostingUrls(false)
                 //.UseUrls("http://*:51640;http://localhost:51640;http://amlnotpr398ht3:51640")
                 .UseUrls("http://*:51640")
-                .UseIISIntegration()
+                //.UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
     }

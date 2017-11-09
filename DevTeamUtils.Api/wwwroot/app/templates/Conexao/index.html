@@ -37,10 +37,10 @@
 			<td class="text-left">{{ conexao.dataStatus | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a href="#/conexoes/edit/{{ conexao.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Conexão"><i class="fa fa-edit">Editar</i></a>
-                    <a href="#/conexoes/remove/{{ conexao.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Conexão"><i class="fa fa-remove">Apagar</i></a>
+                    <a href="#/conexoes/edit/{{ conexao.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Conexão"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="#/conexoes/remove/{{ conexao.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Conexão"><span class="glyphicon glyphicon-trash"></span></a>
                 </div>
             </td>
         </tr>
-    </tbody>
+    <!--</tbody>-->
 </table>

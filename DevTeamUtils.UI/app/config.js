@@ -1,8 +1,8 @@
 ﻿(function () {
     'use strict';
 
-    SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/' };
-    //SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3/' };
+    //SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/' };
+    SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/' };
     angular.module('devTeamUtil').constant('SETTINGS', SETTINGS);
     
     angular.module('devTeamUtil').directive('ageLimit', function () {
