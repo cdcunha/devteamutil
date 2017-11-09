@@ -87,7 +87,8 @@
         */
 
         function cancel() {
-            clearContato();
+            //clearContato();
+            $location.path('/contatos');
         }
 
         function clearContato() {

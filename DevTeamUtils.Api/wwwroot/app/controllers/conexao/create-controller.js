@@ -84,7 +84,8 @@
         angular.element(document.querySelector('#file')).on('change', handleFileSelect);
         */
         function cancel() {
-            clearConexao();
+            //clearConexao();
+            $location.path('/conexoes');
         }
 
         function clearConexao() {
