@@ -12,15 +12,17 @@ rem ###################################################
 rem ###################################################
 rem ## Gera backup
 rem ###################################################
-mongodump --out C:\Projects\DevTeamUtils\data\backup%YYYYMMDD%
+md "C:\Projects\DevTeamUtils\tmp\"
+md "C:\Projects\DevTeamUtils\Data.Backups"
+mongodump --out C:\Projects\DevTeamUtils\tmp\backup%YYYYMMDD%
 rem mongorestore pastaBackupAserRestaurada/
 rem ###################################################
 
 rem ###################################################
 rem # Compacta o backup
 rem ###################################################
-cd "C:\Projects\DevTeamUtils\data\"
-"c:\Program Files\7-Zip\7z.exe" a C:\Projects\DevTeamUtils\Data.Backups\Backup_%YYYYMMDD%.zip -w"C:\Projects\DevTeamUtils\data\backup%YYYYMMDD%"
+cd "C:\Projects\DevTeamUtils\tmp\"
+"c:\Program Files\7-Zip\7z.exe" a C:\Projects\DevTeamUtils\Data.Backups\Backup_%YYYYMMDD%.zip -w"C:\Projects\DevTeamUtils\tmp\backup%YYYYMMDD%"
 cd "C:\Projects\DevTeamUtils\"
 rem ###################################################
 
@@ -29,7 +31,7 @@ rem ## Exclui arquivos temporários
 rem ###################################################
 del tmp.bat /q
 del tmp.js /q
-rd /s /q .\data 
+rd /s /q .\tmp 
 rem ###################################################
 
 pause

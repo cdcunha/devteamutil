@@ -20,7 +20,7 @@ namespace DevTeamUtils.Api
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 //.UseApplicationInsights()
-                //.UseUrls("http://*:51640;http://localhost:51640;http://amlnotpr398ht3:51640")
+                //.UseUrls("http://*:51640")
                 .Build();
 
             //host.RunAsService();
@@ -32,10 +32,10 @@ namespace DevTeamUtils.Api
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                #if RELEASE
                 .PreferHostingUrls(false)
-                //.UseUrls("http://*:51640;http://localhost:51640;http://amlnotpr398ht3:51640")
                 .UseUrls("http://*:51640")
-                //.UseIISIntegration()
+                #endif
                 .UseStartup<Startup>()
                 .Build();
     }

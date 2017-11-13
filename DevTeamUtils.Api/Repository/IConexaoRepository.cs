@@ -12,5 +12,7 @@ namespace DevTeamUtils.Api.Repository
         void Remove(Guid id);
         void Update(Conexao conexao);
         void Import(string pathAndFile);
+        System.IO.Stream DownloadIniFile(string userName, string password);
+        Conexao TestConnection(Conexao conexao);
     }
 }

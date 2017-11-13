@@ -29,6 +29,11 @@ angular.module('devTeamUtil')
                 controllerAs: 'vm',
                 templateUrl: 'app/templates/Conexao/remove.html'
             })
+            .when('/conexoes/download/:id/:nomeServidor', {
+                controller: 'ConexaoDownloadCtrl',
+                controllerAs: 'vm',
+                templateUrl: 'app/templates/Conexao/download.html'
+            })
             /****************************************
             * Contatos
             *****************************************/

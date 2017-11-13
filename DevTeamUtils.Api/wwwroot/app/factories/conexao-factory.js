@@ -1,8 +1,9 @@
 ﻿(function () {
     'use strict';
-    //var SETTINGS = { 'SERVICE_URL': 'http://localhost:51640/api/Conexao' };
+    
+    //var SETTINGS = { 'SERVICE_URL': 'http://localhost:18066/api/Conexao' };
     var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/api/Conexao' };
-
+    
     angular.module('devTeamUtil').factory('ConexaoFactory', ConexaoFactory);
 
     angular.module('devTeamUtil').filter('filterYesNo', function () {
@@ -20,7 +21,8 @@
             getById: getById,
             post: post,
             put: put,
-            remove: remove
+            remove: remove,
+            download: download
         }
 
         function get() {
@@ -41,6 +43,10 @@
 
         function remove(conexao) {
             return $http.delete(SETTINGS.SERVICE_URL + '/' + conexao.id, $rootScope.header);
+        }
+
+        function download(id) {
+            return $http.get(SETTINGS.SERVICE_URL + '/download/' + id, $rootScope.header);
         }
     }
 })();
