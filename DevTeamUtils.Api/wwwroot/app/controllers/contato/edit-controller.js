@@ -51,7 +51,7 @@
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Voluntário <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Voluntário Cadastrado");
+                toastr.success("Contato <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Contato Cadastrado");
                 $location.path('/contatos');
             }
 
