@@ -42,12 +42,12 @@
                             <label for="telefone">Telefone</label>
                             <input ng-model="vm.contato.telefone"
                                    ui-mask="(99) 9999-9999"
-                                   ng-pattern="/^\([1-9]{2}\)[0-9]{4}-[0-9]{4}$/"
+                                   ng-pattern="/^\([\d]{2}\)[\d]{4,5}-[\d]{4}$|^\+?[\d]{3}\([\d]{3}\)[\d]{3}-[\d]{4}$|^[\d]{4}-[\d]{3}-[\d]{4}$/"
                                    type="text"
                                    class="form-control"
                                    id="telefone"
                                    name="telefone"
-                                   placeholder="Ex.: (11)3568-3555" 
+                                   placeholder="Ex.: (11)3568-3555 ou 0800-245-0104 ou 001(888)345-3577" 
                                    required />
                             <div class="alert-danger">
                                 <div ng-messages="formContato.telefone.$error">
