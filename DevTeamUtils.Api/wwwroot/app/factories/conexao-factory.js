@@ -2,7 +2,8 @@
     'use strict';
     
     //var SETTINGS = { 'SERVICE_URL': 'http://localhost:18066/api/Conexao' };
-    var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/api/Conexao' };
+    //var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/api/Conexao' };
+    var SETTINGS = { 'SERVICE_URL': window.location.protocol + '//' + window.location.host + '/api/Conexao' };
     
     angular.module('devTeamUtil').factory('ConexaoFactory', ConexaoFactory);
 
