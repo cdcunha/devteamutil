@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
         <script type="text/javascript">
             let transportType = signalR.TransportType.WebSockets;
-            let http = new signalR.HttpConnection('http://${document.location.host}/chat', { transport: transportType });
+            let http = new signalR.HttpConnection('http://'+document.location.host+'/chat', { transport: transportType });
             let connection = new signalR.HubConnection(http);
             
 			function msgTo(ID)
@@ -65,7 +65,7 @@
 
                 connection.on('SendAll', (nick, message) => {
                     if (ready) {
-                        $("#msgs").append("<br/>" + who + " says: " + msg + "");
+                        $("#msgs").append("<br/>" + nick + " says: " + message + "");
                     }
                 });
 
@@ -74,11 +74,11 @@
                         $("#msgs").append("<br/>" + message + "");
                 });
 
-                connection.on('Join', (nick) => {
+                connection.on('Join', (nick, response) => {
                     if (ready) {
                         $("#people").empty();
-                        $.each(people, function (clientid, name) {
-                            $('#people').append("<br/>" + name["html"] + "");
+                        $.each(people, function (clientid, response) {
+                            $('#people').append("<br/>" + response["html"] + "");
                         });
                     }
                 });
@@ -119,8 +119,8 @@
                 */
 				
 				$("#join").click(function(){
-					var name = $("#name").val();
-					if (name != "") {
+                    var nick = $("#name").val();
+                    if (nick != "") {
 						if (isConnected()){
 							//socketio.emit("join", name );
                             connection.invoke('Join', nick);
@@ -140,8 +140,9 @@
 				
 				$("#send").click(function(){
 					if (isConnected()){
-						var msg = $("#msg").val();
-						if (msg != ""){
+                        var message = $("#msg").val();
+                        if (message != "") {
+                            var nick = $("#name").val();
 							//socketio.emit("sendAll", msg, $("#name").val());
                             connection.invoke('SendAll', nick, message);
 							$("#msg").val("");
