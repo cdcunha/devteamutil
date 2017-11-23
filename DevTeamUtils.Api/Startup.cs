@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DevTeamUtils.Api.SignalRHubs;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,7 @@ namespace DevTeamUtils.Api
             services.AddMongo(Configuration.GetSection("ConnectionStrings"));
 
             services.AddMvc();
+            services.AddSignalR();
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -65,6 +67,11 @@ namespace DevTeamUtils.Api
 
             app.UseCors("AllowAll");
             app.UseMvc();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Chat>("chat");
+            });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
