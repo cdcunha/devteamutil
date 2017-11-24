@@ -13,6 +13,6 @@ namespace DevTeamUtils.Api.Repository
         void Remove(Guid id);
         void Update(User contato);
         void Import(string pathAndFile);
-        List<OnlineUser> GetAllOnlineUsers();
+        IEnumerable<OnlineUser> GetAllOnlineUsers();
     }
 }

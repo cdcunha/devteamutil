@@ -1,4 +1,4 @@
-﻿using DevTeamUtils.Api.SignalRHubs;
+﻿using DevTeamUtils.Api.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
