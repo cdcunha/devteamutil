@@ -1,13 +1,20 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using DevTeamUtils.Api.Repository;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevTeamUtils.Api.SignalRHubs
+namespace DevTeamUtils.Api.Hubs
 {
     public class Chat : Hub
     {
+        private readonly IUserRepository _userRepository;
+        public Chat(MongoDbContext context)
+        {
+            _userRepository = context.GetUserRepository();
+        }
+
         /*public override async Task OnConnectedAsync()
         {
             //await Clients.Client(Context.ConnectionId).InvokeAsync("SetUsersOnline", await GetUsersOnline());
@@ -17,12 +24,12 @@ namespace DevTeamUtils.Api.SignalRHubs
 
         public async Task OnUsersJoined()
         {
-            await Clients.Client(Context.ConnectionId).InvokeAsync("UsersJoined", "");
+            await Clients.Client(Context.ConnectionId).InvokeAsync("UsersJoined", _userRepository.GetAllOnlineUsers());
         }
 
         public async Task OnUsersLeft()
         {
-            await Clients.Client(Context.ConnectionId).InvokeAsync("UsersLeft", "");
+            await Clients.Client(Context.ConnectionId).InvokeAsync("UsersLeft", _userRepository.GetAllOnlineUsers());
         }
 
         public async Task SendAll(string message)
@@ -45,7 +52,9 @@ namespace DevTeamUtils.Api.SignalRHubs
             await Clients.AllExcept(excludedIds).InvokeAsync("update", message);
             foreach (System.Security.Principal.IIdentity identity in Context.User.Identities)
             {
-
+                //Context.Connection.
+                string name = identity.Name;
+                //identity.
             }
         }
     }

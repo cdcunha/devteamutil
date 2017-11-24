@@ -74,6 +74,20 @@
                         $("#msgs").append("<br/>" + message + "");
                 });
 
+                connection.on('UsersJoined', users => {
+                    users.forEach(user => {
+                        appendLine('User ' + user.name + ' joined the chat');
+                        addUserOnline(user);
+                    });
+                });
+
+                connection.on('UsersLeft', users => {
+                    users.forEach(user => {
+                        appendLine('User ' + user.name + ' left the chat');
+                        document.getElementById(user.connectionId).outerHTML = '';
+                    });
+                });
+
                 /*connection.on('Join', (nick, response) => {
                     if (ready) {
                         $("#people").empty();

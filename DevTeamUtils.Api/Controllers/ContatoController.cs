@@ -15,7 +15,7 @@ namespace DevTeamUtils.Api.Controllers
 
         public ContatoController(MongoDbContext context)
         {
-            _contatoRepository = context.GetVoluntarioRepository();
+            _contatoRepository = context.GetContatoRepository();
         }
 
         [HttpGet("api/[controller]")]
@@ -59,7 +59,7 @@ namespace DevTeamUtils.Api.Controllers
         
         [HttpPost("api/[controller]")]
         [EnableCors("AllowAll")]
-        public IActionResult Create([FromBody]dynamic body)//[FromBody] Voluntario contato)
+        public IActionResult Create([FromBody]dynamic body)
         {
             if (string.IsNullOrEmpty(body.ToString()))
             {
@@ -84,7 +84,7 @@ namespace DevTeamUtils.Api.Controllers
 
         [HttpPut("api/[controller]/{id}")]
         [EnableCors("AllowAll")]
-        public IActionResult Update(Guid id, [FromBody]dynamic body)//[FromBody]Voluntario item)
+        public IActionResult Update(Guid id, [FromBody]dynamic body)
         {
             if (string.IsNullOrEmpty(body.ToString()))
             {
