@@ -74,20 +74,28 @@
                         $("#msgs").append("<br/>" + message + "");
                 });
 
-                connection.on('Join', (nick, response) => {
+                /*connection.on('Join', (nick, response) => {
                     if (ready) {
                         $("#people").empty();
                         $.each(people, function (clientid, response) {
                             $('#people').append("<br/>" + response["html"] + "");
                         });
                     }
+                });*/
+
+                connection.on("message2Me", function (nick, response) {
+                    if (ready) {
+                        $("#msgs").append("<br/>" + who + " says: " + msg + "");
+                    }
                 });
+
+                connection.on("update", function (response) {
+                    if (ready)
+                        $("#msgs").append("<br/>" + response + "");
+                })
 				
                 /*
-                socketio.on("Update", function(msg) {
-					if(ready)
-						$("#msgs").append("<br/>" + msg + "");
-				})
+                
 
 					if(ready) {
 						$("#people").empty();
@@ -98,12 +106,6 @@
 				});
 
 				socketio.on("chat", function(who, msg){
-					if(ready) {
-						$("#msgs").append("<br/>" + who + " says: " + msg + "");
-					}
-				});
-				
-				socketio.on("messageMe", function(who, msg){
 					if(ready) {
 						$("#msgs").append("<br/>" + who + " says: " + msg + "");
 					}
@@ -122,8 +124,7 @@
                     var nick = $("#name").val();
                     if (nick != "") {
 						if (isConnected()){
-							//socketio.emit("join", name );
-                            connection.invoke('Join', nick);
+							connection.invoke('Join');
 							$("#login").hide();//detach();
 							$(".chat").show();
 							$("#msg").focus();
