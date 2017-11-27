@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace DevTeamUtils.Api.Models
 {
     [DataContract]
-    public class BaseModel
+    public class BaseModel : Base
     {
         [DataMember]
         [BsonId(IdGenerator = typeof(GuidGenerator))]
@@ -28,7 +28,7 @@ namespace DevTeamUtils.Api.Models
         public System.DateTime? DataAlteracao { get; private set; }
         
         [BsonConstructor]
-        public BaseModel()
+        public BaseModel() : base()
         {
             Ativo = true;
             DataCriacao = System.DateTime.Now;
@@ -38,14 +38,7 @@ namespace DevTeamUtils.Api.Models
         {
             DataAlteracao = System.DateTime.Now;
         }
-
-        protected string getTokenValue(JObject json, string key)
-        {
-            return json.ToString().Contains("\"" + key + "\":") && ((JValue)json.SelectToken(key)).Value != null
-                ? ((JValue)json.SelectToken(key)).Value.ToString()
-                : "";
-        }
-
+        
         protected DateTime? TokenToDateTime(JObject json, string key, string format)
         {
             string strDate = getTokenValue(json, key);

@@ -1,0 +1,203 @@
+﻿<h3>Login</h3>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat DevTeam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!--<link href="/resources/icons/favicon.ico" rel="icon" type="image/x-icon">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/toastr.min.css" />
+    
+    
+    <script src="js/signalr-client.js"></script>
+
+    <script type="text/javascript">
+        let transportType = signalR.TransportType.WebSockets;
+        let http = new signalR.HttpConnection('http://'+document.location.host+'/chat', { transport: transportType });
+        let connection = new signalR.HubConnection(http);
+            
+		function msgTo(ID)
+		{
+			if (isConnected()){
+				if ($("#msg").val() != ""){
+                    let message = $('#msg').val();
+                    let nick = $('#name').text();
+                    //socketio.emit("sendTo", ID, $("#msg").val(), $("#name").val());
+                    connection.invoke('SendTo', nick, message);
+                    event.preventDefault();
+					$("#msg").val("");
+				}
+			}
+		}
+			
+		function isConnected()
+		{
+			/*if (!socketio.connected)
+			{
+				alert('Sorry, the connection was lost');
+			}
+			return socketio.connected;
+            */
+            return true;
+        }
+        
+		$(document).ready(function(){
+			var ready = false;
+				
+			$(".chat").hide();
+			$("#name").focus();
+			$("form").submit(function(event){
+				event.preventDefault();
+            });
+
+            connection.start();
+
+            connection.on('SendAll', (nick, message) => {
+                if (ready) {
+                    $("#msgs").append("<br/>" + nick + " says: " + message + "");
+                }
+            });
+
+            connection.on('SendTo', (nick, message) => {
+                if (ready)
+                    $("#msgs").append("<br/>" + message + "");
+            });
+
+            connection.on('UsersJoined', users => {
+                users.forEach(user => {
+                    appendLine('User ' + user.name + ' joined the chat');
+                    addUserOnline(user);
+                });
+            });
+
+            connection.on('UsersLeft', users => {
+                users.forEach(user => {
+                    appendLine('User ' + user.name + ' left the chat');
+                    document.getElementById(user.connectionId).outerHTML = '';
+                });
+            });
+
+            /*connection.on('Join', (nick, response) => {
+                if (ready) {
+                    $("#people").empty();
+                    $.each(people, function (clientid, response) {
+                        $('#people').append("<br/>" + response["html"] + "");
+                    });
+                }
+            });*/
+
+            connection.on("message2Me", function (nick, response) {
+                if (ready) {
+                    $("#msgs").append("<br/>" + who + " says: " + msg + "");
+                }
+            });
+
+            connection.on("update", function (response) {
+                if (ready)
+                    $("#msgs").append("<br/>" + response + "");
+            })
+				
+            /*
+                
+
+				if(ready) {
+					$("#people").empty();
+					$.each(people, function(clientid, name) {
+						$('#people').append("<br/>" + name["html"] + "");
+					});
+				}
+			});
+
+			socketio.on("chat", function(who, msg){
+				if(ready) {
+					$("#msgs").append("<br/>" + who + " says: " + msg + "");
+				}
+			});
+				
+			socketio.on('connect', function() {
+				console.log('Connected');
+			});
+				
+			socketio.on('disconnect', function () {
+				console.log("Disconnected");  
+			});
+            */
+				
+			/*$("#join").click(function(){
+                var nick = $("#name").val();
+                if (nick != "") {
+					if (isConnected()){
+						connection.invoke('Join');
+						$("#login").hide();//detach();
+						$(".chat").show();
+						$("#msg").focus();
+						ready = true;
+					}
+				}
+			});
+			//If user press enter
+			$("#name").keypress(function(e){
+				if(e.which == 13) {
+					$("#join").click();
+				}
+			});
+            */
+				
+			$("#send").click(function(){
+				if (isConnected()){
+                    var message = $("#msg").val();
+                    if (message != "") {
+                        var nick = $("#name").val();
+						//socketio.emit("sendAll", msg, $("#name").val());
+                        connection.invoke('SendAll', nick, message);
+						$("#msg").val("");
+					}
+				}
+			});
+			//If user press enter
+			$("#msg").keypress(function(e){
+				if(e.which == 13) {
+					$("#send").click();
+				}
+			});
+				
+			$("#logoff").click(function(){
+				$("#name").val("");
+				$("#msgs").empty();
+				$("#people").empty();
+				$("#login").show();
+				$(".chat").hide();
+				//socketio.disconnect();
+                connection.stop();
+				location.reload(true)
+			});
+		})
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            <form name="formChat">
+                <div class="col-md4">
+                    <div class="panel panel-default">
+                        <div class="chat panel-heading">
+                            <div class="row">
+                                <div class="col-sm-1 span2">
+                                    <ul id="people" class="unstyled"></ul>
+                                </div>
+                                <div class="col-sm-11 span4">
+                                    <ul id="msgs" class="unstyled">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

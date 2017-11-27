@@ -1,0 +1,70 @@
+﻿<h3>Login</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <form name="formLogin">
+            <div class="col-md4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Login</div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{ 'has-error' : apelido.$invalid }">
+                            <label for="apelido">Apelido</label>
+                            <input ng-model="vm.user.apelido"
+                                    ng-minlength="3"
+                                    ng-maxlength="100"
+                                    type="text"
+                                    class="form-control"
+                                    id="apelido"
+                                    name="apelido"
+                                    placeholder="Informe o apelido do seu usuário"
+                                    required />
+                            <div class="alert-danger">
+                                <div ng-messages="formLogin.apelido.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="form-group" ng-class="{ 'has-error' : senha.$invalid }">
+                            <label for="senha">Senha</label>
+                            <input ng-model="vm.user.senha"
+                                   ng-minlength="6"
+                                   ng-maxlength="100"
+                                   type="password"
+                                   class="form-control"
+                                   id="senha"
+                                   name="senha"
+                                   placeholder="Informe a senha do seu usuário"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formLogin.senha.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-center">
+                            <button type="button"
+                                    class="btn btn-primary btn-lg"
+                                    ng-disabled="formLogin.$invalid"
+                                    ng-click="vm.login()">
+                                Logar
+                            </button>
+                            <button type="button"
+                                    class="btn btn-default btn-lg"
+                                    ng-click="vm.cancel()">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!--<pre>formUser = {{formLogin | json}}</pre><br />-->
+
+    </div>
+</div>

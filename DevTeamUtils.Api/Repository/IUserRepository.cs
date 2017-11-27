@@ -13,6 +13,8 @@ namespace DevTeamUtils.Api.Repository
         void Remove(Guid id);
         void Update(User contato);
         void Import(string pathAndFile);
-        IEnumerable<OnlineUser> GetAllOnlineUsers();
+        IEnumerable<OnlineUserDTO> GetAllOnlineUsers();
+        User Login(LoginDTO loginDTO);
+        void Logout(LogoutDTO logoutDTO);
     }
 }

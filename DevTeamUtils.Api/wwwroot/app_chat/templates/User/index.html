@@ -1,0 +1,40 @@
+﻿<h3 class="text-center">Usuários</h3>
+
+<a href="#/users/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Usuário">
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Nome</th>
+			<th class="text-left">Apelido</th>
+			<th class="text-left">Senha</th>
+            <th class="text-left">E-mail</th>
+            <th class="text-left">On-line</th>
+            <th class="text-left">Connection ID</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="8">
+                <input type="text" class="form-control" ng-model="filter_user" value="" placeholder="Filtrar..." />
+            </td>
+        </tr>
+        <tr ng-repeat="user in vm.users | filter: filter_user">
+            <td class="text-left">{{ user.nome }}</td>
+			<td class="text-left">{{ user.apelido }}</td>
+			<td class="text-left">{{ user.senha }}</td>
+            <td class="text-left">{{ user.email }}</td>
+            <td class="text-left">{{ user.online }}</td>
+            <td class="text-left">{{ user.connectionId }}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <a href="#/users/edit/{{ user.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Usuário"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="#/users/remove/{{ user.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Usuário"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </td>
+        </tr>
+    <!--</tbody>-->
+</table>

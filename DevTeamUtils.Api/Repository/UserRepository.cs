@@ -82,16 +82,16 @@ namespace DevTeamUtils.Api.Repository
             }
         }
 
-        public IEnumerable<OnlineUser> GetAllOnlineUsers()
+        public IEnumerable<OnlineUserDTO> GetAllOnlineUsers()
         {
             IEnumerable<User> users = _context.Users.Find(Builders<User>.Filter.Eq("Online", true)).ToList();
 
-            List<OnlineUser> onlineUsers = new List<OnlineUser>();
+            List<OnlineUserDTO> onlineUsers = new List<OnlineUserDTO>();
             foreach (User user in users)
             {
                 if (user.Online)
                 {
-                    OnlineUser item = new OnlineUser();
+                    OnlineUserDTO item = new OnlineUserDTO();
                     item.Apelido = user.Apelido;
                     item.ConnectionId = user.ConnectionId;
 
@@ -101,6 +101,35 @@ namespace DevTeamUtils.Api.Repository
             }
 
             return onlineUsers;
+        }
+
+        public User Login(LoginDTO loginDTO)
+        {
+            var builder = Builders<User>.Filter;
+            var filter = builder.Eq("apelido", loginDTO.Apelido) & builder.Eq("senha", loginDTO.Senha);
+            var resultado = _context.Users.Find(filter).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                resultado.Online = true;
+                Update(resultado);
+            }
+
+            return resultado;
+        }
+
+        public void Logout(LogoutDTO logoutDTO)
+        {
+            var builder = Builders<User>.Filter;
+            var filter = builder.Eq("apelido", logoutDTO.Apelido) & builder.Eq("connectionId", logoutDTO.ConnectionId);
+            var resultado = _context.Users.Find(filter).FirstOrDefault();
+
+            if (resultado != null)
+            {
+                resultado.Online = false;
+                resultado.ConnectionId = "";
+                Update(resultado);
+            }
         }
     }
 }
