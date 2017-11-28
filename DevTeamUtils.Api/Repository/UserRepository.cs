@@ -14,9 +14,10 @@ namespace DevTeamUtils.Api.Repository
         public UserRepository(MongoDbContext context)
         {
             _context = context;
-            var resultado = _context.Users.Find(FilterDefinition<User>.Empty).Skip(1);
+            /*var resultado = _context.Users.Find(FilterDefinition<User>.Empty).Skip(1);
             if (!resultado.Any())
                 Add(new User());
+            */
         }
 
         public void Add(User user)
@@ -104,9 +105,10 @@ namespace DevTeamUtils.Api.Repository
         }
 
         public User Login(LoginDTO loginDTO)
-        {
+        {   
             var builder = Builders<User>.Filter;
-            var filter = builder.Eq("apelido", loginDTO.Apelido) & builder.Eq("senha", loginDTO.Senha);
+            var filter = builder.And(builder.Eq(e => e.Apelido, loginDTO.Apelido),
+                                     builder.Eq(e => e.Senha, loginDTO.Senha));
             var resultado = _context.Users.Find(filter).FirstOrDefault();
 
             if (resultado != null)

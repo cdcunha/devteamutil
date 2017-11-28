@@ -2,32 +2,6 @@
 
 <div class="container-fluid">
     <div class="row content">
-        <!--
-        <div class="col-md-8">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="user in vm.conexoes">
-                        <td class="text-center">{{ user.id }}</td>
-                        <td>{{ user.nome }}</td>
-                        <td class="text-center">
-                            <div class="button-group">
-                                <button class="btn btn-default btn-sm" ng-click="vm.loadUser(user)"><i class="fa fa-edit">Editar</i></button>
-                                <button class="btn btn-danger btn-sm" ng-click="vm.removeUser(user)"><i class="fa fa-remove">Apagar</i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        -->
-
         <form name="formUser">
             <div class="col-md4">
                 <div class="panel panel-default">
@@ -35,33 +9,49 @@
                     <div class="panel-body">
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
                             <label for="nome">Nome Completo</label>
-                            <select ng-model="vm.user.nome" ng-options="x for x in vm.user.nome"
+                            <input ng-model="vm.user.nome" 
                                     ng-minlength="6"
                                     ng-maxlength="100"
                                     class="form-control"
                                     id="nome"
                                     name="nome"
                                     placeholder="Ex.: José da Silva Saurus"
-                                    required >
-                            </select>
+                                    required />
+                            <div class="alert-danger">
+                                <div ng-messages="formUser.nome.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
                         </div>
 						
 						<div class="form-group" ng-class="{ 'has-error' : apelido.$invalid }">
                             <label for="apelido">Apelido</label>
-                            <select ng-model="vm.user.apelido" ng-options="x for x in vm.user.apelido"
+                            <input ng-model="vm.user.apelido" 
                                     ng-minlength="3"
+                                   ng-maxlength="50"
                                     class="form-control"
                                     id="apelido"
                                     name="apelido"
                                     placeholder="Ex.: jsSaurus"
-                                    required></select>
+                                    required/>
+                            <div class="alert-danger">
+                                <div ng-messages="formUser.apelido.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
                         </div>
 						
 						<div class="form-group" ng-class="{ 'has-error' : senha.$invalid }">
                             <label for="senha">Senha</label>
                             <input ng-model="vm.user.senha"
                                     ng-minlength="6"
-                                    ng-maxlength="100"
+                                    ng-maxlength="20"
                                     type="password"
                                     class="form-control"
                                     id="senha"

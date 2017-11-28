@@ -10,7 +10,7 @@
             };
     });*/
     
-    UserCreateCtrl.$inject = ['$scope', '$location', 'UserCreateCtrl'];
+    UserCreateCtrl.$inject = ['$scope', '$location', 'UserFactory'];
 
     function UserCreateCtrl($scope, $location, UserFactory) {
         var vm = this;

@@ -28,9 +28,9 @@ namespace DevTeamUtils.Api.Models
         {
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
             Nome = getTokenValue(json, "nome");
-            Apelido = getTokenValue(json, "telefone");
-            Senha = getTokenValue(json, "cargo");
-            Email = getTokenValue(json, "local");
+            Apelido = getTokenValue(json, "apelido");
+            Senha = getTokenValue(json, "senha");
+            Email = getTokenValue(json, "email");
 
             //Exemplo para pegar boolean
             /*

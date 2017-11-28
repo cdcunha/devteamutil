@@ -1,8 +1,6 @@
 ﻿(function () {
     'use strict';
     
-    //var SETTINGS = { 'SERVICE_URL': 'http://localhost:18066/api/Conexao' };
-    //var SETTINGS = { 'SERVICE_URL': 'http://AMLNOTPR398HT3:51640/api/Conexao' };
     var SETTINGS = { 'SERVICE_URL': window.location.protocol + '//' + window.location.host + '/api/User' };
     
     angular.module('chatDevTeam').factory('UserFactory', UserFactory);
@@ -46,8 +44,8 @@
             return $http.delete(SETTINGS.SERVICE_URL + '/' + user.id, $rootScope.header);
         }
 
-        function login(login) {
-            return $http.post(SETTINGS.SERVICE_URL + '/' + login, $rootScope.header);
+        function login(loginData) {
+            return $http.post(SETTINGS.SERVICE_URL + '/Login', loginData, $rootScope.header);
         }
     }
 })();

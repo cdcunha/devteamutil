@@ -19,32 +19,49 @@
                         
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
                             <label for="nome">Nome Completo</label>
-                            <select ng-model="vm.user.nome" ng-options="x for x in vm.user.nome"
-                                    ng-minlength="6"
-                                    ng-maxlength="100"
-                                    class="form-control"
-                                    id="nome"
-                                    name="nome"
-                                    placeholder="Ex.: José da Silva Saurus"
-                                    required></select>
+                            <input ng-model="vm.user.nome"
+                                   ng-minlength="6"
+                                   ng-maxlength="100"
+                                   class="form-control"
+                                   id="nome"
+                                   name="nome"
+                                   placeholder="Ex.: José da Silva Saurus"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formUser.nome.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group" ng-class="{ 'has-error' : apelido.$invalid }">
                             <label for="apelido">Apelido</label>
-                            <select ng-model="vm.user.apelido" ng-options="x for x in vm.user.apelido"
-                                    ng-minlength="3"
-                                    class="form-control"
-                                    id="apelido"
-                                    name="apelido"
-                                    placeholder="Ex.: jsSaurus"
-                                    required></select>
+                            <input ng-model="vm.user.apelido"
+                                   ng-minlength="3"
+                                   ng-maxlength="50"
+                                   class="form-control"
+                                   id="apelido"
+                                   name="apelido"
+                                   placeholder="Ex.: jsSaurus"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formUser.apelido.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group" ng-class="{ 'has-error' : senha.$invalid }">
                             <label for="senha">Senha</label>
                             <input ng-model="vm.user.senha"
                                    ng-minlength="6"
-                                   ng-maxlength="100"
+                                   ng-maxlength="20"
                                    type="password"
                                    class="form-control"
                                    id="senha"

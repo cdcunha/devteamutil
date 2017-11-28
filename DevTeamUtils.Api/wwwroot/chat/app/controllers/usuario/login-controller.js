@@ -2,12 +2,11 @@
     'use strict';
     angular.module('chatDevTeam').controller('UserLoginCtrl', UserLoginCtrl);
 
-    UserLoginCtrl.$inject = ['$routeParams', '$filter', '$location', 'UserFactory'];
+    UserLoginCtrl.$inject = ['$filter', '$location', 'UserFactory'];
 
-    function UserLoginCtrl($routeParams, $filter, $location, UserFactory) {
+    function UserLoginCtrl($filter, $location, UserFactory) {
         var vm = this;
-        var id = $routeParams.id;
-        vm.login = {
+        vm.loginData = {
             apelido: '',
             senha: ''
         };
@@ -16,13 +15,13 @@
         vm.cancel = cancel;
         
         function login() {
-            UserFactory.login(vm.login)
+            UserFactory.login(vm.loginData)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
                 toastr["success"]("Usuário <strong>" + response.apelido + "</strong> logado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Usuário Logado');
-                $location.path('/chat');
+                $location.path('/chat/' + vm.loginData.apelido);
             }
 
             function fail(error) {

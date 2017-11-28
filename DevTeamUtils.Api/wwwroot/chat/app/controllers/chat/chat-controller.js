@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('chatDevTeam').controller('ChatCtrl', UserLoginCtrl);
+    angular.module('chatDevTeam').controller('ChatCtrl', ChatCtrl);
 
     ChatCtrl.$inject = ['$routeParams', '$filter', '$location', 'ChatFactory'];
 
@@ -12,7 +12,8 @@
 
         vm.login = {
             apelido: '',
-            senha: ''
+            senha: '',
+            connectionId: ''
         };
 
         vm.logout = logout;

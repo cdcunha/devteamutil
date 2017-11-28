@@ -20,13 +20,12 @@ namespace DevTeamUtils.Api.Controllers
             _userRepository = context.GetUserRepository();
         }
 
-        /*[HttpGet("api/[controller]")]
+        [HttpGet("api/[controller]")]
         [EnableCors("AllowAll")]
-        public IEnumerable<Conexao> GetAll()
+        public IEnumerable<User> GetAll()
         {
             return _userRepository.GetAll();
         }
-        */
 
         [HttpGet("api/[controller]/{id}", Name = "GetUser")]
         public IActionResult GetById(Guid id)
@@ -126,7 +125,7 @@ namespace DevTeamUtils.Api.Controllers
             return new ObjectResult(user);
         }
 
-        [HttpPost("api/[controller]")]
+        [HttpPost("api/[controller]/Login")]
         [EnableCors("AllowAll")]
         public IActionResult Login([FromBody]JObject body)
         {
@@ -154,7 +153,7 @@ namespace DevTeamUtils.Api.Controllers
             return new ObjectResult(user);
         }
 
-        [HttpPost("api/[controller]")]
+        [HttpPost("api/[controller]/Logout")]
         [EnableCors("AllowAll")]
         public IActionResult Logout([FromBody]JObject body)
         {
@@ -177,6 +176,57 @@ namespace DevTeamUtils.Api.Controllers
 
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
             return new ObjectResult(logoutDTO);
+        }
+
+        [HttpPost("api/[controller]/online")]
+        [EnableCors("AllowAll")]
+        public IEnumerable<User> GetOnlineUsers([FromBody]JObject body)
+        {
+            if (id == Guid.Empty)
+            {
+                var error = new
+                {
+                    value = "O parâmetro id deve possuir um valor",
+                    status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
+                };
+                Response.StatusCode = error.status;
+                return new ObjectResult(error);
+            }
+            else
+            {
+                var user = _userRepository.Find(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                return new ObjectResult(user);
+            }
+
+
+            if (string.IsNullOrEmpty(body.ToString()))
+            {
+                return BadRequest();
+            }
+            DTO.LoginDTO loginDTO = new DTO.LoginDTO();//(((JValue)body.SelectToken("nome")).Value.ToString());
+            loginDTO.DeserializeJson(body); //Converte Json para o objeto Apoiado
+
+            //Verifica se há inconsistência nos dados
+            LoginAssertion loginAssertion = new LoginAssertion(loginDTO, true);
+            if (loginAssertion.Notifications.HasNotifications())
+            {
+                Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
+                return new ObjectResult(loginAssertion.Notifications.Notify());
+            }
+
+            var user = _userRepository.Login(loginDTO);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
+            return new ObjectResult(user);
+
+            return _userRepository.GetAll();
         }
     }
 }

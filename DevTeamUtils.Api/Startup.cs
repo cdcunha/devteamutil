@@ -39,13 +39,14 @@ namespace DevTeamUtils.Api
             services.AddMongo(Configuration.GetSection("ConnectionStrings"));
 
             services.AddMvc();
-            services.AddSignalR();
-
+            
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "DevTeam Utils", Version = "v1" });
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,12 +68,7 @@ namespace DevTeamUtils.Api
 
             app.UseCors("AllowAll");
             app.UseMvc();
-
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<Chat>("chat");
-            });
-
+            
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -84,6 +80,11 @@ namespace DevTeamUtils.Api
                 #else
                     c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "DeveTeamUtils API v1 (RELEASE)");
                 #endif
+            });
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Chat>("chat");
             });
         }
     }
