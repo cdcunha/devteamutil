@@ -84,7 +84,7 @@ namespace DevTeamUtils.Api
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<Chat>("chat");
+                routes.MapHub<Chat>("messenger");
             });
         }
     }

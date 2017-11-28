@@ -21,11 +21,11 @@
         }
 
         function onlineUsers() {
-            return $http.put(SETTINGS.SERVICE_URL, $rootScope.header);
+            return $http.get(SETTINGS.SERVICE_URL + '/online', $rootScope.header);
         }
 
         function logout(login) {
-            return $http.get(SETTINGS.SERVICE_URL + '/Logout/' + login, $rootScope.header);
+            return $http.get(SETTINGS.SERVICE_URL + '/Logout', login, $rootScope.header);
         }
     }
 })();

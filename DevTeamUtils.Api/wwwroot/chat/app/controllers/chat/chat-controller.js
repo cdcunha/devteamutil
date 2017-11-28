@@ -6,22 +6,66 @@
 
     function ChatCtrl($routeParams, $filter, $location, ChatFactory) {
         var vm = this;
-        var id = $routeParams.id;
+        var apelido = $routeParams.apelido;
 
         vm.onlineUsers = [];
 
         vm.login = {
-            apelido: '',
+            apelido: $routeParams.apelido,
             senha: '',
             connectionId: ''
         };
 
+        vm.message = '';
+        vm.connection;
+
         vm.logout = logout;
-        vm.cancel = cancel;
+        vm.send = send;
 
         activate();
 
         function activate() {
+            let transportType = signalR.TransportType.WebSockets;
+            let http = new signalR.HttpConnection('http://' + document.location.host + '/messenger', { transport: transportType });
+            vm.connection = new signalR.HubConnection(http);
+            vm.connection.start();
+
+            vm.connection.on('SendAll', (nick, message) => {
+                if (ready) {
+                    $("#msgs").append("<br/>" + nick + " says: " + message + "");
+                }
+            });
+
+            vm.connection.on('SendTo', (nick, message) => {
+                if (ready)
+                    $("#msgs").append("<br/>" + message + "");
+            });
+
+            vm.connection.on('UsersJoined', users => {
+                users.forEach(user => {
+                    appendLine('User ' + user.name + ' joined the chat');
+                    addUserOnline(user);
+                });
+            });
+
+            vm.connection.on('UsersLeft', users => {
+                users.forEach(user => {
+                    appendLine('User ' + user.name + ' left the chat');
+                    document.getElementById(user.connectionId).outerHTML = '';
+                });
+            });
+
+            vm.connection.on("message2Me", function (nick, response) {
+                if (ready) {
+                    $("#msgs").append("<br/>" + who + " says: " + msg + "");
+                }
+            });
+
+            vm.connection.on("update", function (response) {
+                if (ready)
+                    $("#msgs").append("<br/>" + response + "");
+            })
+
             getOnlineUsers();
         }
 
@@ -31,7 +75,7 @@
                 .catch(fail);
 
             function success(response) {
-                vm.conexoes = response;
+                vm.onlineUsers = response;
             }
 
             function fail(error) {
@@ -55,13 +99,13 @@
         }
 
         function logout() {
-            ChatFactory.login(vm.login)
+            ChatFactory.logout(vm.login)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
                 toastr["success"]("Usuário <strong>" + response.apelido + "</strong> deslogado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Usuário Logado');
-                $location.path('/chat');
+                $location.path('/login');
             }
 
             function fail(error) {
@@ -84,8 +128,16 @@
             }
         }
 
-        function cancel() {
-            $location.path('/login');
+        function send() {
+            if (isConnected()) {
+                var message = $("#msg").val();
+                if (message != "") {
+                    var nick = $("#name").val();
+                    //socketio.emit("sendAll", msg, $("#name").val());
+                    connection.invoke('SendAll', nick, message);
+                    $("#msg").val("");
+                }
+            }
         }
     };
 })();

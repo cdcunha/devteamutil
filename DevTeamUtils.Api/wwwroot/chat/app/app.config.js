@@ -35,6 +35,9 @@ angular.module('chatDevTeam')
                     controller: 'ChatCtrl',
                     controllerAs: 'vm',
                     templateUrl: '/chat/app/templates/Chat/chat.html'
-                });
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });;
         }
     ]);
