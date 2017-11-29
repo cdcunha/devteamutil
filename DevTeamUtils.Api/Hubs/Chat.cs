@@ -15,12 +15,12 @@ namespace DevTeamUtils.Api.Hubs
             _userRepository = context.GetUserRepository();
         }
 
-        /*public override async Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
             //await Clients.Client(Context.ConnectionId).InvokeAsync("SetUsersOnline", await GetUsersOnline());
 
             await base.OnConnectedAsync();
-        }*/
+        }
 
         public async Task OnUsersJoined()
         {

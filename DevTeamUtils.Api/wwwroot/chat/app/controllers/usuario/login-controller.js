@@ -11,10 +11,17 @@
             senha: ''
         };
 
-        vm.login = login;
+        vm.logon = logon;
         vm.cancel = cancel;
+        vm.keypress = keypress;
+
+        function keypress(keyEvent) {
+            var key = typeof event.which === "undefined" ? event.keyCode : event.which; 
+            if (key === 13)
+                vm.logon();
+        }
         
-        function login() {
+        function logon() {
             UserFactory.login(vm.loginData)
                 .success(success)
                 .catch(fail);
@@ -45,7 +52,7 @@
         }
 
         function cancel() {
-            $location.path('/login');
+            $location.path('#/');
         }
     };
 })();

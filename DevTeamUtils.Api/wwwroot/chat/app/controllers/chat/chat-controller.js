@@ -16,15 +16,25 @@
             connectionId: ''
         };
 
+        vm.canSend = true;
         vm.message = '';
         vm.connection;
 
         vm.logout = logout;
         vm.send = send;
+        vm.keypress = keypress;
 
         activate();
+        
+        function keypress(keyEvent) {
+            var key = typeof event.which === "undefined" ? event.keyCode : event.which;
+            if (key === 13)
+                vm.send();
+        }
 
         function activate() {
+            //getOnlineUsers();
+
             let transportType = signalR.TransportType.WebSockets;
             let http = new signalR.HttpConnection('http://' + document.location.host + '/messenger', { transport: transportType });
             vm.connection = new signalR.HubConnection(http);
@@ -65,8 +75,6 @@
                 if (ready)
                     $("#msgs").append("<br/>" + response + "");
             })
-
-            getOnlineUsers();
         }
 
         function getOnlineUsers() {
@@ -99,6 +107,9 @@
         }
 
         function logout() {
+            vm.canSend = false;
+            vm.connection.stop();
+
             ChatFactory.logout(vm.login)
                 .success(success)
                 .catch(fail);
@@ -129,13 +140,11 @@
         }
 
         function send() {
-            if (isConnected()) {
-                var message = $("#msg").val();
-                if (message != "") {
-                    var nick = $("#name").val();
-                    //socketio.emit("sendAll", msg, $("#name").val());
-                    connection.invoke('SendAll', nick, message);
-                    $("#msg").val("");
+            //if (isConnected())
+            {
+                if (vm.message != '') {
+                    connection.invoke('SendAll', vm.login.apelido, vm.message);
+                    vm.message = '';
                 }
             }
         }

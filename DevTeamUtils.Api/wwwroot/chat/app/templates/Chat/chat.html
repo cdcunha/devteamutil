@@ -3,20 +3,23 @@
 <div class="container-fluid">
     <div class="row content">
         <form name="formChat">
-            <div class="col-md4">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="chat panel-heading">
                         <div class="row">
                             <div class="col-sm-1 span2">
                                 <table class="table table-striped">
-                                    <tr>
-                                        <td colspan="8">
-                                            <input type="text" class="form-control" ng-model="filter_user" value="" placeholder="Filtrar..." />
-                                        </td>
-                                    </tr>
-                                    <tr ng-repeat="user in vm.onlineUsers | filter: filter_user">
-                                        <td class="text-left">{{ user.Apelido }}<input type="hidden" name="{{ user.apelido }}" id="{{ user.apelido }}" value="{{ user.connectionId }}"/></td>
-                                    </tr>
+                                    <tbody>
+                                        <tr ng-show="!(vm.onlineUsers).length">
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="filter_user" value="" placeholder="Filtrar..." />
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="user in vm.onlineUsers | filter: filter_user">
+                                            <td class="text-left">{{ contato.nome }}</td>
+                                            <td class="text-left">{{ user.Apelido }}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="col-sm-11 span4">
@@ -36,15 +39,21 @@
                 <div class="row">
                     <div id="chat" class="chat" style="height: 40px;">
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
-                            <input type="text" class="input" placeholder="Your message" id="msg" data-toggle="tooltip" title="Type your message and press ENTER to send">
-                            <input ng-model="vm.user.nome"
-                                   ng-minlength="1"
-                                   ng-maxlength="250"
-                                   class="form-control"
-                                   id="msg"
-                                   name="msg"
-                                   placeholder="Digite sua mensagem"
-                                   required />
+                            <div class="input-group">
+                                <input ng-model="vm.message" ng-minlength="1" ng-maxlength="250"
+                                       class="form-control" id="msg" name="msg" ng-keypress="vm.keypress($event)"
+                                       placeholder="Digite sua mensagem"
+                                       required />
+                                <a ng-href="vm.send()" ng-disabled="formSend.$invalid || !vm.canSend"
+                                   class="input-group-addon btn btn-success"
+                                   data-toggle="tooltip" title="Enviar mensagem">
+                                    <span class="glyphicon glyphicons-send"></span>
+                                </a>
+                                <a ng-href="vm.logout()" class="input-group-addon btn btn-danger "
+                                   data-toggle="tooltip" title="Desconectar do Chat">
+                                    <span class="glyphicon glyphicons-log-out"></span>
+                                </a>
+                            </div>    
                             <div class="alert-danger">
                                 <div ng-messages="formUser.nome.$error">
                                     <div ng-repeat="errorMessage in errorMessages">
@@ -53,29 +62,14 @@
                                     <div ng-messages-include="app/templates/messages.html"></div>
                                 </div>
                             </div>
-                            <input type="button" name="send" id="send" value="Send" class="btn btn-success">
-                            <input type="button" name="logoff" id="logoff" value="Disconnect" class="btn btn-danger">
-                                                        
-                            <p class="text-center">
-                                <a ng-href="{{vm.send()}}" ng-disabled="formSend.$invalid" 
-                                   class="btn btn-group btn-success btn-lg active" 
-                                   data-toggle="tooltip" title="Enviar mensagem">
-                                    <span class="glyphicon glyphicons-send"></span>
-                                </a>
-
-                                <a ng-href="{{vm.logout()}}" class="btn btn-group btn-danger btn-lg" 
-                                   data-toggle="tooltip" title="Desconectar">
-                                    <span class="glyphicon glyphicons-log-out"></span>
-                                </a>
-                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</form>
-
+</div>
+<!--
     <script type="text/javascript">
         /*let transportType = signalR.TransportType.WebSockets;
         let http = new signalR.HttpConnection('http://' + document.location.host + '/messenger', { transport: transportType });
@@ -94,24 +88,25 @@
             }
         }*/
 
-        function isConnected() {
+        //function isConnected() {
             /*if (!socketio.connected)
             {
                 alert('Sorry, the connection was lost');
             }
             return socketio.connected;
             */
-            return true;
-        }
+            //return true;
+        //}
 
-        $(document).ready(function () {
-            var ready = false;
+        //$(document).ready(function () {
+            //var ready = false;
 
             //$(".chat").hide();
-            $("#name").focus();
+            /*$("#name").focus();
             $("form").submit(function (event) {
                 event.preventDefault();
             });
+            */
 
             //connection.start();
 
@@ -171,7 +166,7 @@
             });
             */
 
-            $("#send").click(function () {
+            /*$("#send").click(function () {
                 if (isConnected()) {
                     var message = $("#msg").val();
                     if (message != "") {
@@ -181,7 +176,7 @@
                         $("#msg").val("");
                     }
                 }
-            });
+            });            
             //If user press enter
             $("#msg").keypress(function (e) {
                 if (e.which == 13) {
@@ -199,5 +194,7 @@
                 connection.stop();
                 location.reload(true)
             });
-        })
+            */
+        //})
     </script>
+-->
