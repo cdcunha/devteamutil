@@ -23,9 +23,18 @@
         vm.logout = logout;
         vm.send = send;
         vm.keypress = keypress;
+        vm.join = join;
 
         activate();
-        
+
+        /*angular.element(function () {
+            console.log('page loading completed');
+        });*/
+
+        function join() {
+            vm.connection.invoke('Join', vm.login.apelido);
+        }
+                
         function keypress(keyEvent) {
             var key = typeof event.which === "undefined" ? event.keyCode : event.which;
             if (key === 13)
@@ -35,20 +44,21 @@
         function activate() {
             //getOnlineUsers();
 
+            /*vm.on('$viewContentLoaded', function () {
+                vm.connection.invoke('Join', vm.login.apelido);
+            });*/
+            
             let transportType = signalR.TransportType.WebSockets;
             let http = new signalR.HttpConnection('http://' + document.location.host + '/messenger', { transport: transportType });
             vm.connection = new signalR.HubConnection(http);
             vm.connection.start();
 
             vm.connection.on('SendAll', (nick, message) => {
-                if (ready) {
-                    $("#msgs").append("<br/>" + nick + " says: " + message + "");
-                }
+                $("#msgs").append("<br/>" + nick + " says: " + message + "");
             });
 
             vm.connection.on('SendTo', (nick, message) => {
-                if (ready)
-                    $("#msgs").append("<br/>" + message + "");
+                $("#msgs").append("<br/>" + message + "");
             });
 
             vm.connection.on('UsersJoined', users => {
@@ -66,14 +76,11 @@
             });
 
             vm.connection.on("message2Me", function (nick, response) {
-                if (ready) {
-                    $("#msgs").append("<br/>" + who + " says: " + msg + "");
-                }
+                $("#msgs").append("<br/>" + nick + " says: " + response + "");
             });
 
             vm.connection.on("update", function (response) {
-                if (ready)
-                    $("#msgs").append("<br/>" + response + "");
+                $("#msgs").append("<br/>" + response + "");
             })
         }
 

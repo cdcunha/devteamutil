@@ -68,6 +68,7 @@ namespace DevTeamUtils.Api
 
             app.UseCors("AllowAll");
             app.UseMvc();
+            app.UseOwin();
             
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

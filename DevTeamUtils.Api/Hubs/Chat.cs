@@ -44,18 +44,20 @@ namespace DevTeamUtils.Api.Hubs
                 message);
         }
 
-        public async Task Join()
+        public async Task Join(string apelido)
         {   
             List<string> excludedIds = new List<string> { Context.ConnectionId };
-            string message = Context.User.Identity.Name + " has join the server.";
-            await Clients.Client(Context.ConnectionId).InvokeAsync("messageMe", Context.User.Identity.Name);
+
+            string message = apelido + " has join the server."; //Context.User.Identity.Name + " has join the server.";
+            string message2Me = "You joined the server.";
+            await Clients.Client(Context.ConnectionId).InvokeAsync("message2Me", "Server", message2Me);//Context.User.Identity.Name);
             await Clients.AllExcept(excludedIds).InvokeAsync("update", message);
-            foreach (System.Security.Principal.IIdentity identity in Context.User.Identities)
+            /*foreach (System.Security.Principal.IIdentity identity in Context.User.Identities)
             {
                 //Context.Connection.
                 string name = identity.Name;
                 //identity.
-            }
+            }*/
         }
     }
 }
