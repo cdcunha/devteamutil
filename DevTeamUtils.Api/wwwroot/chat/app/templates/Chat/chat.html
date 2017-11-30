@@ -1,5 +1,4 @@
 ﻿<h3>Login</h3>
- 
 <div class="container-fluid">
     <div class="row content">
         <form name="formChat">
@@ -9,15 +8,15 @@
                         <div class="row">
                             <div class="col-sm-1 span2">
                                 <table class="table table-striped">
+                                    <thead>
+                                        <th class="text-left">Nome</th>
+                                    </thead>
                                     <tbody>
-                                        <tr ng-show="!(vm.onlineUsers).length">
-                                            <td>
-                                                <input type="text" class="form-control" ng-model="filter_user" value="" placeholder="Filtrar..." />
-                                            </td>
-                                        </tr>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="filter_user" value="" placeholder="Filtrar..." />
+                                        </td>
                                         <tr ng-repeat="user in vm.onlineUsers | filter: filter_user">
-                                            <td class="text-left">{{ contato.nome }}</td>
-                                            <td class="text-left">{{ user.Apelido }}</td>
+                                            <td class="text-left">{{ user.apelido }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -31,43 +30,42 @@
             </div>
         </form>
     </div>
-</div>
-<div name="formSend">
-    <div class="container-fluid">
-        <div class="panel panel-default">
-            <div class="panel-footer">
-                <div class="row">
-                    <div id="chat" class="chat" style="height: 40px;">
-                        <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
-                            <div class="input-group">
-                                <input ng-model="vm.message" ng-minlength="1" ng-maxlength="250"
-                                       class="form-control" id="msg" name="msg" ng-keypress="vm.keypress($event)"
-                                       placeholder="Digite sua mensagem"
-                                       required />
-                                <a ng-href="vm.send()" ng-disabled="formSend.$invalid || !vm.canSend"
-                                   class="input-group-addon btn btn-success"
-                                   data-toggle="tooltip" title="Enviar mensagem">
-                                    <span class="glyphicon glyphicons-send"></span>
-                                </a>
-                                <a ng-href="vm.logout()" class="input-group-addon btn btn-danger "
-                                   data-toggle="tooltip" title="Desconectar do Chat">
-                                    <span class="glyphicon glyphicons-log-out"></span>
-                                </a>
-                            </div>    
-                            <div class="alert-danger">
-                                <div ng-messages="formUser.nome.$error">
-                                    <div ng-repeat="errorMessage in errorMessages">
-                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+    <div class="row content">
+        <form name="formSend">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
+                        <!--div class="panel-heading text-left"></div>-->
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input ng-model="vm.message" ng-minlength="1" ng-maxlength="250"
+                                           type="text" class="form-control" id="msg" name="msg" 
+                                           ng-keypress="vm.keypress($event)"
+                                           placeholder="Digite sua mensagem" required />
+                                    <a ng-href="vm.send()" ng-disabled="formSend.$invalid || !vm.canSend" my-link="linkEnabled"  
+                                       class="input-group-addon btn btn-success" data-toggle="tooltip" title="Enviar mensagem">
+                                        <span class="glyphicon glyphicon-send"></span>
+                                    </a>
+                                    <a ng-href="vm.logout()" class="input-group-addon btn btn-danger"
+                                       data-toggle="tooltip" title="Desconectar do Chat">
+                                        <span class="glyphicon glyphicon-log-out"></span>
+                                    </a>
+                                </div>
+                                <div class="alert-danger">
+                                    <div ng-messages="formUser.nome.$error">
+                                        <div ng-repeat="errorMessage in errorMessages">
+                                            <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                        </div>
+                                        <div ng-messages-include="app/templates/messages.html"></div>
                                     </div>
-                                    <div ng-messages-include="app/templates/messages.html"></div>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-success" ng-click="vm.join()">Join</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <!--
