@@ -6,7 +6,7 @@
     SETTINGS = { 'SERVICE_URL': window.location.protocol + '//' + window.location.host + '/' };
 
     angular.module('devTeamUtil').constant('SETTINGS', SETTINGS);
-    
+
     angular.module('devTeamUtil').directive('ageLimit', function () {
         return {
             link: function ($scope, $element, $attrs, ngModelCtrl) {
@@ -63,4 +63,4 @@
         };
     });
 
-})
+});

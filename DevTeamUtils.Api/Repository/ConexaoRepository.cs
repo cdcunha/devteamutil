@@ -15,8 +15,8 @@ namespace DevTeamUtils.Api.Repository
         {
             _context = context;
             var resultado = _context.Conexoes.Find(FilterDefinition<Conexao>.Empty).Skip(1);
-            if (!resultado.Any())
-                Add(new Conexao());
+            //if (!resultado.Any())
+            //    Add(new Conexao());
         }
 
         public void Add(Conexao conexao)
@@ -89,32 +89,6 @@ namespace DevTeamUtils.Api.Repository
             string iniText = Utils.IniTextHelper.CreateIniText(userName, password);
             byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(iniText);
             return new System.IO.MemoryStream(byteArray);
-        }
-
-        public Conexao TestConnection(Conexao conexao)
-        {
-            string connectionString = Utils.Connection.GetConnectionString(conexao);
-            string msg = Utils.Connection.TestConnection(connectionString);
-
-            string status = "";
-            if (msg.Contains("Conectado com sucesso!"))
-            {
-                status = "Conectado com sucesso!";
-            }
-            else
-            {
-                if (msg.Substring(0, 1) == "\n")
-                    msg = msg.Substring(1, msg.Length - 1);
-                string[] arr = msg.Split('\n');
-
-                status = arr[arr.Length - 1];
-            }
-
-            conexao.DataStatus = DateTime.Now;
-            conexao.Status = status;
-
-            Update(conexao);
-            return conexao;
         }
     }
 }

@@ -15,7 +15,6 @@ namespace DevTeamUtils.Api
             
             Conexoes = (_mongoDatabase.GetCollection<Conexao>("Conexao")) as MongoCollectionBase<Conexao>;
             Contatos = (_mongoDatabase.GetCollection<Contato>("Contato")) as MongoCollectionBase<Contato>;
-            Users = (_mongoDatabase.GetCollection<User>("User")) as MongoCollectionBase<User>;
         }
 
         public IConexaoRepository GetConexaoRepository()
@@ -28,13 +27,7 @@ namespace DevTeamUtils.Api
             return new ContatoRepository(this);
         }
 
-        public IUserRepository GetUserRepository()
-        {
-            return new UserRepository(this);
-        }
-
         public MongoCollectionBase<Conexao> Conexoes { get; set; }
         public MongoCollectionBase<Contato> Contatos { get; set; }
-        public MongoCollectionBase<User> Users { get; set; }
     }
 }

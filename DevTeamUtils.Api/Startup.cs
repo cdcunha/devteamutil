@@ -38,6 +38,8 @@ namespace DevTeamUtils.Api
 
             services.AddMongo(Configuration.GetSection("ConnectionStrings"));
 
+            services.AddSingleton<IConfiguration>(Configuration);
+            
             services.AddMvc();
             
             // Register the Swagger generator, defining one or more Swagger documents
@@ -68,7 +70,6 @@ namespace DevTeamUtils.Api
 
             app.UseCors("AllowAll");
             app.UseMvc();
-            app.UseOwin();
             
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -85,7 +86,7 @@ namespace DevTeamUtils.Api
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<Chat>("messenger");
+                routes.MapHub<StatusDb>("statusDB");
             });
         }
     }

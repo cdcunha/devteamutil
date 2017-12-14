@@ -14,8 +14,8 @@ namespace DevTeamUtils.Api.Repository
         {
             _context = context;
             var resultado = _context.Contatos.Find(FilterDefinition<Contato>.Empty).Skip(1);
-            if (!resultado.Any())
-                Add(new Contato());
+            //if (!resultado.Any())
+            //    Add(new Contato());
         }
 
         public void Add(Contato contato)

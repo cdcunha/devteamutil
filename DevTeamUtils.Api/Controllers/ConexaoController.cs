@@ -58,31 +58,6 @@ namespace DevTeamUtils.Api.Controllers
             return response;
         }
 
-        [HttpGet("api/[controller]/testConnection/{id}", Name = "TestConnection")]
-        public IActionResult TestConnection(Guid id)
-        {
-            var conexao = _conexaoRepository.Find(id);
-            if (conexao == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                TestConnectionAssertion testConnectionAssertion = new TestConnectionAssertion(
-                    conexao.Ip, conexao.Porta, conexao.NomeServidor,
-                    conexao.Usuario, conexao.Senha
-                    );
-                if (testConnectionAssertion.Notifications.HasNotifications())
-                {
-                    Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                    return new ObjectResult(testConnectionAssertion.Notifications.Notify());
-                }
-            }
-            
-            var item = _conexaoRepository.TestConnection(conexao);
-            return new ObjectResult(item);
-        }
-
         [HttpGet("api/[controller]/{id}", Name = "GetConexao")]
         public IActionResult GetById(Guid id)
         {

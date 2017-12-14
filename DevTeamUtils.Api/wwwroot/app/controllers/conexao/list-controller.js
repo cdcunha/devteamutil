@@ -3,7 +3,7 @@
     angular.module('devTeamUtil').controller('ConexaoListCtrl', ConexaoListCtrl);
 
     ConexaoListCtrl.$inject = ['ConexaoFactory'];
-
+    
     function ConexaoListCtrl(ConexaoFactory) {
         var vm = this;
         vm.conexoes = [];
@@ -12,6 +12,40 @@
         
         function activate() {
             getConexaos();
+            createSocketConnection();
+        }
+
+        function createSocketConnection() {
+            let transportType = signalR.TransportType.WebSockets;
+            let http = new signalR.HttpConnection('http://' + document.location.hostname + ':52854/statusDB', { transport: transportType });
+            var connection = new signalR.HubConnection(http);
+
+            connection.on('StatusDBResponse', (id, statusDB, dateStatus) => {
+                vm.conexoes.forEach(function (conexao) {
+                    if (conexao.id === id) {
+                        vm.conexao.status = statusDB;
+                        vm.conexao.dataStatus = dateStatus;
+                    }
+                });
+            });
+
+            connection.start();
+
+            vm.conexoes.forEach(function (conexao) {
+                if (conexao.id !== null) {
+                    connection.invoke('GetStatusDB', conexao.id);
+                }
+            })
+            //Call the server side method for every 10 minutes
+            var minutes = 10; //Interval in minutes
+            var interval = minutes * 60 * 1000; //Convert Minutes to miliseconds
+            setInterval(function () {
+                vm.conexoes.forEach(function (conexao) {
+                    if (conexao.id !== null) {
+                        connection.invoke('GetStatusDB', conexao.id);
+                    }
+                });
+            }, interval); 
         }
 
         function getConexaos() {
