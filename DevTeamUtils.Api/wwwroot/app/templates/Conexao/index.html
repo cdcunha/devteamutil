@@ -33,7 +33,16 @@
             <td class="text-left">{{ conexao.porta }}</td>
             <td class="text-left">{{ conexao.usuario }}</td>
             <td class="text-left">{{ conexao.senha }}</td>
-			<td class="text-left">{{ conexao.status }}</td>
+			<td class="text-left">
+                <div ng-if="conexao.status.toLowerCase().indexOf('erro') >= 0">
+                    Erro <a href="javascript:alert('{{ conexao.status }}');" class="btn btn-xs btn-default" title="Mostrar Detalhe"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div ng-if="conexao.status.toLowerCase().indexOf('erro') < 0">
+                    <div ng-if="conexao.status != "">
+                        OK <a href="javascript:alert('{{ conexao.status }}');" class="btn btn-xs btn-default" title="Mostrar Detalhe"><span class="glyphicon glyphicon-info-sign"></span></a>
+                    </div>
+                </div>
+            </td>
 			<td class="text-left">{{ conexao.dataStatus | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">

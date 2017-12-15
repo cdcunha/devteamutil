@@ -4,6 +4,15 @@
 
 angular.module('devTeamUtil')
     .config([
+        '$compileProvider',
+        function ($compileProvider) {
+            $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|javascript):/);
+            // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+        }
+    ]);
+
+angular.module('devTeamUtil')
+    .config([
         '$routeProvider', function ($routeProvider) {
             $routeProvider
                 /****************************************

@@ -11,41 +11,41 @@
         activate();
         
         function activate() {
-            getConexaos();
-            createSocketConnection();
+            getConexaos();            
         }
 
         function createSocketConnection() {
             let transportType = signalR.TransportType.WebSockets;
-            let http = new signalR.HttpConnection('http://' + document.location.hostname + ':52854/statusDB', { transport: transportType });
+            let http = new signalR.HttpConnection('http://' + document.location.host + '/statusDB', { transport: transportType });
             var connection = new signalR.HubConnection(http);
 
             connection.on('StatusDBResponse', (id, statusDB, dateStatus) => {
                 vm.conexoes.forEach(function (conexao) {
                     if (conexao.id === id) {
-                        vm.conexao.status = statusDB;
-                        vm.conexao.dataStatus = dateStatus;
+                        conexao.status = statusDB;
+                        conexao.dataStatus = dateStatus;
                     }
                 });
             });
 
-            connection.start();
-
-            vm.conexoes.forEach(function (conexao) {
-                if (conexao.id !== null) {
-                    connection.invoke('GetStatusDB', conexao.id);
-                }
-            })
-            //Call the server side method for every 10 minutes
-            var minutes = 10; //Interval in minutes
-            var interval = minutes * 60 * 1000; //Convert Minutes to miliseconds
-            setInterval(function () {
+            $.when(connection.start()).done(function () {
                 vm.conexoes.forEach(function (conexao) {
                     if (conexao.id !== null) {
-                        connection.invoke('GetStatusDB', conexao.id);
+                        if (connection.connection.connectionState === 2)
+                            connection.invoke('GetStatusDB', conexao.id);
                     }
                 });
-            }, interval); 
+                //Call the server side method for every 10 minutes
+                var minutes = 10; //Interval in minutes
+                var interval = minutes * 60 * 1000; //Convert Minutes to miliseconds
+                setInterval(function () {
+                    vm.conexoes.forEach(function (conexao) {
+                        if (conexao.id !== null) {
+                            connection.invoke('GetStatusDB', conexao.id);
+                        }
+                    });
+                }, interval);
+            });
         }
 
         function getConexaos() {
@@ -61,6 +61,7 @@
                         conexao.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                     }
                 });*/
+                createSocketConnection();
             }
 
             function fail(error) {
