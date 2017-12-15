@@ -38,7 +38,7 @@
                     Erro <a href="javascript:alert('{{ conexao.status }}');" class="btn btn-xs btn-default" title="Mostrar Detalhe"><span class="glyphicon glyphicon-info-sign"></span></a>
                 </div>
                 <div ng-if="conexao.status.toLowerCase().indexOf('erro') < 0">
-                    <div ng-if="conexao.status != "">
+                    <div ng-if="conexao.status != ''">
                         OK <a href="javascript:alert('{{ conexao.status }}');" class="btn btn-xs btn-default" title="Mostrar Detalhe"><span class="glyphicon glyphicon-info-sign"></span></a>
                     </div>
                 </div>
