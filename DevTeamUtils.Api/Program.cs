@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-//using Microsoft.AspNetCore.Hosting.WindowsServices;
-using System.Diagnostics;
-using System.IO;
 
 namespace DevTeamUtils.Api
 {
@@ -32,10 +29,13 @@ namespace DevTeamUtils.Api
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                #if RELEASE
+#if RELEASE
+                .UseKestrel()
+                .UseContentRoot(System.IO.Directory.GetCurrentDirectory())
+                .UseIISIntegration()
                 .PreferHostingUrls(false)
                 .UseUrls("http://*:51640")
-                #endif
+#endif          
                 .UseStartup<Startup>()
                 .Build();
     }
