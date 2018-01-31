@@ -15,7 +15,7 @@
         }
 
         function createSocketConnection() {
-            let transportType = signalR.TransportType.WebSockets;
+            let transportType = signalR.TransportType.LongPolling;
             let http = new signalR.HttpConnection('http://' + document.location.host + '/statusDB', { transport: transportType });
             var connection = new signalR.HubConnection(http);
 
@@ -27,8 +27,8 @@
                     }
                 });
             });
-
-            $.when(connection.start()).done(function () {
+            
+            connection.start().then(() => {
                 vm.conexoes.forEach(function (conexao) {
                     if (conexao.id !== null) {
                         if (connection.connection.connectionState === 2)
