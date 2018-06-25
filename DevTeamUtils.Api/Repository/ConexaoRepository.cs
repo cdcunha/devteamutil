@@ -1,9 +1,8 @@
-﻿using MongoDB.Driver;
-using DevTeamUtils.Api.Models;
+﻿using DevTeamUtils.Api.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DevTeamUtils.Api.Repository
 {
@@ -86,9 +85,7 @@ namespace DevTeamUtils.Api.Repository
 
         public System.IO.Stream DownloadIniFile(string userName, string password)
         {
-            string iniText = Utils.IniTextHelper.CreateIniText(userName, password);
-            byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(iniText);
-            return new System.IO.MemoryStream(byteArray);
+            return Utils.FileHelper.CreateIniText(userName, password);
         }
     }
 }

@@ -50,7 +50,7 @@
                 .catch(fail);
 
             function success(response) {
-                toastr["success"]("Download concluído com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Conexão Removida');
+                toastr["success"]("Download concluído com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Download realizado');
                 saveTextAsFile(response, nomeServidor);
                 $location.path('/conexoes');
             }
