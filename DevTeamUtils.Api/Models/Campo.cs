@@ -1,14 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DevTeamUtils.Api.Enums;
+using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
 
 namespace DevTeamUtils.Api.Models
 {
     [DataContract]
-    public class Campo : BaseModel
+    public class Campo : Base
     {
-        [DataMember]
-        public System.Guid TabelaId { get; set; }
-
         [DataMember]
         public string Nome { get; set; }
 
@@ -16,7 +14,10 @@ namespace DevTeamUtils.Api.Models
         public string Descricao { get; set; }
 
         [DataMember]
-        public string Tipo { get; set; } //String, Date, Integer, Blob
+        public EnumAtributoCampo Atributo { get; set; }
+
+        [DataMember]
+        public EnumTipoCampo Tipo { get; set; } 
 
         [DataMember]
         public int Tamanho { get; set; }
@@ -26,9 +27,6 @@ namespace DevTeamUtils.Api.Models
 
         [DataMember]
         public bool NotNull { get; set; }
-
-        [DataMember]
-        public string Constraint { get; set; } //PK, FK, Default
 
         [DataMember]
         public string MnemonicoRefFk { get; set; }
@@ -41,9 +39,16 @@ namespace DevTeamUtils.Api.Models
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
             Nome = getTokenValue(json, "nome");
             Descricao = getTokenValue(json, "descricao");
-            //TypeScrypt = getTokenValue(json, "typeScrypt");
-            //Mnemonico = getTokenValue(json, "mnemonico");
-            //Script = getTokenValue(json, "script");
+            Tipo = (EnumTipoCampo)System.Enum.Parse(typeof(EnumTipoCampo), getTokenValue(json, "tipo"));
+            Tamanho = int.Parse(getTokenValue(json, "tamanho"));
+            Valor = getTokenValue(json, "valor");
+            if (!string.IsNullOrEmpty(getTokenValue(json, "notNull")))
+            {
+                NotNull = System.Convert.ToBoolean(getTokenValue(json, "notNull"));
+            }            
+            Atributo = (EnumAtributoCampo)System.Enum.Parse(typeof(EnumAtributoCampo), getTokenValue(json, "atributo"));
+            MnemonicoRefFk = getTokenValue(json, "mnemonicoRefFk");
+            FieldRefFk = getTokenValue(json, "fieldRefFk");
         }
     }
 }

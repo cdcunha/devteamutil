@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DevTeamUtils.Api.Repository
 {
@@ -22,7 +23,8 @@ namespace DevTeamUtils.Api.Repository
 
         public Projeto Find(Guid id)
         {
-            var resultado = _context.Projetos.Find(Builders<Projeto>.Filter.Eq("_id", id)).FirstOrDefault();
+            //var resultado = _context.Projetos.Find(Builders<Projeto>.Filter.Eq("_id", id)).FirstOrDefault();
+            var resultado = _context.Projetos.AsQueryable().Where(p => p.Id == id).SingleOrDefault();
             return resultado;
         }
 

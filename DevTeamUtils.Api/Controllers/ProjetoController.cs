@@ -1,4 +1,5 @@
-﻿using DevTeamUtils.Api.Models;
+﻿using DevTeamUtils.Api.Assertions;
+using DevTeamUtils.Api.Models;
 using DevTeamUtils.Api.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -122,7 +123,7 @@ namespace DevTeamUtils.Api.Controllers
             return new ObjectResult(projeto);
         }
         
-        [HttpGet("api/[controller]/download/{id}", Name = "DownloadIniFile")]
+        [HttpGet("api/[controller]/download/{id}", Name = "DownloadPasso")]
         public IActionResult Download(Guid id)
         {
             var projeto = _projetoRepository.Find(id);
@@ -133,11 +134,11 @@ namespace DevTeamUtils.Api.Controllers
             else
             {
                 //Verifica se há inconsistência nos dados
-                IniFileAssertion iniFileAssertion = new IniFileAssertion(projeto.Usuario, projeto.Senha);
-                if (iniFileAssertion.Notifications.HasNotifications())
-                {
+                ArquivoPassoAssertion arquivoPassoAssertion = new ArquivoPassoAssertion(projeto.Passo, projeto.Validado);
+                if (arquivoPassoAssertion.Notifications.HasNotifications())
+                {   
                     Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                    return new ObjectResult(iniFileAssertion.Notifications.Notify());
+                    return new ObjectResult(arquivoPassoAssertion.Notifications.Notify());
                 }
             }
 

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace DevTeamUtils.Api.Models
@@ -26,10 +27,36 @@ namespace DevTeamUtils.Api.Models
         public string Passo { get; set; }
 
         [DataMember]
-        public bool Validado { get; set; }
+        public bool Validado {
+            get
+            {
+                bool validado = true;
+                if (Tabelas != null)
+                {
+                    for (int i = 0; i <= Tabelas.Count - 1; i++)
+                    {
+                        if (!Tabelas[i].Validado)
+                        {
+                            validado = Tabelas[i].Validado;
+                        }
+                    }
+                }
+                else
+                {
+                    validado = false;
+                }
+                return validado;
+            }
+            private set { } }
+
+        [DataMember]
+        public List<Tabela> Tabelas { get; private set; }
 
         [BsonConstructor]
-        public Projeto() : base() { }
+        public Projeto() : base()
+        {
+            List<Tabela> Tabelas = new List<Tabela>();
+        }
 
         public void DeserializeJson(JObject json)
         {
@@ -40,7 +67,7 @@ namespace DevTeamUtils.Api.Models
             Tarefa = int.Parse(getTokenValue(json, "tarefa"));
             Descricao = getTokenValue(json, "descricao");
             Passo = getTokenValue(json, "passo");
-
+            Validado = false;
             if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))
                 Validado = System.Convert.ToBoolean(getTokenValue(json, "validado"));
         }

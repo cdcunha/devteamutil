@@ -1,0 +1,127 @@
+﻿<h3>Edição da Campo</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <form name="formCampo">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Campo</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="id">Id</label>
+                            <input ng-model="vm.campo.id"
+                                   type="text"
+                                   class="form-control"
+                                   id="id"
+                                   name="id"
+                                   readonly />
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
+                            <label for="nomeServidor">Nome do Campo</label>
+                            <input ng-model="vm.campo.nome"
+                                   ng-minlength="3"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="nome"
+                                   name="nome"
+                                   placeholder="Ex.: Auto Custo"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.nome.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : codigo.$invalid }">
+                            <label for="ip">Código</label>
+                            <input ng-model="vm.campo.codigo"
+                                   ng-minlength="1"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="codigo"
+                                   name="codigo"
+                                   placeholder="Ex.: 57"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.codigo.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : autor.$invalid }">
+                            <label for="porta">Autor</label>
+                            <input ng-model="vm.campo.autor"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="autor"
+                                   name="autor"
+                                   placeholder="Ex.: José"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.autor.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : tarefa.$invalid }">
+                            <label for="usuario">Tarefa</label>
+                            <input ng-model="vm.campo.tarefa"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="tarefa"
+                                   name="tarefa"
+                                   placeholder="Ex.: 4759" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.tarefa.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : descricao.$invalid }">
+                            <label for="senha">Descrição</label>
+                            <input ng-model="vm.campo.descricao"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="descricao"
+                                   name="descricao"
+                                   placeholder="Ex.: Campo Itens de Auto Custo" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.descricao.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="text-left">Criado em: {{ vm.campo.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</label>
+                        <br />
+                        <label class="text-left">Alterado em: {{ vm.campo.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</label>
+                        <br />
+                        <div class="clearfix"></div>
+
+                        <p class="text-center">
+                            <button class="btn btn-primary btn-lg" ng-click="vm.save()">
+                                Salvar
+                            </button>
+                            <button class="btn btn-secondary btn-lg" ng-click="vm.cancel()" ng-show="vm.campo.id != 0">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

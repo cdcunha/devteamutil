@@ -68,6 +68,80 @@ angular.module('devTeamUtil')
                 })
                 .otherwise({
                     redirectTo: '/'
-                });
+                })
+                /****************************************
+                * Projetos
+                *****************************************/
+                .when('/projetos', {
+                    controller: 'ProjetoListCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Projeto/index.html'
+                })
+                .when('/projetos/create', {
+                    controller: 'ProjetoCreateCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Projeto/create.html'
+                })
+                .when('/projetos/edit/:id', {
+                    controller: 'ProjetoEditCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Projeto/edit.html'
+                })
+                .when('/projetos/remove/:id', {
+                    controller: 'ProjetoRemoveCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Projeto/remove.html'
+                })
+                .when('/projetos/download/:id/:nomeServidor', {
+                    controller: 'ProjetoDownloadCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Projeto/download.html'
+                })
+                /****************************************
+                * Tabelas
+                *****************************************/
+                .when('/tabelas', {
+                    controller: 'TabelaListCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Tabela/index.html'
+                })
+                .when('/tabelas/create', {
+                    controller: 'TabelaCreateCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Tabela/create.html'
+                })
+                .when('/tabelas/edit/:id', {
+                    controller: 'TabelaEditCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Tabela/edit.html'
+                })
+                .when('/tabelas/remove/:id', {
+                    controller: 'TabelaRemoveCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Tabela/remove.html'
+                })
+                /****************************************
+                * Campos
+                *****************************************/
+                .when('/campos', {
+                    controller: 'CampoListCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Campo/index.html'
+                })
+                .when('/campos/create', {
+                    controller: 'CampoCreateCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Campo/create.html'
+                })
+                .when('/campos/edit/:id', {
+                    controller: 'CampoEditCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Campo/edit.html'
+                })
+                .when('/campos/remove/:id', {
+                    controller: 'CampoRemoveCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Campo/remove.html'
+                })
         }
     ]);
