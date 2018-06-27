@@ -9,10 +9,10 @@ namespace DevTeamUtils.Api.Models
     public class Tabela : Base
     {
         [DataMember]
-        public string Nome { get; set; }
+        public string NomeTabela { get; set; }
 
         [DataMember]
-        public string Descricao { get; set; }
+        public string DescricaoTabela { get; set; }
 
         [DataMember]
         public EnumTipoScript TipoScript { get; set; }
@@ -37,8 +37,8 @@ namespace DevTeamUtils.Api.Models
         public void DeserializeJson(JObject json)
         {
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
-            Nome = getTokenValue(json, "nome");
-            Descricao = getTokenValue(json, "descricao");
+            NomeTabela = getTokenValue(json, "nomeTabela");
+            DescricaoTabela = getTokenValue(json, "descricaoTabela");
             TipoScript = (EnumTipoScript)System.Enum.Parse(typeof(EnumTipoScript), getTokenValue(json, "tipoScript"));
             Mnemonico = getTokenValue(json, "mnemonico");
             Script = getTokenValue(json, "script");

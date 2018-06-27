@@ -8,22 +8,22 @@ namespace DevTeamUtils.Api.Models
     public class Campo : Base
     {
         [DataMember]
-        public string Nome { get; set; }
+        public string NomeCampo { get; set; }
 
         [DataMember]
-        public string Descricao { get; set; }
+        public string DescricaoCampo { get; set; }
 
         [DataMember]
         public EnumAtributoCampo Atributo { get; set; }
 
         [DataMember]
-        public EnumTipoCampo Tipo { get; set; } 
+        public EnumTipoCampo TipoCampo { get; set; } 
 
         [DataMember]
-        public int Tamanho { get; set; }
+        public int TamanhoCampo { get; set; }
 
         [DataMember]
-        public string Valor { get; set; }
+        public string ValorCampo { get; set; }
 
         [DataMember]
         public bool NotNull { get; set; }
@@ -37,11 +37,11 @@ namespace DevTeamUtils.Api.Models
         public void DeserializeJson(JObject json)
         {
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
-            Nome = getTokenValue(json, "nome");
-            Descricao = getTokenValue(json, "descricao");
-            Tipo = (EnumTipoCampo)System.Enum.Parse(typeof(EnumTipoCampo), getTokenValue(json, "tipo"));
-            Tamanho = int.Parse(getTokenValue(json, "tamanho"));
-            Valor = getTokenValue(json, "valor");
+            NomeCampo = getTokenValue(json, "nomeCampo");
+            DescricaoCampo = getTokenValue(json, "descricaoCampo");
+            TipoCampo = (EnumTipoCampo)System.Enum.Parse(typeof(EnumTipoCampo), getTokenValue(json, "tipoCampo"));
+            TamanhoCampo = int.Parse(getTokenValue(json, "tamanhoCampo"));
+            ValorCampo = getTokenValue(json, "valorCampo");
             if (!string.IsNullOrEmpty(getTokenValue(json, "notNull")))
             {
                 NotNull = System.Convert.ToBoolean(getTokenValue(json, "notNull"));
