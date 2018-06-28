@@ -10,7 +10,11 @@
         vm.projeto = {
             indTabela: 0,
             indCampo: 0,
-            tabelas: []
+            tabelas: [],
+            tabela: {
+                campos: []
+            },
+            campo: {}
         };
 
         vm.tabelaShow = false;
@@ -42,7 +46,6 @@
             function success(response) {
                 vm.projeto = response;
                 clearTabela();
-                clearCampo();
                 /*var arDate = response.dataNascimento.substring(0, 10).split('-');
                 vm.projeto.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                 */
@@ -108,10 +111,11 @@
 
         function clearTabela() {
             vm.projeto.indTabela = 0;
-            vm.projeto.tabela = {};
-            vm.projeto.tabela.tipos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-                'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
-            cancelaCampo();
+            vm.projeto.tabela = {
+                campos: []
+            };
+            vm.projeto.tabela.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+            clearCampo();
         }
 
         function clearCampo() {
@@ -119,28 +123,66 @@
             vm.projeto.campo = {};
             vm.projeto.campo.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
                 'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
-            vm.projeto.campo.tipoCampos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+            vm.projeto.campo.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
+                'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
         }
 
         function getTabela(aIndex) {
             hideAddTable();
+            //Testar Table: http://jsfiddle.net/Pixic/6Texj/
+            //              http://jsfiddle.net/Pixic/sd5318kL/
+            vm.projeto.tabelas = [];
+            vm.projeto.tabela.nomeTabela = 'NOME TABELA 1';
+            vm.projeto.tabela.descricaoTabela = 'DESC NOME TABELA 1';
+            vm.projeto.tabelas.push(vm.projeto.tabela);
+            vm.projeto.tabela.nomeTabela = 'NOME TABELA 2';
+            vm.projeto.tabela.descricaoTabela = 'DESC NOME TABELA 2';
+            vm.projeto.tabelas.push(vm.projeto.tabela);
+
+            vm.projeto.tabelas[0].campos = [];
+            vm.projeto.campo.nomeCampo = 'NOME CAMPO 1';
+            vm.projeto.campo.descricaoCampo = 'DESC NOME CAMPO 1';
+            vm.projeto.tabelas[0].campos.push(vm.projeto.campo);
+            vm.projeto.campo.nomeCampo = 'NOME CAMPO 2';
+            vm.projeto.campo.descricaoCampo = 'DESC NOME CAMPO 2';
+            vm.projeto.tabelas[0].campos.push(vm.projeto.campo);
+
+            if (aIndex = -1 || vm.projeto.tabelas == null) {
+                return;
+            }
+
             vm.projeto.indTabela = aIndex;
             vm.projeto.tabela = vm.projeto.tabelas[aIndex];
         }
 
         function getCampo(aIndex) {
             hideAddCampo();
+
+            if (aIndex = -1 || vm.projeto.tabelas == null) {
+                return;
+            }
+            if (vm.projeto.tabelas[vm.projeto.indTabela].campos == null) {
+                return;
+            }
             vm.projeto.indCampo = aIndex;
             vm.projeto.campo = vm.projeto.tabelas[vm.projeto.indTabela].campos[aIndCamp];
         }
 
         function addTabela() {
+            if (vm.projeto.tabelas === null) {
+                vm.projeto.tabelas = [];
+            }
             vm.projeto.tabelas.push(vm.projeto.tabela);
             hideAddTable();
         }
 
         function addCampo() {
-            vm.projeto.tabelas.campos.push(vm.projeto.campo);
+            if (vm.projeto.tabelas === null) {
+                vm.projeto.tabelas = [];
+                vm.projeto.tabelas.push(vm.projeto.tabela);
+            }
+            vm.projeto.indTabela = vm.projeto.tabelas.length -1;
+            vm.projeto.tabelas[vm.projeto.indTabela].campos.push(vm.projeto.campo);
             hideAddCampo();
         }
 
