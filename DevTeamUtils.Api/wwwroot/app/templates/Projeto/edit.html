@@ -137,9 +137,8 @@
                                             <td class="text-left">{{ tabela.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    <a href="#/projetos/download/{{ tabela.id }}/{{ tabela.codigo }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Validar Script"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                                    <a href="#/projetos/edit/{{ tabela.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                    <a href="#/projetos/remove/{{ tabela.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="#/projetos/edit/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="#/projetos/remove/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -193,7 +192,7 @@
 
                                         <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
                                             <label for="tipoScript">Tipo</label>
-                                            <select ng-model="tabela.sistema" ng-options="x for x in tabela.tipos"
+                                            <select ng-model="vm.projeto.tabela.tipoScript" ng-options="x for x in vm.projeto.tabela.tipos"
                                                     class="form-control"
                                                     id="tipoScript"
                                                     name="tipoScript"
@@ -265,8 +264,8 @@
                                                             <td class="text-left">{{ campo.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
                                                             <td class="text-center">
                                                                 <div class="btn-group">
-                                                                    <a href="#/tabelas/edit/{{ campo.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Campo"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                                    <a href="#/tabelas/remove/{{ campo.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Campo"><span class="glyphicon glyphicon-trash"></span></a>
+                                                                    <a href="#/tabelas/edit/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Campo"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                                    <a href="#/tabelas/remove/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Campo"><span class="glyphicon glyphicon-trash"></span></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -318,7 +317,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : atributo.$invalid }">
                                                             <label for="atributo">Atributo</label>
-                                                            <select ng-model="campo.atributo" ng-options="x for x in campo.atributos"
+                                                            <select ng-model="vm.projeto.campo.atributo" ng-options="x for x in vm.projeto.campo.atributos"
                                                                     class="form-control"
                                                                     id="atributo"
                                                                     name="atributo"
@@ -328,7 +327,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : tipoCampo.$invalid }">
                                                             <label for="tipoCampo">Tipo</label>
-                                                            <select ng-model="campo.tipoCampo" ng-options="x for x in campo.tipoCampos"
+                                                            <select ng-model="vm.projeto.campo.tipoCampo" ng-options="x for x in vm.projeto.campo.tipoCampos"
                                                                     class="form-control"
                                                                     id="tipoCampo"
                                                                     name="tipoCampo"

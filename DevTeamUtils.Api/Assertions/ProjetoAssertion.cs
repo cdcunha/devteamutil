@@ -30,12 +30,12 @@ namespace DevTeamUtils.Api.Assertions
                 for (int i = 0; i <= projeto.Tabelas.Count - 1; i++)
                 {
                     #region TabelaAssertions
-                    if (string.IsNullOrEmpty(projeto.Tabelas[i].Nome))
+                    if (string.IsNullOrEmpty(projeto.Tabelas[i].NomeTabela))
                     {
                         SetNofication("500", "Informe a Nome da tabela");
                     }
 
-                    if (string.IsNullOrEmpty(projeto.Tabelas[i].Descricao))
+                    if (string.IsNullOrEmpty(projeto.Tabelas[i].DescricaoTabela))
                     {
                         SetNofication("500", "Informe a Descrição da tabela");
                     }
@@ -61,12 +61,12 @@ namespace DevTeamUtils.Api.Assertions
                     {
                         for (int j = 0; j <= projeto.Tabelas[i].Campos.Count - 1; j++)
                         {
-                            if (string.IsNullOrEmpty(projeto.Tabelas[i].Campos[j].Nome))
+                            if (string.IsNullOrEmpty(projeto.Tabelas[i].Campos[j].NomeCampo))
                             {
                                 SetNofication("500", "Informe a Nome do Campo");
                             }
 
-                            if (string.IsNullOrEmpty(projeto.Tabelas[i].Campos[j].Descricao))
+                            if (string.IsNullOrEmpty(projeto.Tabelas[i].Campos[j].DescricaoCampo))
                             {
                                 SetNofication("500", "Informe a Descrição da tabela");
                             }
@@ -76,7 +76,7 @@ namespace DevTeamUtils.Api.Assertions
                                 SetNofication("500", "Atributo de campo Inválido");
                             }
 
-                            if (!Enum.IsDefined(typeof(Enums.EnumTipoCampo), projeto.Tabelas[i].Campos[j].Tipo))
+                            if (!Enum.IsDefined(typeof(Enums.EnumTipoCampo), projeto.Tabelas[i].Campos[j].TipoCampo))
                             {
                                 SetNofication("500", "Tipo de campo Inválido");
                             }

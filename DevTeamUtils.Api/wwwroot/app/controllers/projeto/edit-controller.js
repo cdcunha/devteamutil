@@ -7,13 +7,8 @@
     function ProjetoEditCtrl($routeParams, $filter, $location, ProjetoFactory) {
         var vm = this;
         var id = $routeParams.id;
-        var campo = {}
-        var tabela = {
-            campos: []
-        }
-        vm.projeto = {
-            tabelas: []
-        };
+        vm.projeto = {};
+
         vm.tabelaShow = false;
         vm.campoShow = false;
 
@@ -36,6 +31,13 @@
 
             function success(response) {
                 vm.projeto = response;
+                vm.projeto.tabela = {};
+                vm.projeto.tabela.tipos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
+                    'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
+                vm.projeto.campo = {};
+                vm.projeto.campo.tipoCampos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+                vm.projeto.campo.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
+                    'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
                 /*var arDate = response.dataNascimento.substring(0, 10).split('-');
                 vm.projeto.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                 */
@@ -106,5 +108,5 @@
         function cancelaCampo() {
             vm.campoShow = !vm.campoShow;
         }
-    };
+    }
 })();
