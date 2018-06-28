@@ -137,6 +137,7 @@
                                             <td class="text-left">{{ tabela.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
+                                                    <button type="button" class="btn btn-group btn-default btn-sm glyphicon-pencil" data-toggle="tooltip" title="Editar Tabela" ng-click="vm.getTabela({{$index}})"></button>
                                                     <a href="#/projetos/edit/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
                                                     <a href="#/projetos/remove/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
                                                 </div>
@@ -145,7 +146,7 @@
                                         <!--</tbody>-->
                                 </table>
                                 <button type="button" class="btn btn-success btn-lg pull-right glyphicon glyphicon-plus"
-                                        ng-click="vm.addTabela()"
+                                        ng-click="vm.getTabela(0)"
                                         ng-show="!vm.tabelaShow"
                                         data-toggle="tooltip" title="Adicionar nova Tabela"></button>
                                 <div class="panel panel-default" ng-if="vm.tabelaShow">
@@ -153,7 +154,7 @@
                                     <div class="panel-body">
                                         <div class="form-group" ng-class="{ 'has-error' : nomeTabela.$invalid }">
                                             <label for="nomeTabela">Nome da Tabela</label>
-                                            <input ng-model="tabela.nomeTabela"
+                                            <input ng-model="vm.projeto.tabela.nomeTabela"
                                                    ng-minlength="3"
                                                    ng-maxlength="100"
                                                    type="text"
@@ -174,7 +175,7 @@
 
                                         <div class="form-group" ng-class="{ 'has-error' : descricaoTabela.$invalid }">
                                             <label for="descricaoTabela">Descrição</label>
-                                            <input ng-model="tabela.descricaoTabela"
+                                            <input ng-model="vm.projeto.tabela.descricaoTabela"
                                                    ng-minlength="1"
                                                    ng-maxlength="100"
                                                    type="text"
@@ -202,7 +203,7 @@
 
                                         <div class="form-group" ng-class="{ 'has-error' : mnemonico.$invalid }">
                                             <label for="mnemonico">Mnemônico</label>
-                                            <input ng-model="tabela.mnemonico"
+                                            <input ng-model="vm.projeto.tabela.mnemonico"
                                                    ng-maxlength="100"
                                                    type="text"
                                                    class="form-control"
@@ -218,7 +219,7 @@
 
                                         <div class="form-group" ng-class="{ 'has-error' : script.$invalid }">
                                             <label for="script">Script</label>
-                                            <input ng-model="tabela.script"
+                                            <input ng-model="vm.projeto.tabela.script"
                                                    ng-maxlength="100"
                                                    type="text"
                                                    class="form-control"
@@ -264,6 +265,7 @@
                                                             <td class="text-left">{{ campo.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
                                                             <td class="text-center">
                                                                 <div class="btn-group">
+                                                                    <button type="button" class="btn btn-group btn-default btn-sm glyphicon-pencil" data-toggle="tooltip" title="Editar Campo" ng-click="vm.getCampo({{$index}})"></button>
                                                                     <a href="#/tabelas/edit/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Campo"><span class="glyphicon glyphicon-pencil"></span></a>
                                                                     <a href="#/tabelas/remove/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Campo"><span class="glyphicon glyphicon-trash"></span></a>
                                                                 </div>
@@ -272,7 +274,7 @@
                                                         <!--</tbody>-->
                                                 </table>
                                                 <button type="button" class="btn btn-success btn-lg pull-right glyphicon glyphicon-plus"
-                                                        ng-click="vm.addCampo()"
+                                                        ng-click="vm.getCampo(0)"
                                                         ng-show="!vm.campoShow"
                                                         data-toggle="tooltip" title="Adicionar novo Campo"></button>
                                                 <div class="panel panel-default" ng-if="vm.campoShow">
@@ -280,7 +282,7 @@
                                                     <div class="panel-body">
                                                         <div class="form-group" ng-class="{ 'has-error' : nomeCampo.$invalid }">
                                                             <label for="nomeCampo">Nome do Campo</label>
-                                                            <input ng-model="campo.nomeCampo"
+                                                            <input ng-model="vm.projeto.campo.nomeCampo"
                                                                    ng-minlength="3"
                                                                    ng-maxlength="100"
                                                                    type="text"
@@ -301,7 +303,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : descricaoCampo.$invalid }">
                                                             <label for="descricaoCampo">Descrição</label>
-                                                            <input ng-model="campo.descricaoCampo"
+                                                            <input ng-model="vm.projeto.campo.descricaoCampo"
                                                                    ng-maxlength="100"
                                                                    type="text"
                                                                    class="form-control"
@@ -337,7 +339,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : tamanhoCampo.$invalid }">
                                                             <label for="tamanhoCampo">Tamanho</label>
-                                                            <input ng-model="campo.tamanhoCampo"
+                                                            <input ng-model="vm.projeto.campo.tamanhoCampo"
                                                                    ng-maxlength="100"
                                                                    type="text"
                                                                    class="form-control"
@@ -353,7 +355,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : valorCampo.$invalid }">
                                                             <label for="valorCampo">Valor</label>
-                                                            <input ng-model="campo.valorCampo"
+                                                            <input ng-model="vm.projeto.campo.valorCampo"
                                                                    ng-maxlength="100"
                                                                    type="text"
                                                                    class="form-control"
@@ -369,7 +371,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : notNull.$invalid }">
                                                             <label for="notNull">Not Null</label>
-                                                            <input ng-model="campo.notNull"
+                                                            <input ng-model="vm.projeto.campo.notNull"
                                                                    type="checkbox"
                                                                    class="form-control"
                                                                    id="notNull"
@@ -383,7 +385,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : mnemonicoRefFk.$invalid }">
                                                             <label for="mnemonicoRefFk">Valor</label>
-                                                            <input ng-model="campo.mnemonicoRefFk"
+                                                            <input ng-model="vm.projeto.campo.mnemonicoRefFk"
                                                                    ng-maxlength="100"
                                                                    type="text"
                                                                    class="form-control"
@@ -399,7 +401,7 @@
 
                                                         <div class="form-group" ng-class="{ 'has-error' : fieldRefFk.$invalid }">
                                                             <label for="fieldRefFk">Valor</label>
-                                                            <input ng-model="campo.fieldRefFk"
+                                                            <input ng-model="vm.projeto.campo.fieldRefFk"
                                                                    ng-maxlength="100"
                                                                    type="text"
                                                                    class="form-control"
@@ -416,7 +418,7 @@
                                                         <div class="clearfix"></div>
 
                                                         <p class="text-center">
-                                                            <button class="btn btn-primary btn-lg" ng-click="vm.addCampo()">Adicionar</button>
+                                                            <button class="btn btn-primary btn-lg" ng-click="vm.addCampo()">Adicionar Campo</button>
                                                             <button class="btn btn-secondary btn-lg" ng-click="vm.cancelaCampo()" ng-show="campo.nome != ''">Cancelar</button>
                                                         </p>
                                                     </div>
@@ -429,7 +431,7 @@
                                                     class="btn btn-primary btn-lg"
                                                     ng-disabled="formTabela.$invalid"
                                                     ng-click="vm.addTabela()">
-                                                Adicionar
+                                                Adicionar Tabela
                                             </button>
                                             <button type="button"
                                                     class="btn btn-default btn-lg"

@@ -95,6 +95,343 @@
                             </div>
                         </div>
 
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-center">Tabelas</div>
+                            <div class="panel-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">Nome</th>
+                                            <th class="text-left">Descrição</th>
+                                            <th class="text-left">Tipo</th>
+                                            <th class="text-left">Mnemonico</th>
+                                            <th class="text-left">Script</th>
+                                            <th class="text-left">Validado</th>
+                                            <th class="text-left">Data</th>
+                                            <th class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8">
+                                                <input type="text" class="form-control" ng-model="filter_tabela" value="" placeholder="Filtrar..." />
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="tabela in vm.projeto.tabelas | filter: filter_tabela">
+                                            <td class="text-left">{{ tabela.nome }}</td>
+                                            <td class="text-left">{{ tabela.descricao }}</td>
+                                            <td class="text-left">{{ tabela.tipoScript }}</td>
+                                            <td class="text-left">{{ tabela.mnemonico }}</td>
+                                            <td class="text-left">{{ tabela.script }}</td>
+                                            <td class="text-left">{{ tabela.validado }}</td>
+                                            <td class="text-left">{{ tabela.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <a href="#/projetos/edit/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="#/projetos/remove/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--</tbody>-->
+                                </table>
+                                <button type="button" class="btn btn-success btn-lg pull-right glyphicon glyphicon-plus"
+                                        ng-click="vm.addTabela()"
+                                        ng-show="!vm.tabelaShow"
+                                        data-toggle="tooltip" title="Adicionar nova Tabela"></button>
+                                <div class="panel panel-default" ng-if="vm.tabelaShow">
+                                    <div class="panel-heading text-center">Tabela</div>
+                                    <div class="panel-body">
+                                        <div class="form-group" ng-class="{ 'has-error' : nomeTabela.$invalid }">
+                                            <label for="nomeTabela">Nome da Tabela</label>
+                                            <input ng-model="tabela.nomeTabela"
+                                                   ng-minlength="3"
+                                                   ng-maxlength="100"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="nomeTabela"
+                                                   name="nomeTabela"
+                                                   placeholder="Ex.: TB_FUNCIONARIO"
+                                                   required />
+                                            <div class="alert-danger">
+                                                <div ng-messages="formProjeto.nomeTabela.$error">
+                                                    <div ng-repeat="errorMessage in errorMessages">
+                                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                                    </div>
+                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-class="{ 'has-error' : descricaoTabela.$invalid }">
+                                            <label for="descricaoTabela">Descrição</label>
+                                            <input ng-model="tabela.descricaoTabela"
+                                                   ng-minlength="1"
+                                                   ng-maxlength="100"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="descricaoTabela"
+                                                   name="descricaoTabela"
+                                                   placeholder="Ex.: Tabela de funcionários"
+                                                   required />
+                                            <div class="alert-danger">
+                                                <div ng-messages="formProjeto.descricaoTabela.$error">
+                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
+                                            <label for="tipoScript">Tipo</label>
+                                            <select ng-model="vm.projeto.tabela.tipoScript" ng-options="x for x in vm.projeto.tabela.tipos"
+                                                    class="form-control"
+                                                    id="tipoScript"
+                                                    name="tipoScript"
+                                                    placeholder="Ex.: CREATE"
+                                                    required></select>
+                                        </div>
+
+                                        <div class="form-group" ng-class="{ 'has-error' : mnemonico.$invalid }">
+                                            <label for="mnemonico">Mnemônico</label>
+                                            <input ng-model="tabela.mnemonico"
+                                                   ng-maxlength="100"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="mnemonico"
+                                                   name="mnemonico"
+                                                   placeholder="Ex.: FUNCIO" />
+                                            <div class="alert-danger">
+                                                <div ng-messages="formProjeto.mnemonico.$error">
+                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-class="{ 'has-error' : script.$invalid }">
+                                            <label for="script">Script</label>
+                                            <input ng-model="tabela.script"
+                                                   ng-maxlength="100"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="script"
+                                                   name="script"
+                                                   placeholder="Ex.: select * from tb_funcionario" />
+                                            <div class="alert-danger">
+                                                <div ng-messages="formProjeto.script.$error">
+                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading text-center">Campos</div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-left">Nome</th>
+                                                            <th class="text-left">Descrição</th>
+                                                            <th class="text-left">Tipo</th>
+                                                            <th class="text-left">Mnemonico</th>
+                                                            <th class="text-left">Script</th>
+                                                            <th class="text-left">Validado</th>
+                                                            <th class="text-left">Data</th>
+                                                            <th class="text-center"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="8">
+                                                                <input type="text" class="form-control" ng-model="filter_Campo" value="" placeholder="Filtrar..." />
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-repeat="campo in tabela.campos | filter: filter_campo">
+                                                            <td class="text-left">{{ campo.nome }}</td>
+                                                            <td class="text-left">{{ campo.descricao }}</td>
+                                                            <td class="text-left">{{ campo.tipoScript }}</td>
+                                                            <td class="text-left">{{ campo.mnemonico }}</td>
+                                                            <td class="text-left">{{ campo.script }}</td>
+                                                            <td class="text-left">{{ campo.validado }}</td>
+                                                            <td class="text-left">{{ campo.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                                            <td class="text-center">
+                                                                <div class="btn-group">
+                                                                    <a href="#/tabelas/edit/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Campo"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                                    <a href="#/tabelas/remove/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Campo"><span class="glyphicon glyphicon-trash"></span></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <!--</tbody>-->
+                                                </table>
+                                                <button type="button" class="btn btn-success btn-lg pull-right glyphicon glyphicon-plus"
+                                                        ng-click="vm.addCampo()"
+                                                        ng-show="!vm.campoShow"
+                                                        data-toggle="tooltip" title="Adicionar novo Campo"></button>
+                                                <div class="panel panel-default" ng-if="vm.campoShow">
+                                                    <div class="panel-heading text-center">Campo</div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group" ng-class="{ 'has-error' : nomeCampo.$invalid }">
+                                                            <label for="nomeCampo">Nome do Campo</label>
+                                                            <input ng-model="campo.nomeCampo"
+                                                                   ng-minlength="3"
+                                                                   ng-maxlength="100"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="nomeCampo"
+                                                                   name="nomeCampo"
+                                                                   placeholder="Ex.: Auto Custo"
+                                                                   required />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.nomeCampo.$error">
+                                                                    <div ng-repeat="errorMessage in errorMessages">
+                                                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                                                    </div>
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : descricaoCampo.$invalid }">
+                                                            <label for="descricaoCampo">Descrição</label>
+                                                            <input ng-model="campo.descricaoCampo"
+                                                                   ng-maxlength="100"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="descricaoCampo"
+                                                                   name="descricaoCampo"
+                                                                   placeholder="Ex.: Campo Itens de Auto Custo" />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.descricaoCampo.$error">
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : atributo.$invalid }">
+                                                            <label for="atributo">Atributo</label>
+                                                            <select ng-model="vm.projeto.campo.atributo" ng-options="x for x in vm.projeto.campo.atributos"
+                                                                    class="form-control"
+                                                                    id="atributo"
+                                                                    name="atributo"
+                                                                    placeholder="Ex.: Primary Key"
+                                                                    required></select>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : tipoCampo.$invalid }">
+                                                            <label for="tipoCampo">Tipo</label>
+                                                            <select ng-model="vm.projeto.campo.tipoCampo" ng-options="x for x in vm.projeto.campo.tipoCampos"
+                                                                    class="form-control"
+                                                                    id="tipoCampo"
+                                                                    name="tipoCampo"
+                                                                    placeholder="Ex.: Integer"
+                                                                    required></select>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : tamanhoCampo.$invalid }">
+                                                            <label for="tamanhoCampo">Tamanho</label>
+                                                            <input ng-model="campo.tamanhoCampo"
+                                                                   ng-maxlength="100"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="tamanhoCampo"
+                                                                   name="tamanhoCampo"
+                                                                   placeholder="Ex.: 255" />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.tamanhoCampo.$error">
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : valorCampo.$invalid }">
+                                                            <label for="valorCampo">Valor</label>
+                                                            <input ng-model="campo.valorCampo"
+                                                                   ng-maxlength="100"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="valorCampo"
+                                                                   name="valorCampo"
+                                                                   placeholder="Ex.: Teste" />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.valorCampo.$error">
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : notNull.$invalid }">
+                                                            <label for="notNull">Not Null</label>
+                                                            <input ng-model="campo.notNull"
+                                                                   type="checkbox"
+                                                                   class="form-control"
+                                                                   id="notNull"
+                                                                   name="notNull" />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.notNull.$error">
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : mnemonicoRefFk.$invalid }">
+                                                            <label for="mnemonicoRefFk">Valor</label>
+                                                            <input ng-model="campo.mnemonicoRefFk"
+                                                                   ng-maxlength="100"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="mnemonicoRefFk"
+                                                                   name="mnemonicoRefFk"
+                                                                   placeholder="Ex.: FUNCIO" />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.mnemonicoRefFk.$error">
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-class="{ 'has-error' : fieldRefFk.$invalid }">
+                                                            <label for="fieldRefFk">Valor</label>
+                                                            <input ng-model="campo.fieldRefFk"
+                                                                   ng-maxlength="100"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="fieldRefFk"
+                                                                   name="fieldRefFk"
+                                                                   placeholder="Ex.: PK_FUNCIO" />
+                                                            <div class="alert-danger">
+                                                                <div ng-messages="formProjeto.fieldRefFk.$error">
+                                                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+
+                                                        <p class="text-center">
+                                                            <button class="btn btn-primary btn-lg" ng-click="vm.addCampo()">Adicionar</button>
+                                                            <button class="btn btn-secondary btn-lg" ng-click="vm.cancelaCampo()" ng-show="campo.nome != ''">Cancelar</button>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <p class="text-center">
+                                            <button type="button"
+                                                    class="btn btn-primary btn-lg"
+                                                    ng-disabled="formTabela.$invalid"
+                                                    ng-click="vm.addTabela()">
+                                                Adicionar
+                                            </button>
+                                            <button type="button"
+                                                    class="btn btn-default btn-lg"
+                                                    ng-click="vm.cancelaTabela()">
+                                                Cancelar
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <p class="text-center">
                             <button type="button"
                                     class="btn btn-primary btn-lg"
@@ -112,51 +449,7 @@
                 </div>
             </div>
         </form>
-        <div class="col-md-8">
-            <h3 class="text-center">Tabelas</h3>
-
-            <a href="#/tabelas/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Tabela">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-left">Nome</th>
-                        <th class="text-left">Descrição</th>
-                        <th class="text-left">Tipo</th>
-                        <th class="text-left">Mnemonico</th>
-                        <th class="text-left">Script</th>
-                        <th class="text-left">Validado</th>
-                        <th class="text-left">Data</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="8">
-                            <input type="text" class="form-control" ng-model="filter_tabela" value="" placeholder="Filtrar..." />
-                        </td>
-                    </tr>
-                    <tr ng-repeat="tabela in vm.tabelas | filter: filter_tabela">
-                        <td class="text-left">{{ tabela.nome }}</td>
-                        <td class="text-left">{{ tabela.descricao }}</td>
-                        <td class="text-left">{{ tabela.tipoScript }}</td>
-                        <td class="text-left">{{ tabela.mnemonico }}</td>
-                        <td class="text-left">{{ tabela.script }}</td>
-                        <td class="text-left">{{ tabela.validado }}</td>
-                        <td class="text-left">{{ tabela.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <a href="#/projetos/download/{{ tabela.id }}/{{ tabela.codigo }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Validar Script"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                <a href="#/projetos/edit/{{ tabela.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#/projetos/remove/{{ tabela.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <!--</tbody>-->
-            </table>
-        </div>
+        
         <!--<pre>formProjeto = {{formProjeto | json}}</pre><br />-->
     </div>
 </div>
