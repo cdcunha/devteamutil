@@ -1,12 +1,16 @@
 ﻿<h3 class="text-center">Projetos</h3>
 
-<a href="#/projetos/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Projeto">
-    <span class="glyphicon glyphicon-plus"></span>
-</a>
-
+<div>
+    <input type="text" class="form-control" ng-model="filter_projeto" value="" placeholder="Filtrar..." />
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
+            <th style="width: 5px;">
+                <a href="#/projetos/create" class="btn btn-success btn-xs" data-toggle="tooltip" title="Adicionar novo Projeto">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </th>
             <th class="text-left">Nome</th>
 			<th class="text-left">Código</th>
 			<th class="text-left">Autor</th>
@@ -17,27 +21,121 @@
             <th class="text-center"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody ng-repeat="projRow in vm.projetos | filter: filter_projeto">
         <tr>
-            <td colspan="8">
-                <input type="text" class="form-control" ng-model="filter_projeto" value="" placeholder="Filtrar..." />
+            <td class="pullright">
+                <button type="button" class="btn btn-group btn-default btn-xs glyphicon glyphicon-list" data-toggle="tooltip" title="Clique para mostrar/esconder os detalhes" ng-click="vm.hideShowProjDet($index)"></button>
             </td>
-        </tr>
-        <tr ng-repeat="projeto in vm.projetos | filter: filter_projeto">
-            <td class="text-left">{{ projeto.nome }}</td>
-			<td class="text-left">{{ projeto.codigo }}</td>
-			<td class="text-left">{{ projeto.autor }}</td>
-            <td class="text-left">{{ projeto.tarefa }}</td>
-            <td class="text-left">{{ projeto.descricao }}</td>
-            <td class="text-left">{{ projeto.validado }}</td>
-            <td class="text-left">{{ projeto.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-left">{{ projRow.nome }}</td>
+            <td class="text-left">{{ projRow.codigo }}</td>
+            <td class="text-left">{{ projRow.autor }}</td>
+            <td class="text-left">{{ projRow.tarefa }}</td>
+            <td class="text-left">{{ projRow.descricao }}</td>
+            <td class="text-left">{{ projRow.validado }}</td>
+            <td class="text-left">{{ projRow.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a href="#/projetos/download/{{ projeto.id }}/{{ projeto.codigo }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Gerar Arquivo Passo"><span class="glyphicon glyphicon-download-alt"></span></a>
-                    <a href="#/projetos/edit/{{ projeto.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Projeto"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a href="#/projetos/remove/{{ projeto.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Projeto"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href="#/projetos/download/{{ projRow.id }}/{{ projRow.codigo }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Gerar Arquivo Passo"><span class="glyphicon glyphicon-download-alt"></span></a>
+                    <a href="#/projetos/edit/{{ projRow.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Projeto"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="#/projetos/remove/{{ projRow.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Projeto"><span class="glyphicon glyphicon-trash"></span></a>
                 </div>
             </td>
         </tr>
-    <!--</tbody>-->
+        <tr ng-show="projRow.showTables">
+            <td>&nbsp;</td>
+            <td colspan="8">
+                <div>
+                    <input type="text" class="form-control" ng-model="filter_tabela" value="" placeholder="Filtrar..." />
+                </div>
+                <div>                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 5px;">
+                                    <a href="#/tabelas/create" class="btn btn-success btn-xs" data-toggle="tooltip" title="Adicionar nova Tabela">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </a>
+                                </th>
+                                <th class="text-left">Nome</th>
+                                <th class="text-left">Descrição</th>
+                                <th class="text-left">Tipo</th>
+                                <th class="text-left">Mnemonico</th>
+                                <th class="text-left">Script</th>
+                                <th class="text-left">Validado</th>
+                                <th class="text-left">Data</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="tabRow in projRow.tabelas | filter: filter_tabela track by $index">
+                            <tr>
+                                <td class="pullright">
+                                    <button type="button" class="btn btn-group btn-default btn-xs glyphicon glyphicon-list" data-toggle="tooltip" title="Clique para mostrar/esconder os detalhes" ng-click="tabRow.showFields=!tabRow.showFields"></button>
+                                </td>
+                                <td class="text-left">{{ tabRow.nomeTabela }}</td>
+                                <td class="text-left">{{ tabRow.descricaoTabela }}</td>
+                                <td class="text-left">{{ tabRow.tipoScript }}</td>
+                                <td class="text-left">{{ tabRow.mnemonico }}</td>
+                                <td class="text-left">{{ tabRow.script }}</td>
+                                <td class="text-left">{{ tabRow.validado }}</td>
+                                <td class="text-left">{{ tabRow.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a href="#/tabelas/edit/{{projRow.id}}/{{$index}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="#/tabelas/remove/{{projRow.id}}/{{$index}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="tabRow.showFields">
+                                <td>&nbsp;</td>
+                                <td colspan="8">
+                                    <div>
+                                        <input type="text" class="form-control" ng-model="filter_Campo" value="" placeholder="Filtrar..." />
+                                    </div>
+                                    <div>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 5px;">
+                                                        <a href="#/projetos/create" class="btn btn-success btn-xs" data-toggle="tooltip" title="Adicionar novo Campo">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="text-left">Nome</th>
+                                                    <th class="text-left">Descrição</th>
+                                                    <th class="text-left">Tipo Campo</th>
+                                                    <th class="text-left">Atributo</th>
+                                                    <th class="text-left">Tamanho</th>
+                                                    <th class="text-left">Valor</th>
+                                                    <th class="text-left">Data</th>
+                                                    <th class="text-center"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-repeat="campRow in tabRow.campos | filter: filter_campo track by $index">
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td class="text-left">{{ campRow.nomeCampo }}</td>
+                                                    <td class="text-left">{{ campRow.descricaoCampo }}</td>
+                                                    <td class="text-left">{{ campRow.tipoCampo }}</td>
+                                                    <td class="text-left">{{ campRow.atributo }}</td>
+                                                    <td class="text-left">{{ campRow.tamanhoCampo }}</td>
+                                                    <td class="text-left">{{ campRow.valorCampo }}</td>
+                                                    <td class="text-left">{{ campRow.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                                    <td class="text-center">
+                                                        <div class="btn-group">
+                                                            <a href="#/tabelas/editField/{{projRow.id}}/{{$index}}/{{campRow}}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Campo"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                            <a href="#/tabelas/removeField/{{projRow.id}}/{{$index}}/{{campRow}}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Campo"><span class="glyphicon glyphicon-trash"></span></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
 </table>

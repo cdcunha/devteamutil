@@ -34,6 +34,8 @@ namespace DevTeamUtils.Api.Models
             List<Campo> Campos = new List<Campo>();
         }
 
+        public bool ShowFields { get { return false; } private set { } }
+
         public void DeserializeJson(JObject json)
         {
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();

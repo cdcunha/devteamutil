@@ -52,6 +52,9 @@ namespace DevTeamUtils.Api.Models
         [DataMember]
         public List<Tabela> Tabelas { get; private set; }
 
+        [DataMember]
+        public bool ShowTables { get { return false; } private set { } }
+
         [BsonConstructor]
         public Projeto() : base()
         {
@@ -70,6 +73,7 @@ namespace DevTeamUtils.Api.Models
             Validado = false;
             if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))
                 Validado = System.Convert.ToBoolean(getTokenValue(json, "validado"));
+            //Tabelas = getTokenValue(json, "tabelas");
         }
     }
 }

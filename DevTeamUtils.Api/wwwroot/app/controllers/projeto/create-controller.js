@@ -10,9 +10,9 @@
             };
     });*/
     
-    ProjetoCreateCtrl.$inject = ['$scope', '$location', 'ProjetoFactory'];
+    ProjetoCreateCtrl.$inject = ['$location', 'ProjetoFactory'];
 
-    function ProjetoCreateCtrl($scope, $location, ProjetoFactory) {
+    function ProjetoCreateCtrl($location, ProjetoFactory) {
         var vm = this;
         vm.projetos = [];
         vm.projeto = {

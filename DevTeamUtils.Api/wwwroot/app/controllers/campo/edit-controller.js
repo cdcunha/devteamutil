@@ -9,6 +9,11 @@
         var id = $routeParams.id;
         vm.campo = {};
 
+        vm.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
+            'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
+        vm.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
+            'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
+
         activate();
         vm.save = save;
         vm.cancel = cancel;
@@ -76,7 +81,7 @@
         }
 
         function cancel() {
-            $location.path('/tabelas');
+            $location.path('/projetos');
         }
-    };
+    }
 })();

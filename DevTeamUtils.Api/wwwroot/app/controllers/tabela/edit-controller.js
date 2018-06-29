@@ -7,8 +7,9 @@
     function TabelaEditCtrl($routeParams, $filter, $location, TabelaFactory) {
         var vm = this;
         var id = $routeParams.id;
-        vm.tabela = {};
-
+        var index = $routeParams.index;
+        vm.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+        
         activate();
         vm.save = save;
         vm.cancel = cancel;
@@ -18,7 +19,7 @@
         }
 
         function getTabela() {
-            TabelaFactory.getById(id)
+            TabelaFactory.getById(id, index)
                  .success(success)
                  .catch(fail);
 
@@ -78,5 +79,5 @@
         function cancel() {
             $location.path('/projetos');
         }
-    };
+    }
 })();

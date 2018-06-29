@@ -10,7 +10,7 @@
     angular.module('devTeamUtil').filter('filterYesNo', function () {
         return function (input) {
             return input ? 'Sim' : 'Não';
-        }
+        };
     });
 
     //TabelaFactory.$inject = ['$http', '$rootScope', 'SETTINGS'];
@@ -23,14 +23,14 @@
             post: post,
             put: put,
             remove: remove
-        }
+        };
 
         function get() {
             return $http.get(SETTINGS.SERVICE_URL, $rootScope.header);
         }
 
-        function getById(id) {
-            return $http.get(SETTINGS.SERVICE_URL + '/' + id, $rootScope.header);
+        function getById(id, index) {
+            return $http.get(SETTINGS.SERVICE_URL + '/' + id + '/' + index, $rootScope.header);
         }
 
         function post(tabela) {

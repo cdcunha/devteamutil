@@ -6,15 +6,16 @@
 
     function TabelaRemoveCtrl($routeParams, $filter, $location, TabelaFactory) {
         var vm = this;
-        var id = $routeParams.id;
-        vm.tabela = {};
+        var id = $routeParams.ind;
+        //vm.tabela = {};
+        vm.tabela = $routeParams.tabela;
 
         activate();
         vm.remove = remove;
         vm.cancel = cancel;
 
         function activate() {
-            getTabela();
+            //getTabela();
         }
 
         function getTabela() {

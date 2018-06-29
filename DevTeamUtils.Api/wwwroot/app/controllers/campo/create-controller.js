@@ -14,21 +14,13 @@
 
     function CampoCreateCtrl($scope, $location, CampoFactory) {
         var vm = this;
-        vm.campos = [];
-        vm.campo = {
-            id: 0,
-            nome: '',
-            codigo: '',
-            autor: '',
-            tarefa: '',
-            descricao: '',
-            passo: '',
-            validado: '',
-            status: '',
-            dataStatus: '',
-            dataCriacao: '',
-            dataAlteracao: ''
-        };
+        vm.campo = {};
+
+        vm.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
+            'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
+        vm.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
+            'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
+
         vm.save = save;
         vm.cancel = cancel;
 
@@ -53,7 +45,7 @@
                 if (error.status === 401)
                     toastr.error("Você não tem permissão para ver esta página<br/><button type='button' class='btn clear'>Ok</button>", 'Requisição não autorizada');
                 else {
-                    if (error.statusText != '')
+                    if (error.statusText !== '')
                         toastr.error(error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
                     else {
                         if (error.data === null)
@@ -87,21 +79,11 @@
         }
 
         function clearCampo() {
-            vm.campo = {
-                id: 0,
-                id: 0,
-                nome: '',
-                codigo: '',
-                autor: '',
-                tarefa: '',
-                descricao: '',
-                passo: '',
-                validado: '',
-                status: '',
-                dataStatus: '',
-                dataCriacao: '',
-                dataAlteracao: ''
-            };
+            vm.campo = {};
+            vm.campo.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
+                'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
+            vm.campo.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
+                'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
         }
-    };
+    }
 })();

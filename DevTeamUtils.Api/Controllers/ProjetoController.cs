@@ -58,8 +58,9 @@ namespace DevTeamUtils.Api.Controllers
             {
                 return BadRequest();
             }
-            Projeto projeto = new Projeto();
-            projeto.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            //Projeto projeto = new Projeto();
+            //projeto.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            Projeto projeto = body.ToObject<Projeto>();
 
             //Verifica se há inconsistência nos dados
             ProjetoAssertion projetoAssertion = new ProjetoAssertion(projeto, true);
@@ -90,9 +91,7 @@ namespace DevTeamUtils.Api.Controllers
                 return NotFound();
             }
 
-            Projeto projetoNew = new Projeto();
-            projetoNew = projetoFounded;
-            projetoNew.DeserializeJson(body); //Converte Json para o objeto Apoiado
+            Projeto projetoNew = body.ToObject<Projeto>();
             projetoNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados

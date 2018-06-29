@@ -23,9 +23,7 @@ namespace DevTeamUtils.Api.Assertions
             if (string.IsNullOrEmpty(projeto.Nome))
                 SetNofication("500", "Informe o Nome");
 
-
-           
-            if (projeto.Tabelas.Count > 0)
+            if ((projeto.Tabelas != null) && (projeto.Tabelas.Count > 0))
             {
                 for (int i = 0; i <= projeto.Tabelas.Count - 1; i++)
                 {
@@ -57,7 +55,7 @@ namespace DevTeamUtils.Api.Assertions
                     #endregion
 
                     #region CampoAssertion
-                    if (projeto.Tabelas[i].Campos.Count > 1)
+                    if ((projeto.Tabelas[i].Campos != null) && (projeto.Tabelas[i].Campos.Count > 1))
                     {
                         for (int j = 0; j <= projeto.Tabelas[i].Campos.Count - 1; j++)
                         {
@@ -84,7 +82,7 @@ namespace DevTeamUtils.Api.Assertions
                     }
                     #endregion
                 }
-            }            
+            }
         }
     }
 }

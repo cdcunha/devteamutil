@@ -110,12 +110,12 @@ angular.module('devTeamUtil')
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/create.html'
                 })
-                .when('/tabelas/edit/:id', {
+                .when('/tabelas/edit/:id/:index', {
                     controller: 'TabelaEditCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/edit.html'
                 })
-                .when('/tabelas/remove/:id', {
+                .when('/tabelas/remove/:id/:index', {
                     controller: 'TabelaRemoveCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/remove.html'
@@ -133,15 +133,15 @@ angular.module('devTeamUtil')
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/create.html'
                 })
-                .when('/campos/edit/:id', {
+                .when('/campos/edit/:id/:index', {
                     controller: 'CampoEditCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/edit.html'
                 })
-                .when('/campos/remove/:id', {
+                .when('/campos/remove/:id/:index', {
                     controller: 'CampoRemoveCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/remove.html'
-                })
+                });
         }
     ]);

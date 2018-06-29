@@ -8,8 +8,8 @@
                     <div class="panel-heading text-center">Tabela</div>
                     <div class="panel-body">
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
-                            <label for="nome">Nome da Tabela</label>
-                            <input ng-model="vm.tabela.nome"
+                            <label for="nomeServidor">Nome da Tabela</label>
+                            <input ng-model="vm.tabela.nomeTabela"
                                    ng-minlength="3"
                                    ng-maxlength="100"
                                    type="text"
@@ -29,8 +29,8 @@
                         </div>
 
                         <div class="form-group" ng-class="{ 'has-error' : descricao.$invalid }">
-                            <label for="descricao">Descrição</label>
-                            <input ng-model="vm.tabela.descricao"
+                            <label for="ip">Código</label>
+                            <input ng-model="vm.tabela.descricaoTabela"
                                    ng-minlength="1"
                                    ng-maxlength="100"
                                    type="text"
@@ -48,7 +48,7 @@
 
                         <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
                             <label for="tipoScript">Tipo</label>
-                            <select ng-model="vm.tabela.sistema" ng-options="x for x in vm.tabela.tipos"
+                            <select ng-model="vm.tabela.tipo" ng-options="x for x in vm.tipos"
                                     class="form-control"
                                     id="tipoScript"
                                     name="tipoScript"

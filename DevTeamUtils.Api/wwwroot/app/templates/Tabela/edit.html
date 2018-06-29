@@ -19,7 +19,7 @@
 
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
                             <label for="nomeServidor">Nome da Tabela</label>
-                            <input ng-model="vm.tabela.nome"
+                            <input ng-model="vm.tabela.nomeTabela"
                                    ng-minlength="3"
                                    ng-maxlength="100"
                                    type="text"
@@ -40,7 +40,7 @@
 
                         <div class="form-group" ng-class="{ 'has-error' : descricao.$invalid }">
                             <label for="ip">Código</label>
-                            <input ng-model="vm.tabela.descricao"
+                            <input ng-model="vm.tabela.descricaoTabela"
                                    ng-minlength="1"
                                    ng-maxlength="100"
                                    type="text"
@@ -58,7 +58,7 @@
 
                         <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
                             <label for="tipoScript">Tipo</label>
-                            <select ng-model="vm.tabela.sistema" ng-options="x for x in vm.tabela.tipos"
+                            <select ng-model="vm.tabela.tipo" ng-options="x for x in vm.tipos"
                                     class="form-control"
                                     id="tipoScript"
                                     name="tipoScript"
@@ -116,49 +116,5 @@
                 </div>
             </div>
         </form>
-        <div class="col-md-8">
-            <h3 class="text-center">Campos</h3>
-
-            <a href="#/tabelas/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Campo">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-left">Nome</th>
-                        <th class="text-left">Descrição</th>
-                        <th class="text-left">Tipo</th>
-                        <th class="text-left">Mnemonico</th>
-                        <th class="text-left">Script</th>
-                        <th class="text-left">Validado</th>
-                        <th class="text-left">Data</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="8">
-                            <input type="text" class="form-control" ng-model="filter_Campo" value="" placeholder="Filtrar..." />
-                        </td>
-                    </tr>
-                    <tr ng-repeat="tabela in vm.campos | filter: filter_campo">
-                        <td class="text-left">{{ campo.nome }}</td>
-                        <td class="text-left">{{ campo.descricao }}</td>
-                        <td class="text-left">{{ campo.tipoScript }}</td>
-                        <td class="text-left">{{ campo.mnemonico }}</td>
-                        <td class="text-left">{{ campo.script }}</td>
-                        <td class="text-left">{{ campo.validado }}</td>
-                        <td class="text-left">{{ campo.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <a href="#/tabelas/edit/{{ campo.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Campo"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#/tabelas/remove/{{ campo.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Campo"><span class="glyphicon glyphicon-trash"></span></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <!--</tbody>-->
-            </table>
-        </div>
     </div>
 </div>

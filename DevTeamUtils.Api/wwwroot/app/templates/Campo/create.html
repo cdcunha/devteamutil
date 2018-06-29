@@ -7,17 +7,37 @@
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">Campo</div>
                     <div class="panel-body">
+                        <<div class="form-group" ng-class="{ 'has-error' : tipoCampo.$invalid }">
+                            <label for="tipoCampo">Tipo</label>
+                            <select ng-model="vm.campo.tipoCampo" ng-options="x for x in vm.tipoCampos"
+                                    class="form-control"
+                                    id="tipoCampo"
+                                    name="tipoCampo"
+                                    placeholder="Ex.: Integer"
+                                    required></select>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : atributo.$invalid }">
+                            <label for="atributo">Atributo</label>
+                            <select ng-model="vm.campo.atributo" ng-options="x for x in vm.atributos"
+                                    class="form-control"
+                                    id="atributo"
+                                    name="atributo"
+                                    placeholder="Ex.: Primary Key"
+                                    required></select>
+                        </div>
+
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
                             <label for="nomeServidor">Nome do Campo</label>
-                            <input ng-model="vm.campo.nome"
-                                    ng-minlength="3"
-                                    ng-maxlength="100"
-                                    type="text"
-                                    class="form-control"
-                                    id="nome"
-                                    name="nome"
-                                    placeholder="Ex.: Alto Custo"
-                                    required />
+                            <input ng-model="vm.campo.nomeCampo"
+                                   ng-minlength="3"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="nome"
+                                   name="nome"
+                                   placeholder="Ex.: Auto Custo"
+                                   required />
                             <div class="alert-danger">
                                 <div ng-messages="formCampo.nome.$error">
                                     <div ng-repeat="errorMessage in errorMessages">
@@ -27,74 +47,101 @@
                                 </div>
                             </div>
                         </div>
-						
-                        <div class="form-group" ng-class="{ 'has-error' : codigo.$invalid }">
-                            <label for="codigo">Código</label>
-                            <input ng-model="vm.campo.codigo"
-                                    ng-minlength="1"
-                                    ng-maxlength="100"
-                                    type="text"
-                                    class="form-control"
-                                    id="codigo"
-                                    name="codigo"
-                                    placeholder="Ex.: 57"
-                                    required  />
-                            <div class="alert-danger">
-                                <div ng-messages="formCampo.codigo.$error">
-                                    <div ng-messages-include="app/templates/messages.html"></div>
-                                </div>
-                            </div>
-                        </div>
-						
-                        <div class="form-group" ng-class="{ 'has-error' : autor.$invalid }">
-                            <label for="porta">Autor</label>
-                            <input ng-model="vm.campo.autor"
-                                    ng-maxlength="100"
-                                    type="text"
-                                    class="form-control"
-                                    id="autor"
-                                    name="autor"
-                                    placeholder="Ex.: José"
-                                    required />
-                            <div class="alert-danger">
-                                <div ng-messages="formCampo.autor.$error">
-                                    <div ng-messages-include="app/templates/messages.html"></div>
-                                </div>
-                            </div>
-                        </div>
-						
-                        <div class="form-group" ng-class="{ 'has-error' : tarefa.$invalid }">
-                            <label for="usuario">Tarefa</label>
-                            <input ng-model="vm.campo.tarefa"
-							       ng-maxlength="100"
-                                   type="text"
-                                   class="form-control"
-                                   id="tarefa"
-                                   name="tarefa"
-                                   placeholder="Ex.: 4759" />
-                            <div class="alert-danger">
-                                <div ng-messages="formCampo.tarefa.$error">
-                                    <div ng-messages-include="app/templates/messages.html"></div>
-                                </div>
-                            </div>
-                        </div>
-						
+
                         <div class="form-group" ng-class="{ 'has-error' : descricao.$invalid }">
                             <label for="senha">Descrição</label>
-                            <input ng-model="vm.campo.descricao"
+                            <input ng-model="vm.campo.descricaoCampo"
                                    ng-maxlength="100"
                                    type="text"
                                    class="form-control"
                                    id="descricao"
                                    name="descricao"
-                                   placeholder="Ex.: Campo Itens de Alto Custo" />
+                                   placeholder="Ex.: Campo Itens de Auto Custo" />
                             <div class="alert-danger">
                                 <div ng-messages="formCampo.descricao.$error">
                                     <div ng-messages-include="app/templates/messages.html"></div>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <div class="form-group" ng-class="{ 'has-error' : tamanhoCampo.$invalid }">
+                            <label for="tamanhoCampo">Tamanho</label>
+                            <input ng-model="vm.campo.tamanhoCampo"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="tamanhoCampo"
+                                   name="tamanhoCampo"
+                                   placeholder="Ex.: 255" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.tamanhoCampo.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : valorCampo.$invalid }">
+                            <label for="valorCampo">Valor</label>
+                            <input ng-model="vm.campo.valorCampo"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="valorCampo"
+                                   name="valorCampo"
+                                   placeholder="Ex.: Teste" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.valorCampo.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : notNull.$invalid }">
+                            <label for="notNull">Not Null</label>
+                            <input ng-model="vm.campo.notNull"
+                                   type="checkbox"
+                                   class="form-control"
+                                   id="notNull"
+                                   name="notNull" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.notNull.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : mnemonicoRefFk.$invalid }">
+                            <label for="mnemonicoRefFk">Mnemônico da tabela de referência (Somente para FK)</label>
+                            <input ng-model="vm.campo.mnemonicoRefFk"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="mnemonicoRefFk"
+                                   name="mnemonicoRefFk"
+                                   placeholder="Ex.: FUNCIO" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.mnemonicoRefFk.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : fieldRefFk.$invalid }">
+                            <label for="fieldRefFk">Campo da tabela de referência (Somente para FK)</label>
+                            <input ng-model="vm.campo.fieldRefFk"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="fieldRefFk"
+                                   name="fieldRefFk"
+                                   placeholder="Ex.: PK_FUNCIO" />
+                            <div class="alert-danger">
+                                <div ng-messages="formCampo.fieldRefFk.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <p class="text-center">
                             <button type="button"
                                     class="btn btn-primary btn-lg"
