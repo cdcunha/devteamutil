@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 namespace DevTeamUtils.Api.Controllers
 {
     [Controller]
-    public class TabelaController : Controller
+    public class CampoController : Controller
     {
         private readonly IProjetoRepository _projetoRepository;
 
-        public TabelaController(MongoDbContext context)
+        public CampoController(MongoDbContext context)
         {
             _projetoRepository = context.GetProjetoRepository();
         }
 
-        [HttpGet("api/[controller]/{id}/{index}", Name = "GetTabela")]
-        public IActionResult GetById(Guid id, int index)
+        [HttpGet("api/[controller]/{id}/{index}", Name = "GetCampo")]
+        public IActionResult GetById(Guid id, int indTabela, int index)
         {
             if (id == Guid.Empty)
             {
@@ -53,7 +53,7 @@ namespace DevTeamUtils.Api.Controllers
                     return new ObjectResult(error);
                 }
 
-                if (item.Tabelas.Count -1 < index)
+                if (item.Tabelas.Count -1 < indTabela)
                 {
                     var error = new
                     {
@@ -64,7 +64,29 @@ namespace DevTeamUtils.Api.Controllers
                     return new ObjectResult(error);
                 }
 
-                return new ObjectResult(item.Tabelas[index]);
+                if ((item.Tabelas[indTabela].Campos == null) || (item.Tabelas[indTabela].Campos.Count <= 0))
+                {
+                    var error = new
+                    {
+                        value = "Não existem campos",
+                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
+                    };
+                    Response.StatusCode = error.status;
+                    return new ObjectResult(error);
+                }
+
+                if (item.Tabelas[indTabela].Campos.Count - 1 < index)
+                {
+                    var error = new
+                    {
+                        value = "Índice da tabela é inválido",
+                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
+                    };
+                    Response.StatusCode = error.status;
+                    return new ObjectResult(error);
+                }
+
+                return new ObjectResult(item.Tabelas[indTabela].Campos[index]);
             }
         }
 
