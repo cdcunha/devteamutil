@@ -6,8 +6,11 @@ using System.Runtime.Serialization;
 namespace DevTeamUtils.Api.Models
 {
     [DataContract]
-    public class Tabela : Base
+    public class Tabela : BaseModel
     {
+        [DataMember]
+        public System.Guid ProjetoId { get; set; }
+
         [DataMember]
         public string NomeTabela { get; set; }
 
@@ -26,7 +29,6 @@ namespace DevTeamUtils.Api.Models
         [DataMember]
         public bool Validado { get; set; }
 
-        [DataMember]
         public List<Campo> Campos { get; private set; }
 
         public Tabela() : base()

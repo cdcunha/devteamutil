@@ -17,6 +17,16 @@
                                    readonly />
                         </div>
 
+                        <div class="form-group">
+                            <label for="projetoId">Id do Projeto</label>
+                            <input ng-model="vm.tabela.projetoId"
+                                   type="text"
+                                   class="form-control"
+                                   id="projetoId"
+                                   name="projetoId"
+                                   readonly />
+                        </div>
+
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
                             <label for="nomeServidor">Nome da Tabela</label>
                             <input ng-model="vm.tabela.nomeTabela"
@@ -101,6 +111,10 @@
                         <label class="text-left">Criado em: {{ vm.tabela.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</label>
                         <br />
                         <label class="text-left">Alterado em: {{ vm.tabela.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</label>
+                        <br />
+                        <div>
+                            <button class="btn btn-default btn-lg" ng-click="vm.seeFields()">Ver Campos</button>
+                        </div>
                         <br />
                         <div class="clearfix"></div>
 

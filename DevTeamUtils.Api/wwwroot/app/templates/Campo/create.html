@@ -7,23 +7,33 @@
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">Campo</div>
                     <div class="panel-body">
-                        <<div class="form-group" ng-class="{ 'has-error' : tipoCampo.$invalid }">
-                            <label for="tipoCampo">Tipo</label>
-                            <select ng-model="vm.campo.tipoCampo" ng-options="x for x in vm.tipoCampos"
-                                    class="form-control"
-                                    id="tipoCampo"
-                                    name="tipoCampo"
-                                    placeholder="Ex.: Integer"
-                                    required></select>
+                        <div class="form-group">
+                            <label for="tabelaId">Id da Tabela</label>
+                            <input ng-model="vm.campo.tabelaId"
+                                   type="text"
+                                   class="form-control"
+                                   id="tabelaId"
+                                   name="tabelaId"
+                                   readonly />
                         </div>
 
                         <div class="form-group" ng-class="{ 'has-error' : atributo.$invalid }">
                             <label for="atributo">Atributo</label>
-                            <select ng-model="vm.campo.atributo" ng-options="x for x in vm.atributos"
+                            <select ng-model="vm.selectedAtributo" ng-options="x as x.description for x in vm.Atributos track by x.id" 
                                     class="form-control"
                                     id="atributo"
                                     name="atributo"
                                     placeholder="Ex.: Primary Key"
+                                    required></select>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : tipoCampo.$invalid }">
+                            <label for="tipoCampo">Tipo</label>
+                            <select ng-model="vm.selectedTipo" ng-options="x as x.description for x in vm.Tipos track by x.id" 
+                                    class="form-control"
+                                    id="tipoCampo"
+                                    name="tipoCampo"
+                                    placeholder="Ex.: Integer"
                                     required></select>
                         </div>
 
@@ -36,7 +46,7 @@
                                    class="form-control"
                                    id="nome"
                                    name="nome"
-                                   placeholder="Ex.: Auto Custo"
+                                   placeholder="Ex.: PK_FUNCIO"
                                    required />
                             <div class="alert-danger">
                                 <div ng-messages="formCampo.nome.$error">

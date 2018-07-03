@@ -1,9 +1,8 @@
-﻿<h3>Edição do Projeto</h3>
-
+﻿
 <div class="container-fluid">
     <div class="row content">
         <form name="formProjeto">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">Projeto</div>
                     <div class="panel-body">
@@ -105,9 +104,14 @@
                             </div>
                         </div>
 
-                        <label class="control-label col-sm-5">Criado em: {{ vm.projeto.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</label>
-                        <label class="control-label col-sm-5">Alterado em: {{ vm.projeto.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</label>
+                        <label class="text-left">Criado em: {{ vm.projeto.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</label>
                         <br />
+                        <label class="text-left">Alterado em: {{ vm.projeto.dataAlteracao | date: 'dd/MM/yyyy HH:mm' }}</label>
+                        <br />
+                        <div>
+                            <button class="btn btn-default btn-lg" ng-click="vm.seeTables()">Ver Tabelas</button>
+                        </div>
+
                         <div class="clearfix"></div>
 
                         <p class="text-center">

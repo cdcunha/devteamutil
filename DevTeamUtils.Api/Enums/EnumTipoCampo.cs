@@ -8,7 +8,7 @@ namespace DevTeamUtils.Api.Enums
     public enum EnumTipoCampo
     {
         //Oracle e Integer
-        NumberInteger,
+        NumberInteger = 1 ,
         Varchar2Varchar,
         DateDatetimeyeartosecond,
         NumberDecimal,

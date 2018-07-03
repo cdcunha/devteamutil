@@ -6,16 +6,15 @@
 
     function TabelaRemoveCtrl($routeParams, $filter, $location, TabelaFactory) {
         var vm = this;
-        var id = $routeParams.ind;
-        //vm.tabela = {};
-        vm.tabela = $routeParams.tabela;
+        var id = $routeParams.id;
+        vm.tabela = {};
 
         activate();
         vm.remove = remove;
         vm.cancel = cancel;
 
         function activate() {
-            //getTabela();
+            getTabela();
         }
 
         function getTabela() {
@@ -49,14 +48,14 @@
 
             function success(response) {
                 toastr["success"]("Tabela <strong>" + response.nome + "</strong> removida com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Tabela Removido');
-                $location.path('/projetos');
+                $location.path('/tabelas/' + vm.tabela.projetoId);
             }
 
             function fail(error) {
                 if (error.status === 401)
                     toastr["error"]("Você não tem permissão para ver esta página<br/><button type='button' class='btn clear'>Ok</button>", 'Requisição não autorizada');
                 else {
-                    if (error.statusText != '')
+                    if (error.statusText !== '')
                         toastr.error(error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
                     else {
                         if (error.data === null)
@@ -73,7 +72,7 @@
         }
 
         function cancel() {
-            $location.path('/projetos');
+            $location.path('/tabelas/' + vm.tabela.projetoId);
         }
-    };
+    }
 })();

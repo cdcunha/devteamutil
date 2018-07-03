@@ -100,22 +100,22 @@ angular.module('devTeamUtil')
                 /****************************************
                 * Tabelas
                 *****************************************/
-                .when('/tabelas', {
+                .when('/tabelas/:projetoId', {
                     controller: 'TabelaListCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/index.html'
                 })
-                .when('/tabelas/create', {
+                .when('/tabelas/create/:projetoId', {
                     controller: 'TabelaCreateCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/create.html'
                 })
-                .when('/tabelas/edit/:id/:index', {
+                .when('/tabelas/edit/:id', {
                     controller: 'TabelaEditCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/edit.html'
                 })
-                .when('/tabelas/remove/:id/:index', {
+                .when('/tabelas/remove/:id', {
                     controller: 'TabelaRemoveCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Tabela/remove.html'
@@ -123,22 +123,22 @@ angular.module('devTeamUtil')
                 /****************************************
                 * Campos
                 *****************************************/
-                .when('/campos', {
+                .when('/campos/:tabelaId', {
                     controller: 'CampoListCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/index.html'
                 })
-                .when('/campos/create', {
+                .when('/campos/create/:tabelaId', {
                     controller: 'CampoCreateCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/create.html'
                 })
-                .when('/campos/edit/:id/:index', {
+                .when('/campos/edit/:id', {
                     controller: 'CampoEditCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/edit.html'
                 })
-                .when('/campos/remove/:id/:index', {
+                .when('/campos/remove/:id', {
                     controller: 'CampoRemoveCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/remove.html'

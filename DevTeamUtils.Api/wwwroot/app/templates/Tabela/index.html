@@ -1,13 +1,20 @@
 ﻿<h3 class="text-center">Tabelas</h3>
 
-<a href="#/tabelas/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Tabela">
-    <span class="glyphicon glyphicon-plus"></span>
-</a>
+<div class="form-group">
+    <div class="col-md-6">
+        <button class="btn btn-default btn-lg glyphicon glyphicon-share-alt" ng-click="vm.backToProject()" data-toggle="tooltip" title="Voltar para o Projeto [id = {{vm.projetoId}}]"></button>
+    </div>
+    <div class="col-md-6">
+        <a href="#/tabelas/create/{{vm.projetoId}}" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Tabela">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</div>
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th class="text-left">Nome</th>
+            <th class="text-left">Nome da Tabela</th>
             <th class="text-left">Descrição</th>
             <th class="text-left">Tipo</th>
             <th class="text-left">Mnemônico</th>
@@ -23,15 +30,14 @@
             </td>
         </tr>
         <tr ng-repeat="tabela in vm.tabelas | filter: filter_tabela">
-            <td class="text-left">{{ tabela.nome }}</td>
-            <td class="text-left">{{ tabela.descricao }}</td>
+            <td class="text-left">{{ tabela.nomeTabela }}</td>
+            <td class="text-left">{{ tabela.descricaoTabela }}</td>
 			<td class="text-left">{{ tabela.tipoScript }}</td>
             <td class="text-left">{{ tabela.mnemonico }}</td>
             <td class="text-left">{{ tabela.validado }}</td>
             <td class="text-left">{{ tabela.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a href="#/tabelas/download/{{ tabela.id }}/{{ tabela.codigo }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Gerar Arquivo Passo"><span class="glyphicon glyphicon-download-alt"></span></a>
                     <a href="#/tabelas/edit/{{ tabela.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Tabela"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a href="#/tabelas/remove/{{ tabela.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Tabela"><span class="glyphicon glyphicon-trash"></span></a>
                 </div>

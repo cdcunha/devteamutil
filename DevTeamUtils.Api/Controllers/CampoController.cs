@@ -14,15 +14,22 @@ namespace DevTeamUtils.Api.Controllers
     [Controller]
     public class CampoController : Controller
     {
-        private readonly IProjetoRepository _projetoRepository;
+        private readonly ICampoRepository _campoRepository;
 
         public CampoController(MongoDbContext context)
         {
-            _projetoRepository = context.GetProjetoRepository();
+            _campoRepository = context.GetCampoRepository();
         }
 
-        [HttpGet("api/[controller]/{id}/{index}", Name = "GetCampo")]
-        public IActionResult GetById(Guid id, int indTabela, int index)
+        [HttpGet("api/[controller]/byTable/{tabelaId}")]
+        [EnableCors("AllowAll")]
+        public IEnumerable<Campo> GetAllByTable(Guid tabelaId)
+        {
+            return _campoRepository.GetAllByTable(tabelaId);
+        }
+
+        [HttpGet("api/[controller]/{id}", Name = "GetCampo")]
+        public IActionResult GetById(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -36,58 +43,37 @@ namespace DevTeamUtils.Api.Controllers
             }
             else
             {
-                var item = _projetoRepository.Find(id);
+                var item = _campoRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound();
                 }
 
-                if ((item.Tabelas == null) || (item.Tabelas.Count <= 0))
-                {
-                    var error = new
-                    {
-                        value = "Não existem tabelas",
-                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-                    };
-                    Response.StatusCode = error.status;
-                    return new ObjectResult(error);
-                }
-
-                if (item.Tabelas.Count -1 < indTabela)
-                {
-                    var error = new
-                    {
-                        value = "Índice da tabela é inválido",
-                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-                    };
-                    Response.StatusCode = error.status;
-                    return new ObjectResult(error);
-                }
-
-                if ((item.Tabelas[indTabela].Campos == null) || (item.Tabelas[indTabela].Campos.Count <= 0))
-                {
-                    var error = new
-                    {
-                        value = "Não existem campos",
-                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-                    };
-                    Response.StatusCode = error.status;
-                    return new ObjectResult(error);
-                }
-
-                if (item.Tabelas[indTabela].Campos.Count - 1 < index)
-                {
-                    var error = new
-                    {
-                        value = "Índice da tabela é inválido",
-                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-                    };
-                    Response.StatusCode = error.status;
-                    return new ObjectResult(error);
-                }
-
-                return new ObjectResult(item.Tabelas[indTabela].Campos[index]);
+                return new ObjectResult(item);
             }
+        }
+
+        [HttpPost("api/[controller]")]
+        [EnableCors("AllowAll")]
+        public IActionResult Create([FromBody]JObject body)
+        {
+            if (string.IsNullOrEmpty(body.ToString()))
+            {
+                return BadRequest();
+            }
+            Campo campo = body.ToObject<Campo>();            
+
+            //Verifica se há inconsistência nos dados
+            CampoAssertion campoAssertion = new CampoAssertion(campo, true);
+            if (campoAssertion.Notifications.HasNotifications())
+            {
+                Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
+                return new ObjectResult(campoAssertion.Notifications.Notify());
+            }
+
+            _campoRepository.Add(campo);
+            Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status201Created;
+            return new ObjectResult(campo);
         }
 
         [HttpPut("api/[controller]/{id}")]
@@ -100,26 +86,41 @@ namespace DevTeamUtils.Api.Controllers
             }
 
             //Verifica se o registro existe na base
-            var projetoFounded = _projetoRepository.Find(id);
-            if (projetoFounded == null)
+            var campoFounded = _campoRepository.Find(id);
+            if (campoFounded == null)
             {
                 return NotFound();
             }
 
-            Projeto projetoNew = body.ToObject<Projeto>();
-            projetoNew.SetDataAlteracao();
+            Campo campoNew = body.ToObject<Campo>();
+            campoNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados
-            ProjetoAssertion projetoAssertion = new ProjetoAssertion(projetoNew);
-            if (projetoAssertion.Notifications.HasNotifications())
+            CampoAssertion campoAssertion = new CampoAssertion(campoNew);
+            if (campoAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(projetoAssertion.Notifications.Notify());
+                return new ObjectResult(campoAssertion.Notifications.Notify());
             }
-            _projetoRepository.Update(projetoNew);
+            _campoRepository.Update(campoNew);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(projetoNew);
+            return new ObjectResult(campoNew);
+        }
+
+        [HttpDelete("api/[controller]/{id}")]
+        [EnableCors("AllowAll")]
+        public IActionResult Delete(Guid id)
+        {
+            var campo = _campoRepository.Find(id);
+            if (campo == null)
+            {
+                return NotFound();
+            }
+
+            _campoRepository.Remove(id);
+            Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
+            return new ObjectResult(campo);
         }
     }
 }

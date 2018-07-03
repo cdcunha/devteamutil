@@ -14,15 +14,22 @@ namespace DevTeamUtils.Api.Controllers
     [Controller]
     public class TabelaController : Controller
     {
-        private readonly IProjetoRepository _projetoRepository;
+        private readonly ITabelaRepository _tabelaRepository;
 
         public TabelaController(MongoDbContext context)
         {
-            _projetoRepository = context.GetProjetoRepository();
+            _tabelaRepository = context.GetTabelaRepository();
         }
 
-        [HttpGet("api/[controller]/{id}/{index}", Name = "GetTabela")]
-        public IActionResult GetById(Guid id, int index)
+        [HttpGet("api/[controller]/byProject/{projetoId}")]
+        [EnableCors("AllowAll")]
+        public IEnumerable<Tabela> GetAllByProject(Guid projetoId)
+        {
+            return _tabelaRepository.GetAllByProject(projetoId);
+        }
+
+        [HttpGet("api/[controller]/{id}", Name = "GetTabela")]
+        public IActionResult GetById(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -36,36 +43,36 @@ namespace DevTeamUtils.Api.Controllers
             }
             else
             {
-                var item = _projetoRepository.Find(id);
+                var item = _tabelaRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound();
                 }
-
-                if ((item.Tabelas == null) || (item.Tabelas.Count <= 0))
-                {
-                    var error = new
-                    {
-                        value = "Não existem tabelas",
-                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-                    };
-                    Response.StatusCode = error.status;
-                    return new ObjectResult(error);
-                }
-
-                if (item.Tabelas.Count -1 < index)
-                {
-                    var error = new
-                    {
-                        value = "Índice da tabela é inválido",
-                        status = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError
-                    };
-                    Response.StatusCode = error.status;
-                    return new ObjectResult(error);
-                }
-
-                return new ObjectResult(item.Tabelas[index]);
+                return new ObjectResult(item);
             }
+        }
+
+        [HttpPost("api/[controller]")]
+        [EnableCors("AllowAll")]
+        public IActionResult Create([FromBody]JObject body)
+        {
+            if (string.IsNullOrEmpty(body.ToString()))
+            {
+                return BadRequest();
+            }
+            Tabela tabela = body.ToObject<Tabela>();
+
+            //Verifica se há inconsistência nos dados
+            TabelaAssertion tabelaAssertion = new TabelaAssertion(tabela, true);
+            if (tabelaAssertion.Notifications.HasNotifications())
+            {
+                Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
+                return new ObjectResult(tabelaAssertion.Notifications.Notify());
+            }
+
+            _tabelaRepository.Add(tabela);
+            Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status201Created;
+            return new ObjectResult(tabela);
         }
 
         [HttpPut("api/[controller]/{id}")]
@@ -78,26 +85,41 @@ namespace DevTeamUtils.Api.Controllers
             }
 
             //Verifica se o registro existe na base
-            var projetoFounded = _projetoRepository.Find(id);
-            if (projetoFounded == null)
+            var tabelaFounded = _tabelaRepository.Find(id);
+            if (tabelaFounded == null)
             {
                 return NotFound();
             }
 
-            Projeto projetoNew = body.ToObject<Projeto>();
-            projetoNew.SetDataAlteracao();
+            Tabela tabelaNew = body.ToObject<Tabela>();
+            tabelaNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados
-            ProjetoAssertion projetoAssertion = new ProjetoAssertion(projetoNew);
-            if (projetoAssertion.Notifications.HasNotifications())
+            TabelaAssertion tabelaAssertion = new TabelaAssertion(tabelaNew);
+            if (tabelaAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(projetoAssertion.Notifications.Notify());
+                return new ObjectResult(tabelaAssertion.Notifications.Notify());
             }
-            _projetoRepository.Update(projetoNew);
+            _tabelaRepository.Update(tabelaNew);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(projetoNew);
+            return new ObjectResult(tabelaNew);
+        }
+
+        [HttpDelete("api/[controller]/{id}")]
+        [EnableCors("AllowAll")]
+        public IActionResult Delete(Guid id)
+        {
+            var tabela = _tabelaRepository.Find(id);
+            if (tabela == null)
+            {
+                return NotFound();
+            }
+
+            _tabelaRepository.Remove(id);
+            Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
+            return new ObjectResult(tabela);
         }
     }
 }

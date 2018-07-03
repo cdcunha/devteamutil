@@ -10,16 +10,12 @@
             };
     });*/
     
-    CampoCreateCtrl.$inject = ['$scope', '$location', 'CampoFactory'];
+    CampoCreateCtrl.$inject = ['$routeParams', '$location', 'CampoFactory'];
 
-    function CampoCreateCtrl($scope, $location, CampoFactory) {
+    function CampoCreateCtrl($routeParams, $location, CampoFactory) {
         var vm = this;
-        vm.campo = {};
 
-        vm.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
-            'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
-        vm.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-            'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
+        clearCampo($routeParams.tabelaId);
 
         vm.save = save;
         vm.cancel = cancel;
@@ -32,13 +28,16 @@
         */
         
         function save() {
+            vm.campo.tipoCampo = vm.selectedTipo.id;
+            vm.campo.atributo = vm.selectedAtributo.id;
+
             CampoFactory.post(vm.campo)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
                 toastr.success("Campo <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Campo Cadastrado");
-                $location.path('/tabelas');
+                $location.path('/campos/' + vm.campo.tabelaId);
             }
 
             function fail(error){
@@ -75,15 +74,44 @@
         */
         function cancel() {
             //clearCampo();
-            $location.path('/tabelas');
+            $location.path('/campos/' + vm.campo.tabelaId);
         }
 
-        function clearCampo() {
-            vm.campo = {};
-            vm.campo.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
-                'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
-            vm.campo.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-                'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
+        function clearCampo(tabelaId) {
+            vm.campo = {
+                tabelaId: tabelaId
+            };
+
+            vm.selectedTipo = { 'id': 1, 'description': 'Number(ORA) ou Integer(IFX)' };
+            vm.selectedAtributo = { 'id': 1, 'description': 'Primary Key' };
+
+            vm.Tipos = [
+                { 'id': 1, 'description': 'Number(ORA) ou Integer(IFX)' },
+                { 'id': 2, 'description': 'Varchar2(ORA) ou Varchar(IFX)' },
+                { 'id': 3, 'description': 'Date(ORA) ou Datetime Year to Second(IFX)' },
+                { 'id': 4, 'description': 'Number(ORA) ou Decimal(IFX)' },
+                { 'id': 5, 'description': 'Long Row(ORA) ou Byte(IFX)' },
+                { 'id': 6, 'description': 'Long(ORA) ou Text(IFX)' }
+            ];
+
+            vm.Atributos = [
+                { 'id': 1, 'description': 'Primary Key' },
+                { 'id': 2, 'description': 'Foreign Key' },
+                { 'id': 3, 'description': 'Código' },
+                { 'id': 4, 'description': 'Número' },
+                { 'id': 5, 'description': 'Data/Hora' },
+                { 'id': 6, 'description': 'Descrição' },
+                { 'id': 7, 'description': 'Nome' },
+                { 'id': 8, 'description': 'Valor' },
+                { 'id': 9, 'description': 'Tipo' },
+                { 'id': 10, 'description': 'Sim/Não' },
+                { 'id': 11, 'description': 'Sigla' },
+                { 'id': 12, 'description': 'Imagem/Arquivo' },
+                { 'id': 13, 'description': 'Texto' },
+                { 'id': 14, 'description': 'Quantidade' },
+                { 'id': 15, 'description': 'Situação/Status' },
+                { 'id': 16, 'description': 'Indicação' }
+            ];
         }
     }
 })();

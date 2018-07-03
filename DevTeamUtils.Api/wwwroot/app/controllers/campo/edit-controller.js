@@ -57,7 +57,7 @@
 
             function success(response) {
                 toastr.success("Campo <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Campo Cadastrada");
-                $location.path('/tabelas');
+                $location.path('/campos/' + vm.campo.tabelaId);
             }
 
             function fail(error) {
@@ -81,7 +81,7 @@
         }
 
         function cancel() {
-            $location.path('/projetos');
+            $location.path('/campos/' + vm.campo.tabelaId);
         }
     }
 })();

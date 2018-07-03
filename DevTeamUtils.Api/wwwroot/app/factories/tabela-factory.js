@@ -25,12 +25,12 @@
             remove: remove
         };
 
-        function get() {
-            return $http.get(SETTINGS.SERVICE_URL, $rootScope.header);
+        function get(projectId) {
+            return $http.get(SETTINGS.SERVICE_URL + '/byProject/' + projectId, $rootScope.header);
         }
 
-        function getById(id, index) {
-            return $http.get(SETTINGS.SERVICE_URL + '/' + id + '/' + index, $rootScope.header);
+        function getById(id) {
+            return $http.get(SETTINGS.SERVICE_URL + '/' + id, $rootScope.header);
         }
 
         function post(tabela) {

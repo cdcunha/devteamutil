@@ -36,7 +36,7 @@
                         birthDate = new Date(birthday);
                         age = today.getFullYear() - birthDate.getFullYear();
                         month = today.getMonth() - birthDate.getMonth();
-                        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                        if (month < 0 || month === 0 && today.getDate() < birthDate.getDate()) {
                             age = age - 1;
                         }
 

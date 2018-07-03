@@ -49,11 +49,7 @@ namespace DevTeamUtils.Api.Models
             }
             private set { } }
 
-        [DataMember]
         public List<Tabela> Tabelas { get; private set; }
-
-        [DataMember]
-        public bool ShowTables { get { return false; } private set { } }
 
         [BsonConstructor]
         public Projeto() : base()

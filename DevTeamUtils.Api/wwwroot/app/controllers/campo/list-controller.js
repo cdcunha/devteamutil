@@ -2,11 +2,13 @@
     'use strict';
     angular.module('devTeamUtil').controller('CampoListCtrl', CampoListCtrl);
 
-    CampoListCtrl.$inject = ['CampoFactory'];
+    CampoListCtrl.$inject = ['$routeParams', '$location', 'CampoFactory'];
     
-    function CampoListCtrl(CampoFactory) {
+    function CampoListCtrl($routeParams, $location, CampoFactory) {
         var vm = this;
         vm.campos = [];
+        vm.tabelaId = $routeParams.tabelaId;
+        vm.backToTable = backToTable;
         
         activate();
         
@@ -15,7 +17,7 @@
         }
 
         function getCampos() {
-            CampoFactory.get()
+            CampoFactory.get(vm.tabelaId)
                  .success(success)
                  .catch(fail);
 
@@ -47,6 +49,10 @@
                     }
                 }
             }
+        }
+
+        function backToTable() {
+            $location.path('/tabelas/edit/' + vm.tabelaId);
         }
     }
 })();

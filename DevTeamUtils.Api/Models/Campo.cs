@@ -5,8 +5,11 @@ using System.Runtime.Serialization;
 namespace DevTeamUtils.Api.Models
 {
     [DataContract]
-    public class Campo : Base
+    public class Campo : BaseModel
     {
+        [DataMember]
+        public System.Guid TabelaId { get; set; }
+
         [DataMember]
         public string NomeCampo { get; set; }
 

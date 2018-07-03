@@ -10,7 +10,7 @@
     angular.module('devTeamUtil').filter('filterYesNo', function () {
         return function (input) {
             return input ? 'Sim' : 'Não';
-        }
+        };
     });
 
     //ContatoFactory.$inject = ['$http', '$rootScope', 'SETTINGS'];
@@ -22,7 +22,7 @@
             post: post,
             put: put,
             remove: remove
-        }
+        };
 
         function get() {
             return $http.get(SETTINGS.SERVICE_URL, $rootScope.header);

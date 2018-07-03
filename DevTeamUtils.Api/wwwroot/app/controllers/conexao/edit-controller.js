@@ -80,5 +80,5 @@
         function cancel() {
             $location.path('/conexoes');
         }
-    };
+    }
 })();

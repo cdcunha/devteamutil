@@ -21,68 +21,19 @@ namespace DevTeamUtils.Api.Assertions
             }
 
             if (string.IsNullOrEmpty(projeto.Nome))
-                SetNofication("500", "Informe o Nome");
+                SetNofication("500", "Informe o Nome do Projeto");
 
-            if ((projeto.Tabelas != null) && (projeto.Tabelas.Count > 0))
-            {
-                for (int i = 0; i <= projeto.Tabelas.Count - 1; i++)
-                {
-                    #region TabelaAssertions
-                    if (string.IsNullOrEmpty(projeto.Tabelas[i].NomeTabela))
-                    {
-                        SetNofication("500", "Informe a Nome da tabela");
-                    }
+            if (string.IsNullOrEmpty(projeto.Codigo))
+                SetNofication("500", "Informe o Código do Passo");
 
-                    if (string.IsNullOrEmpty(projeto.Tabelas[i].DescricaoTabela))
-                    {
-                        SetNofication("500", "Informe a Descrição da tabela");
-                    }
+            if (string.IsNullOrEmpty(projeto.Codigo))
+                SetNofication("500", "Informe o Autor do Passo");
 
-                    if (!Enum.IsDefined(typeof(Enums.EnumTipoScript), projeto.Tabelas[i].TipoScript))
-                    {
-                        SetNofication("500", "Tipo de script Inválido");
-                    }
+            if (projeto.Tarefa == 0)
+                SetNofication("500", "Informe o código da Tarefa (Jira/ALM)");
 
-                    if (string.IsNullOrEmpty(projeto.Tabelas[i].Mnemonico))
-                    {
-                        SetNofication("500", "Informe o Mnemônico da tabela");
-                    }
-
-                    if (string.IsNullOrEmpty(projeto.Tabelas[i].Script))
-                    {
-                        SetNofication("500", "Informe o Script da tabela");
-                    }
-                    #endregion
-
-                    #region CampoAssertion
-                    if ((projeto.Tabelas[i].Campos != null) && (projeto.Tabelas[i].Campos.Count > 1))
-                    {
-                        for (int j = 0; j <= projeto.Tabelas[i].Campos.Count - 1; j++)
-                        {
-                            if (string.IsNullOrEmpty(projeto.Tabelas[i].Campos[j].NomeCampo))
-                            {
-                                SetNofication("500", "Informe a Nome do Campo");
-                            }
-
-                            if (string.IsNullOrEmpty(projeto.Tabelas[i].Campos[j].DescricaoCampo))
-                            {
-                                SetNofication("500", "Informe a Descrição da tabela");
-                            }
-
-                            if (!Enum.IsDefined(typeof(Enums.EnumAtributoCampo), projeto.Tabelas[i].Campos[j].Atributo))
-                            {
-                                SetNofication("500", "Atributo de campo Inválido");
-                            }
-
-                            if (!Enum.IsDefined(typeof(Enums.EnumTipoCampo), projeto.Tabelas[i].Campos[j].TipoCampo))
-                            {
-                                SetNofication("500", "Tipo de campo Inválido");
-                            }
-                        }
-                    }
-                    #endregion
-                }
-            }
+            if (string.IsNullOrEmpty(projeto.Descricao))
+                SetNofication("500", "Informe a Descrição do Projeto");
         }
     }
 }

@@ -5,7 +5,7 @@ namespace DevTeamUtils.Api.Enums
     public enum EnumAtributoCampo
     {
         [Description("PK = Primary Key")]
-        PrimaryKey,
+        PrimaryKey = 1 ,
         [Description("FK = Foreign Key")]
         ForeignKey,
         [Description("CO = Código")]

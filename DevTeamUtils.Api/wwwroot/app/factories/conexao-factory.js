@@ -10,7 +10,7 @@
     angular.module('devTeamUtil').filter('filterYesNo', function () {
         return function (input) {
             return input ? 'Sim' : 'Não';
-        }
+        };
     });
 
     //ConexaoFactory.$inject = ['$http', '$rootScope', 'SETTINGS'];
@@ -24,7 +24,7 @@
             put: put,
             remove: remove,
             download: download
-        }
+        };
 
         function get() {
             return $http.get(SETTINGS.SERVICE_URL, $rootScope.header);

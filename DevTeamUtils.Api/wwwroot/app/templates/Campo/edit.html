@@ -17,6 +17,16 @@
                                    readonly />
                         </div>
 
+                        <div class="form-group">
+                            <label for="tabelaId">Id da Tabela</label>
+                            <input ng-model="vm.campo.tabelaId"
+                                   type="text"
+                                   class="form-control"
+                                   id="tabelaId"
+                                   name="tabelaId"
+                                   readonly />
+                        </div>
+
                         <div class="form-group" ng-class="{ 'has-error' : tipoCampo.$invalid }">
                             <label for="tipoCampo">Tipo</label>
                             <select ng-model="vm.campo.tipoCampo" ng-options="x for x in vm.tipoCampos"

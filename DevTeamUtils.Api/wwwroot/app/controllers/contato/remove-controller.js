@@ -31,7 +31,7 @@
                     toastr["error"](error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
                 }
                 else {
-                    if (error.statusText != null)
+                    if (error.statusText !== null)
                         toastr.error(error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
                     else {
                         if (error.data === null)
@@ -61,7 +61,7 @@
                 if (error.status === 401)
                     toastr["error"]("Você não tem permissão para ver esta página<br/><button type='button' class='btn clear'>Ok</button>", 'Requisição não autorizada');
                 else {
-                    if (error.statusText != '')
+                    if (error.statusText !== '')
                         toastr.error(error.status + "<br/><button type='button' class='btn clear'>Ok</button>", error.statusText);
                     else {
                         if (error.data === null)
@@ -80,5 +80,5 @@
         function cancel() {
             $location.path('/contatos');
         }
-    };
+    }
 })();

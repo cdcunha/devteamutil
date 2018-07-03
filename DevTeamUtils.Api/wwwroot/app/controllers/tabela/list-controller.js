@@ -2,11 +2,14 @@
     'use strict';
     angular.module('devTeamUtil').controller('TabelaListCtrl', TabelaListCtrl);
 
-    TabelaListCtrl.$inject = ['TabelaFactory'];
+    TabelaListCtrl.$inject = ['$routeParams', '$location', 'TabelaFactory'];
     
-    function TabelaListCtrl(TabelaFactory) {
+    function TabelaListCtrl($routeParams, $location, TabelaFactory) {
         var vm = this;
         vm.tabelas = [];
+        vm.projetoId = $routeParams.projetoId;
+
+        vm.backToProject = backToProject;
         
         activate();
         
@@ -15,7 +18,7 @@
         }
 
         function getTabelas() {
-            TabelaFactory.get()
+            TabelaFactory.get(vm.projetoId)
                  .success(success)
                  .catch(fail);
 
@@ -47,6 +50,10 @@
                     }
                 }
             }
+        }
+
+        function backToProject() {
+            $location.path('/projetos/edit/' + vm.projetoId);
         }
     }
 })();

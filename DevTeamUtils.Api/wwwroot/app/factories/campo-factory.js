@@ -10,7 +10,7 @@
     angular.module('devTeamUtil').filter('filterYesNo', function () {
         return function (input) {
             return input ? 'Sim' : 'Não';
-        }
+        };
     });
 
     //CampoFactory.$inject = ['$http', '$rootScope', 'SETTINGS'];
@@ -23,10 +23,10 @@
             post: post,
             put: put,
             remove: remove
-        }
+        };
 
-        function get() {
-            return $http.get(SETTINGS.SERVICE_URL, $rootScope.header);
+        function get(tabelaId) {
+            return $http.get(SETTINGS.SERVICE_URL + '/byTable/' + tabelaId, $rootScope.header);
         }
 
         function getById(id) {

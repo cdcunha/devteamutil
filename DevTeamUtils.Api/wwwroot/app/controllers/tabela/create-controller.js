@@ -10,11 +10,13 @@
             };
     });*/
     
-    TabelaCreateCtrl.$inject = ['$tabela', '$location', 'TabelaFactory'];
+    TabelaCreateCtrl.$inject = ['$routeParams', '$location', 'TabelaFactory'];
 
-    function TabelaCreateCtrl($tabela, $location, TabelaFactory) {
+    function TabelaCreateCtrl($routeParams, $location, TabelaFactory) {
         var vm = this;
-        vm.tabela = { };
+        vm.tabela = {
+            projetoId : $routeParams.projetoId
+        };
         vm.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
 
         vm.save = save;
@@ -33,8 +35,8 @@
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Tabela <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Tabela Cadastrada");
-                $location.path('/projetos');
+                toastr.success("Tabela <strong>" + response.nomeTabela + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Tabela Cadastrada");
+                $location.path('/tabelas/' + vm.tabela.projetoId);
             }
 
             function fail(error){
@@ -71,14 +73,14 @@
         */
         function cancel() {
             //clearTabela();
-            $location.path('/projetos');
+            $location.path('/tabelas/' + vm.tabela.projetoId);
         }
 
         function clearTabela() {
             vm.tabela = {
                 id: 0,
-                nome: '',
-                descricao: '',
+                nomeTabela: '',
+                descricaoTabela: '',
                 tipoScript: '',
                 mnemonico: '',
                 script: '',

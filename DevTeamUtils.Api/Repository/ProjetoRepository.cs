@@ -30,7 +30,8 @@ namespace DevTeamUtils.Api.Repository
 
         public IEnumerable<Projeto> GetAll()
         {
-            var resultado = _context.Projetos.Find(FilterDefinition<Projeto>.Empty).SortBy(it => it.Nome);//.Skip(0).Limit(50)
+            //var resultado = _context.Projetos.Find(FilterDefinition<Projeto>.Empty).SortBy(it => it.Nome);//.Skip(0).Limit(50)
+            var resultado = _context.Projetos.AsQueryable().OrderBy(o => o.Nome);
             return resultado.ToList();
         }
 

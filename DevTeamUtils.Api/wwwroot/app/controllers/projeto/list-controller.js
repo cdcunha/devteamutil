@@ -7,14 +7,9 @@
     function ProjetoListCtrl(ProjetoFactory) {
         var vm = this;
         vm.projetos = [];
-        vm.hideShowProjDet = hideShowProjDet;
         
         activate();
 
-        function hideShowProjDet(aIndex) {
-            vm.projetos[aIndex].showTables = !vm.projetos[aIndex].showTables;
-        }
-        
         function activate() {
             getProjetos();            
         }

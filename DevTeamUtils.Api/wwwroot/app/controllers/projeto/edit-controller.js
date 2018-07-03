@@ -7,22 +7,12 @@
     function ProjetoEditCtrl($routeParams, $filter, $location, ProjetoFactory) {
         var vm = this;
         var id = $routeParams.id;
-        vm.projeto = {
-            indTabela: 0,
-            indCampo: 0,
-            tabelas: [],
-            tabela: {
-                campos: []
-            },
-            campo: {}
-        };
-
-        vm.tabelaShow = false;
-        vm.campoShow = false;
+        vm.projeto = {};
 
         activate();
         vm.save = save;
         vm.cancel = cancel;
+        vm.seeTables = seeTables;
         
         function activate() {
             getProjeto();
@@ -88,6 +78,10 @@
 
         function cancel() {
             $location.path('/projetos');
+        }
+
+        function seeTables() {
+            $location.path('/tabelas/' + vm.projeto.id);
         }
     }
 })();

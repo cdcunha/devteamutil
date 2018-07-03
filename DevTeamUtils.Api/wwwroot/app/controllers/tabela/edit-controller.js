@@ -7,19 +7,19 @@
     function TabelaEditCtrl($routeParams, $filter, $location, TabelaFactory) {
         var vm = this;
         var id = $routeParams.id;
-        var index = $routeParams.index;
         vm.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
         
         activate();
         vm.save = save;
         vm.cancel = cancel;
+        vm.seeFields = seeFields;
 
         function activate() {
             getTabela();
         }
 
         function getTabela() {
-            TabelaFactory.getById(id, index)
+            TabelaFactory.getById(id)
                  .success(success)
                  .catch(fail);
 
@@ -53,7 +53,7 @@
 
             function success(response) {
                 toastr.success("Tabela <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Tabela Cadastrada");
-                $location.path('/projetos');
+                $location.path('/tabelas/' + vm.tabela.projetoId);
             }
 
             function fail(error) {
@@ -77,7 +77,11 @@
         }
 
         function cancel() {
-            $location.path('/projetos');
+            $location.path('/tabelas/' + vm.tabela.projetoId);
+        }
+
+        function seeFields() {
+            $location.path('/campos/' + vm.tabela.id);
         }
     }
 })();
