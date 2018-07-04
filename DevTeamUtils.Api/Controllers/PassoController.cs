@@ -58,9 +58,9 @@ namespace DevTeamUtils.Api.Controllers
             {
                 return BadRequest();
             }
-            //Passo passo = new Passo();
-            //passo.DeserializeJson(body); //Converte Json para o objeto Apoiado
-            Passo passo = body.ToObject<Passo>();
+            Passo passo = new Passo();
+            passo.DeserializeJson(body); //Converte Json para o objeto 
+            //Passo passo = body.ToObject<Passo>();
 
             //Verifica se há inconsistência nos dados
             PassoAssertion passoAssertion = new PassoAssertion(passo, true);

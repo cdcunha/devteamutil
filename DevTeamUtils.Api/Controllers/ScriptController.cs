@@ -60,7 +60,9 @@ namespace DevTeamUtils.Api.Controllers
             {
                 return BadRequest();
             }
-            Script script = body.ToObject<Script>();
+            Script script = new Script();
+            script.DeserializeJson(body); //Converte Json para o objeto 
+            //Script script = body.ToObject<Script>();
 
             //Verifica se há inconsistência nos dados
             ScriptAssertion scriptAssertion = new ScriptAssertion(script, true);

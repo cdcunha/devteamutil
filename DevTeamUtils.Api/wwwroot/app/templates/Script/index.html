@@ -1,10 +1,17 @@
-﻿<h3 class="text-center">Scripts</h3>
-
-<div class="form-group">
-    <div class="col-md-6">
-        <button class="btn btn-default btn-lg glyphicon glyphicon-share-alt" ng-click="vm.backToProject()" data-toggle="tooltip" title="Voltar para o Passo [id = {{vm.passoId}}]"></button>
+﻿<br />
+<div class="row">
+    <div class="col-lg-1">
+        <div class="col-lg-8">
+            <h3 class="text-left">Scripts</h3>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-default btn-lg glyphicon glyphicon-share-alt" ng-click="vm.backToProject()" data-toggle="tooltip" title="Voltar para o Passo [id = {{vm.passoId}}]"></button>
+        </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-10">
+        <input type="text" class="form-control input-lg" ng-model="filter_script" value="" placeholder="Filtrar..." />
+    </div>
+    <div class="col-lg-1">
         <a href="#/scripts/create/{{vm.passoId}}" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Script">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
@@ -24,15 +31,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td colspan="8">
-                <input type="text" class="form-control" ng-model="filter_script" value="" placeholder="Filtrar..." />
-            </td>
-        </tr>
         <tr ng-repeat="script in vm.scripts | filter: filter_script">
             <td class="text-left">{{ script.nomeScript }}</td>
             <td class="text-left">{{ script.descricaoScript }}</td>
-			<td class="text-left">{{ script.tipoScript }}</td>
+            <td class="text-left">{{ script.tipoScript }}</td>
             <td class="text-left">{{ script.mnemonico }}</td>
             <td class="text-left">{{ script.validado }}</td>
             <td class="text-left">{{ script.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
@@ -43,5 +45,5 @@
                 </div>
             </td>
         </tr>
-    <!--</tbody>-->
+        <!--</tbody>-->
 </table>

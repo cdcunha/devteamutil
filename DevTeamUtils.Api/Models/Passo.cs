@@ -52,20 +52,17 @@ namespace DevTeamUtils.Api.Models
         }
 
         [BsonConstructor]
-        public Passo() : base()
-        {
-            List<Script> Scripts = new List<Script>();
-        }
+        public Passo() : base(){}
 
         public void DeserializeJson(JObject json)
         {
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
             Nome = getTokenValue(json, "nome");
             Codigo = getTokenValue(json, "codigo");
-            Autor = getTokenValue(json, "autor");            
+            Autor = getTokenValue(json, "autor");
             Tarefa = int.Parse(getTokenValue(json, "tarefa"));
             Descricao = getTokenValue(json, "descricao");
-            TxtPasso = getTokenValue(json, "passo");
+            TxtPasso = getTokenValue(json, "txtPasso");
             Validado = false;
             if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))
                 Validado = System.Convert.ToBoolean(getTokenValue(json, "validado"));

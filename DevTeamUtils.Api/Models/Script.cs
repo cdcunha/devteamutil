@@ -18,10 +18,16 @@ namespace DevTeamUtils.Api.Models
         public string DescricaoScript { get; set; }
 
         [DataMember]
-        public EnumTipoScript TipoScript { get; set; }
+        public TipoScript TipoScript { get; set; }
+
+        [DataMember]
+        public TipoObjeto TipoObjeto { get; set; }
         
         [DataMember]
         public string Mnemonico { get; set; }
+
+        [DataMember]
+        public string NomeTabelaPai { get; set; }
 
         [DataMember]
         public string TxtScript { get; set; }
@@ -29,22 +35,21 @@ namespace DevTeamUtils.Api.Models
         [DataMember]
         public bool Validado { get; set; }
 
-        public Script() : base()
-        {
-            List<Campo> Campos = new List<Campo>();
-        }
-
-        public bool ShowFields { get { return false; } private set { } }
+        public Script() : base(){ }
 
         public void DeserializeJson(JObject json)
         {
             //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
+            PassoId = json.Property("passoId").Value.ToObject<System.Guid>();
             NomeScript = getTokenValue(json, "nomeScript");
             DescricaoScript = getTokenValue(json, "descricaoScript");
-            TipoScript = (EnumTipoScript)System.Enum.Parse(typeof(EnumTipoScript), getTokenValue(json, "tipoScript"));
+            TipoScript = (TipoScript)System.Enum.Parse(typeof(TipoScript), getTokenValue(json, "tipoScript"));
+            TipoObjeto = (TipoObjeto)System.Enum.Parse(typeof(TipoObjeto), getTokenValue(json, "tipoObjeto"));
             Mnemonico = getTokenValue(json, "mnemonico");
-            TxtScript = getTokenValue(json, "script");
+            NomeTabelaPai = getTokenValue(json, "nomeTabelaPai");
+            TxtScript = getTokenValue(json, "txtScript");
 
+            Validado = false;
             if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))
                 Validado = System.Convert.ToBoolean(getTokenValue(json, "validado"));
         }

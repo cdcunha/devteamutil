@@ -35,7 +35,7 @@ namespace DevTeamUtils.Api.Assertions
                 SetNofication("500", "Informe a Descrição");
             }
 
-            if (!Enum.IsDefined(typeof(Enums.EnumTipoScript), script.TipoScript))
+            if (!Enum.IsDefined(typeof(Enums.TipoScript), script.TipoScript))
             {
                 SetNofication("500", "Tipo de script");
             }

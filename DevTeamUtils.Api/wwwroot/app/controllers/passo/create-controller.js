@@ -15,29 +15,9 @@
     function PassoCreateCtrl($location, PassoFactory) {
         var vm = this;
         vm.passos = [];
-        vm.passo = {
-            id: 0,
-            nome: '',
-            codigo: '',
-            autor: '',
-            tarefa: '',
-            descricao: '',
-            passo: '',
-            validado: '',            
-            status: '',
-            dataStatus: '',
-            dataCriacao: '',
-            dataAlteracao: '',
-            script: {
-                tipos: ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-                    'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação']
-            },
-            campo: {
-                atributos: ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
-                    'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'],
-                tipoCampos: ['Create', 'Insert', 'Update', 'Alter', 'Other']
-            }
-        };
+
+        clearPasso();
+
         vm.save = save;
         vm.cancel = cancel;
 
@@ -54,7 +34,7 @@
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Passo <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Passo Cadastrado");
+                toastr.success("Passo <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Ok</button>", "Passo Cadastrado");
                 $location.path('/passos');
             }
 
@@ -97,28 +77,18 @@
 
         function clearPasso() {
             vm.passo = {
-                id: 0,
+                id: '{00000000-0000-0000-0000-000000000000}',
                 nome: '',
                 codigo: '',
                 autor: '',
                 tarefa: '',
                 descricao: '',
                 passo: '',
-                validado: '',
-                scripts: [],
+                validado: 'false',
                 status: '',
                 dataStatus: '',
                 dataCriacao: '',
-                dataAlteracao: '',
-                script: {
-                    tipos: ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-                        'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação']
-                },
-                campo: {
-                    atributos: ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
-                        'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'],
-                    tipoCampos: ['Create', 'Insert', 'Update', 'Alter', 'Other']
-                }
+                dataAlteracao: ''
             };
         }
     }

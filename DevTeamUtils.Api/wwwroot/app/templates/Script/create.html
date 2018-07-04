@@ -1,11 +1,9 @@
-﻿<h3>Nova Script</h3>
-
-<div class="container-fluid">
+﻿<div class="container-fluid">
     <div class="row content">
         <form name="formScript">
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Script</div>
+                    <div class="panel-heading text-center">Novo Script</div>
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="passoId">Id do Passo</label>
@@ -16,9 +14,66 @@
                                    name="passoId"
                                    readonly />
                         </div>
-                        
+
+                        <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
+                            <label for="tipoScript">Tipo Script</label>
+                            <select ng-model="vm.selectedTipoScript" ng-options="x as x.description for x in vm.TipoScripts track by x.id" 
+                                    class="form-control"
+                                    id="tipoScript"
+                                    name="tipoScript"
+                                    placeholder="Ex.: CREATE"
+                                    required></select>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : tipoObjeto.$invalid }">
+                            <label for="tipoScript">Tipo Objeto</label>
+                            <select ng-model="vm.selectedTipoObjeto" ng-options="x as x.description for x in vm.TipoObjetos track by x.id" 
+                                    class="form-control"
+                                    id="tipoObjeto"
+                                    name="tipoObjeto"
+                                    placeholder="Ex.: Tabela de Cadastro"
+                                    required></select>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : mnemonico.$invalid }">
+                            <label for="mnemonico">Mnemônico</label>
+                            <input ng-model="vm.script.mnemonico"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="mnemonico"
+                                   name="mnemonico"
+                                   placeholder="Ex.: FUNCIO" />
+                            <div class="alert-danger">
+                                <div ng-messages="formScript.mnemonico.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : nomeTabelaPai.$invalid }">
+                            <label for="nomeServidor">Nome da Tabela Pai</label>
+                            <input ng-model="vm.script.nomeTabelaPai"
+                                   ng-minlength="3"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="nomeTabelaPai"
+                                   name="nomeTabelaPai"
+                                   placeholder="Ex.: TB_FUNCIONARIO"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formScript.nomeTabelaPai.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
-                            <label for="nomeServidor">Nome da Script</label>
+                            <label for="nomeServidor">Nome do Objeto</label>
                             <input ng-model="vm.script.nomeScript"
                                    ng-minlength="3"
                                    ng-maxlength="100"
@@ -51,32 +106,6 @@
                                    required />
                             <div class="alert-danger">
                                 <div ng-messages="formScript.descricao.$error">
-                                    <div ng-messages-include="app/templates/messages.html"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
-                            <label for="tipoScript">Tipo</label>
-                            <select ng-model="vm.script.tipo" ng-options="x for x in vm.tipos"
-                                    class="form-control"
-                                    id="tipoScript"
-                                    name="tipoScript"
-                                    placeholder="Ex.: CREATE"
-                                    required></select>
-                        </div>
-
-                        <div class="form-group" ng-class="{ 'has-error' : mnemonico.$invalid }">
-                            <label for="mnemonico">Mnemônico</label>
-                            <input ng-model="vm.script.mnemonico"
-                                   ng-maxlength="100"
-                                   type="text"
-                                   class="form-control"
-                                   id="mnemonico"
-                                   name="mnemonico"
-                                   placeholder="Ex.: FUNCIO" />
-                            <div class="alert-danger">
-                                <div ng-messages="formScript.mnemonico.$error">
                                     <div ng-messages-include="app/templates/messages.html"></div>
                                 </div>
                             </div>

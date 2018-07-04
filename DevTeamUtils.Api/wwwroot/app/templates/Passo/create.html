@@ -1,14 +1,12 @@
-﻿<h3>Novo Passo</h3>
-
-<div class="container-fluid">
+﻿<div class="container-fluid">
     <div class="row content">
         <form name="formPasso">
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Passo</div>
+                    <div class="panel-heading text-center">Novo Passo</div>
                     <div class="panel-body">
                         <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
-                            <label for="nomeServidor">Nome do Passo</label>
+                            <label for="nomeServidor">Nome do Projeto</label>
                             <input ng-model="vm.passo.nome"
                                    ng-minlength="3"
                                    ng-maxlength="100"
@@ -16,7 +14,7 @@
                                    class="form-control"
                                    id="nome"
                                    name="nome"
-                                   placeholder="Ex.: Alto Custo"
+                                   placeholder="Ex.: Projeto de Alto Custo"
                                    required />
                             <div class="alert-danger">
                                 <div ng-messages="formPasso.nome.$error">
@@ -29,7 +27,7 @@
                         </div>
 
                         <div class="form-group" ng-class="{ 'has-error' : codigo.$invalid }">
-                            <label for="codigo">Código</label>
+                            <label for="codigo">Código interno</label>
                             <input ng-model="vm.passo.codigo"
                                    ng-minlength="1"
                                    ng-maxlength="100"
@@ -37,7 +35,7 @@
                                    class="form-control"
                                    id="codigo"
                                    name="codigo"
-                                   placeholder="Ex.: 57"
+                                   placeholder="Ex.: 57. Caso não souber, informar XXX"
                                    required />
                             <div class="alert-danger">
                                 <div ng-messages="formPasso.codigo.$error">
@@ -71,7 +69,7 @@
                                    class="form-control"
                                    id="tarefa"
                                    name="tarefa"
-                                   placeholder="Ex.: 4759" />
+                                   placeholder="Ex.: 4759. Caso não houver, informar sequencial. Ex: 1" />
                             <div class="alert-danger">
                                 <div ng-messages="formPasso.tarefa.$error">
                                     <div ng-messages-include="app/templates/messages.html"></div>
@@ -87,7 +85,7 @@
                                    class="form-control"
                                    id="descricao"
                                    name="descricao"
-                                   placeholder="Ex.: Passo Itens de Alto Custo" />
+                                   placeholder="Ex.: Projeto de Alto Custo" />
                             <div class="alert-danger">
                                 <div ng-messages="formPasso.descricao.$error">
                                     <div ng-messages-include="app/templates/messages.html"></div>

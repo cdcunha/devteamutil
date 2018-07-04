@@ -47,7 +47,7 @@
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Conexão <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Conexão Cadastrada");
+                toastr.success("Conexão <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Ok</button>", "Conexão Cadastrada");
                 $location.path('/conexoes');
             }
 

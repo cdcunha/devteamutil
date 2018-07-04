@@ -35,12 +35,12 @@ namespace DevTeamUtils.Api.Assertions
                 SetNofication("500", "Informe a Descrição da script");
             }
 
-            if (!Enum.IsDefined(typeof(Enums.EnumAtributoCampo), campo.Atributo))
+            if (!Enum.IsDefined(typeof(Enums.AtributoCampo), campo.Atributo))
             {
                 SetNofication("500", "Atributo de campo Inválido");
             }
 
-            if (!Enum.IsDefined(typeof(Enums.EnumTipoCampo), campo.TipoCampo))
+            if (!Enum.IsDefined(typeof(Enums.TipoCampo), campo.TipoCampo))
             {
                 SetNofication("500", "Tipo de campo Inválido");
             }

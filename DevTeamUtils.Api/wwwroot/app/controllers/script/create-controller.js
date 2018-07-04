@@ -14,10 +14,8 @@
 
     function ScriptCreateCtrl($routeParams, $location, ScriptFactory) {
         var vm = this;
-        vm.script = {
-            passoId : $routeParams.passoId
-        };
-        vm.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+
+        clearScript($routeParams.passoId);
 
         vm.save = save;
         vm.cancel = cancel;
@@ -30,12 +28,15 @@
         */
         
         function save() {
+            vm.script.tipoScript = vm.selectedTipoScript.id;
+            vm.script.tipoObjeto = vm.selectedTipoObjeto.id;
+
             ScriptFactory.post(vm.script)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Script <strong>" + response.nomeScript + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Script Cadastrada");
+                toastr.success("Script <strong>" + response.nomeScript + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Ok</button>", "Script Cadastrada");
                 $location.path('/scripts/' + vm.script.passoId);
             }
 
@@ -76,21 +77,53 @@
             $location.path('/scripts/' + vm.script.passoId);
         }
 
-        function clearScript() {
+        function clearScript(passoId) {
             vm.script = {
-                id: 0,
+                id: '{00000000-0000-0000-0000-000000000000}',
+                passoId: passoId,
                 nomeScript: '',
                 descricaoScript: '',
                 tipoScript: '',
+                tipoObjeto: '',
                 mnemonico: '',
+                nomeTabelaPai: '',
                 txtScript: '',
-                validado: '',
-                campos: [],
+                validado: 'false',
                 status: '',
                 dataStatus: '',
                 dataCriacao: '',
                 dataAlteracao: ''
             };
+
+            vm.selectedTipoScript = { 'id': 0, 'description': 'Create' };
+            vm.selectedTipoObjeto = { 'id': 0, 'description': 'Tabela de Cadastro' };
+            vm.TipoScripts = [
+                { 'id': 0, 'description': 'Create' },
+                { 'id': 1, 'description': 'Insert' },
+                { 'id': 2, 'description': 'Update' },
+                { 'id': 3, 'description': 'Alter' },
+                { 'id': 4, 'description': 'Outros' }
+            ];
+            vm.TipoObjetos = [
+                { 'id': 0, 'description': 'Tabela de Cadastro' },
+                { 'id': 1, 'description': 'Tabela de Detalhe' },
+                { 'id': 2, 'description': 'Tabela de Movimentação' },
+                { 'id': 3, 'description': 'Tabela de Estáticas/Domínio' },
+                { 'id': 4, 'description': 'Tabela de Logs de Operação' },
+                { 'id': 5, 'description': 'Tabela Temporária' },
+                { 'id': 6, 'description': 'View' },
+                { 'id': 7, 'description': 'Sequence' },
+                { 'id': 8, 'description': 'Function' },
+                { 'id': 9, 'description': 'Stored Procedure' },
+                { 'id': 10, 'description': 'Trigger Insert After' },
+                { 'id': 11, 'description': 'Trigger Insert Before' },
+                { 'id': 12, 'description': 'Trigger Update After' },
+                { 'id': 13, 'description': 'Trigger Update Before' },
+                { 'id': 14, 'description': 'Trigger Delete After' },
+                { 'id': 15, 'description': 'Trigger Delete Before' },
+                { 'id': 16, 'description': 'Package' },
+                { 'id': 17, 'description': 'Job' }
+            ];
         }
     }
 })();

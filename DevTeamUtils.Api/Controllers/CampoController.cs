@@ -61,7 +61,10 @@ namespace DevTeamUtils.Api.Controllers
             {
                 return BadRequest();
             }
-            Campo campo = body.ToObject<Campo>();            
+
+            Campo campo = new Campo();
+            campo.DeserializeJson(body); //Converte Json para o objeto 
+            //Campo campo = body.ToObject<Campo>();            
 
             //Verifica se há inconsistência nos dados
             CampoAssertion campoAssertion = new CampoAssertion(campo, true);

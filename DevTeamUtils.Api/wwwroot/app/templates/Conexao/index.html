@@ -1,39 +1,43 @@
-﻿<h3 class="text-center">Conexões</h3>
-
-<a href="#/conexoes/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Conexão">
-    <span class="glyphicon glyphicon-plus"></span>
-</a>
+﻿<br />
+<div class="row">
+    <div class="col-lg-1">
+        <h3 class="text-center">Conexões</h3>
+    </div>
+    <div class="col-lg-10">
+        <input type="text" class="form-control" ng-model="filter_conexao" value="" placeholder="Filtrar..." />
+    </div>
+    <div class="col-lg-1">
+        <a href="#/conexoes/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Conexão">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</div>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th class="text-left">Sistema</th>
-			<th class="text-left">BD</th>
-			<th class="text-left">Nome</th>
+            <th class="text-left">BD</th>
+            <th class="text-left">Nome</th>
             <th class="text-left">Ip</th>
             <th class="text-left">Porta</th>
             <th class="text-left">Usuario</th>
-			<th class="text-left">Senha</th>
-			<th class="text-left">Status</th>
-			<th class="text-left">Data Status</th>
+            <th class="text-left">Senha</th>
+            <th class="text-left">Status</th>
+            <th class="text-left">Data Status</th>
             <th class="text-center"></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td colspan="8">
-                <input type="text" class="form-control" ng-model="filter_conexao" value="" placeholder="Filtrar..." />
-            </td>
-        </tr>
         <tr ng-repeat="conexao in vm.conexoes | filter: filter_conexao">
             <td class="text-left">{{ conexao.sistema }}</td>
-			<td class="text-left">{{ conexao.bancoDados }}</td>
-			<td class="text-left">{{ conexao.nomeServidor }}</td>
+            <td class="text-left">{{ conexao.bancoDados }}</td>
+            <td class="text-left">{{ conexao.nomeServidor }}</td>
             <td class="text-left">{{ conexao.ip }}</td>
             <td class="text-left">{{ conexao.porta }}</td>
             <td class="text-left">{{ conexao.usuario }}</td>
             <td class="text-left">{{ conexao.senha }}</td>
-			<td class="text-left">
+            <td class="text-left">
                 <div ng-if="conexao.status.toLowerCase().indexOf('erro') >= 0">
                     Erro <a href="javascript:alert('{{ conexao.status }}');" class="btn btn-xs btn-default" title="Mostrar Detalhe"><span class="glyphicon glyphicon-info-sign"></span></a>
                 </div>
@@ -43,7 +47,7 @@
                     </div>
                 </div>
             </td>
-			<td class="text-left">{{ conexao.dataStatus | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-left">{{ conexao.dataStatus | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td class="text-center">
                 <div class="btn-group">
                     <a href="#/conexoes/download/{{ conexao.id }}/{{ conexao.nomeServidor }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Gerar Arquivo Ini"><span class="glyphicon glyphicon-download-alt"></span></a>
@@ -52,7 +56,7 @@
                 </div>
             </td>
         </tr>
-    <!--</tbody>-->
+        <!--</tbody>-->
 </table>
 
 <script src="../../../js/signalr-client.js"></script>

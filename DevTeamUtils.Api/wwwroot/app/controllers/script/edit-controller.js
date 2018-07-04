@@ -7,7 +7,36 @@
     function ScriptEditCtrl($routeParams, $filter, $location, ScriptFactory) {
         var vm = this;
         var id = $routeParams.id;
-        vm.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+
+        vm.selectedTipoScript = { 'id': 0, 'description': 'Create' };
+        vm.selectedTipoObjeto = { 'id': 0, 'description': 'Tabela de Cadastro' };
+        vm.TipoScripts = [
+            { 'id': 0, 'description': 'Create' },
+            { 'id': 1, 'description': 'Insert' },
+            { 'id': 2, 'description': 'Update' },
+            { 'id': 3, 'description': 'Alter' },
+            { 'id': 4, 'description': 'Outros' }
+        ];
+        vm.TipoObjetos = [
+            { 'id': 0, 'description': 'Tabela de Cadastro' },
+            { 'id': 1, 'description': 'Tabela de Detalhe' },
+            { 'id': 2, 'description': 'Tabela de Movimentação' },
+            { 'id': 3, 'description': 'Tabela de Estáticas/Domínio' },
+            { 'id': 4, 'description': 'Tabela de Logs de Operação' },
+            { 'id': 5, 'description': 'Tabela Temporária' },
+            { 'id': 6, 'description': 'View' },
+            { 'id': 7, 'description': 'Sequence' },
+            { 'id': 8, 'description': 'Function' },
+            { 'id': 9, 'description': 'Stored Procedure' },
+            { 'id': 10, 'description': 'Trigger Insert After' },
+            { 'id': 11, 'description': 'Trigger Insert Before' },
+            { 'id': 12, 'description': 'Trigger Update After' },
+            { 'id': 13, 'description': 'Trigger Update Before' },
+            { 'id': 14, 'description': 'Trigger Delete After' },
+            { 'id': 15, 'description': 'Trigger Delete Before' },
+            { 'id': 16, 'description': 'Package' },
+            { 'id': 17, 'description': 'Job' }
+        ];
         
         activate();
         vm.save = save;
@@ -47,6 +76,9 @@
         }
 
         function save() {
+            vm.script.tipoScript = vm.selectedTipoScript.id;
+            vm.script.tipoObjeto = vm.selectedTipoObjeto.id;
+
             ScriptFactory.put(vm.script)
                 .success(success)
                 .catch(fail);

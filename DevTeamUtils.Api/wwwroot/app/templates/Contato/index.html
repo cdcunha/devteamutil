@@ -1,9 +1,17 @@
-﻿<h3>Contato</h3>
-
-<a href="#/contatos/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Contato">
-    <span class="glyphicon glyphicon-plus"></span>
-</a>
-
+﻿<br />
+<div class="row">
+    <div class="col-lg-1">
+        <h3 class="text-center">Contato</h3>
+    </div>
+    <div class="col-lg-10">
+        <input type="text" class="form-control" ng-model="filter_contato" value="" placeholder="Filtrar..." />
+    </div>
+    <div class="col-lg-1">
+        <a href="#/contatos/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Contato">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -16,11 +24,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td colspan="8">
-                <input type="text" class="form-control" ng-model="filter_contato" value="" placeholder="Filtrar..." />
-            </td>
-        </tr>
         <tr ng-repeat="contato in vm.contatos | filter: filter_contato">
             <td class="text-left">{{ contato.nome }}</td>
             <td class="text-left">{{ contato.telefone }}</td>
