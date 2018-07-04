@@ -1,36 +1,32 @@
 ﻿(function () {
     'use strict';
-    angular.module('devTeamUtil').controller('CampoEditCtrl', CampoEditCtrl);
+    angular.module('devTeamUtil').controller('ScriptEditCtrl', ScriptEditCtrl);
 
-    CampoEditCtrl.$inject = ['$routeParams', '$filter', '$location', 'CampoFactory'];
+    ScriptEditCtrl.$inject = ['$routeParams', '$filter', '$location', 'ScriptFactory'];
 
-    function CampoEditCtrl($routeParams, $filter, $location, CampoFactory) {
+    function ScriptEditCtrl($routeParams, $filter, $location, ScriptFactory) {
         var vm = this;
         var id = $routeParams.id;
-        vm.campo = {};
-
-        vm.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
-            'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
-        vm.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-            'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
-
+        vm.tipos = ['Create', 'Insert', 'Update', 'Alter', 'Other'];
+        
         activate();
         vm.save = save;
         vm.cancel = cancel;
+        vm.seeFields = seeFields;
 
         function activate() {
-            getCampo();
+            getScript();
         }
 
-        function getCampo() {
-            CampoFactory.getById(id)
+        function getScript() {
+            ScriptFactory.getById(id)
                  .success(success)
                  .catch(fail);
 
             function success(response) {
-                vm.campo = response;
+                vm.script = response;
                 /*var arDate = response.dataNascimento.substring(0, 10).split('-');
-                vm.campo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
+                vm.script.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                 */
             }
 
@@ -51,13 +47,13 @@
         }
 
         function save() {
-            CampoFactory.put(vm.campo)
+            ScriptFactory.put(vm.script)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Campo <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Campo Cadastrada");
-                $location.path('/campos/' + vm.campo.scriptId);
+                toastr.success("Script <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Script Cadastrada");
+                $location.path('/scripts/' + vm.script.passoId);
             }
 
             function fail(error) {
@@ -81,7 +77,11 @@
         }
 
         function cancel() {
-            $location.path('/campos/' + vm.campo.scriptId);
+            $location.path('/scripts/' + vm.script.passoId);
+        }
+
+        function seeFields() {
+            $location.path('/campos/' + vm.script.id);
         }
     }
 })();

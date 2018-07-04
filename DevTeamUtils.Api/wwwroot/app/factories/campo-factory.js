@@ -25,8 +25,8 @@
             remove: remove
         };
 
-        function get(tabelaId) {
-            return $http.get(SETTINGS.SERVICE_URL + '/byTable/' + tabelaId, $rootScope.header);
+        function get(scriptId) {
+            return $http.get(SETTINGS.SERVICE_URL + '/idScript/' + scriptId, $rootScope.header);
         }
 
         function getById(id) {

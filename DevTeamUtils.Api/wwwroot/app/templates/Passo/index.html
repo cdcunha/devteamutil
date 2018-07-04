@@ -1,0 +1,40 @@
+﻿<h3 class="text-center">Passos</h3>
+
+<a href="#/passos/create" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar novo Passo">
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+<div>
+    <input type="text" class="form-control" ng-model="filter_passo" value="" placeholder="Filtrar..." />
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Nome do Passo</th>
+			<th class="text-left">Código</th>
+			<th class="text-left">Autor</th>
+            <th class="text-left">Tarefa</th>
+            <th class="text-left">Descrição</th>
+			<th class="text-left">Validado</th>
+			<th class="text-left">Data</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="passo in vm.passos | filter: filter_passo">
+        <tr>
+            <td class="text-left">{{ passo.nome }}</td>
+            <td class="text-left">{{ passo.codigo }}</td>
+            <td class="text-left">{{ passo.autor }}</td>
+            <td class="text-left">{{ passo.tarefa }}</td>
+            <td class="text-left">{{ passo.descricao }}</td>
+            <td class="text-left">{{ passo.validado }}</td>
+            <td class="text-left">{{ passo.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <a href="#/passos/download/{{ passo.id }}/{{ passo.codigo }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Gerar Arquivo Passo"><span class="glyphicon glyphicon-download-alt"></span></a>
+                    <a href="#/passos/edit/{{ passo.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Passo"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="#/passos/remove/{{ passo.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Passo"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,75 @@
+﻿using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+namespace DevTeamUtils.Api.Models
+{
+    [DataContract]
+    public class Passo : BaseModel
+    {
+        [DataMember]
+        public string Nome { get; set; }
+
+        [DataMember]
+        public string Codigo { get; set; }
+
+        [DataMember]
+        public string Autor { get; set; }
+
+        [DataMember]
+        public int Tarefa { get; set; }
+
+        [DataMember]
+        public string Descricao { get; set; }
+
+        [DataMember]
+        public string TxtPasso { get; set; }
+
+        [DataMember]
+        public bool Validado {
+            get
+            {
+                bool validado = true;
+                /*if (Scripts != null)
+                {
+                    for (int i = 0; i <= Scripts.Count - 1; i++)
+                    {
+                        if (!Scripts[i].Validado)
+                        {
+                            validado = Scripts[i].Validado;
+                        }
+                    }
+                }
+                else
+                {
+                    validado = false;
+                }
+                */
+                return validado;
+            }
+            private set { }
+        }
+
+        [BsonConstructor]
+        public Passo() : base()
+        {
+            List<Script> Scripts = new List<Script>();
+        }
+
+        public void DeserializeJson(JObject json)
+        {
+            //Id = ((JValue)json.SelectToken("bairro")).Value.ToBson();
+            Nome = getTokenValue(json, "nome");
+            Codigo = getTokenValue(json, "codigo");
+            Autor = getTokenValue(json, "autor");            
+            Tarefa = int.Parse(getTokenValue(json, "tarefa"));
+            Descricao = getTokenValue(json, "descricao");
+            TxtPasso = getTokenValue(json, "passo");
+            Validado = false;
+            if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))
+                Validado = System.Convert.ToBoolean(getTokenValue(json, "validado"));
+            //Scripts = getTokenValue(json, "scripts");
+        }
+    }
+}

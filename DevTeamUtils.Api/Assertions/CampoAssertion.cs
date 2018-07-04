@@ -11,7 +11,7 @@ namespace DevTeamUtils.Api.Assertions
         {
             if (campo == null)
             {
-                throw new Exception("O parâmetro projeto não pode ser nulo [classe CampoAssertion]");
+                throw new Exception("O parâmetro passo não pode ser nulo [classe CampoAssertion]");
             }
 
             if (!canIdNull)
@@ -20,9 +20,9 @@ namespace DevTeamUtils.Api.Assertions
                     SetNofication("500", "O ID não pode ser nulo");
             }
 
-            if (campo.TabelaId == Guid.Empty)
+            if (campo.ScriptId == Guid.Empty)
             {
-                SetNofication("500", "O ID da Tabela não pode ser nulo");
+                SetNofication("500", "O ID da Script não pode ser nulo");
             }
 
             if (string.IsNullOrEmpty(campo.NomeCampo))
@@ -32,7 +32,7 @@ namespace DevTeamUtils.Api.Assertions
 
             if (string.IsNullOrEmpty(campo.DescricaoCampo))
             {
-                SetNofication("500", "Informe a Descrição da tabela");
+                SetNofication("500", "Informe a Descrição da script");
             }
 
             if (!Enum.IsDefined(typeof(Enums.EnumAtributoCampo), campo.Atributo))

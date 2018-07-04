@@ -1,36 +1,32 @@
 ﻿(function () {
     'use strict';
-    angular.module('devTeamUtil').controller('CampoEditCtrl', CampoEditCtrl);
+    angular.module('devTeamUtil').controller('PassoEditCtrl', PassoEditCtrl);
 
-    CampoEditCtrl.$inject = ['$routeParams', '$filter', '$location', 'CampoFactory'];
+    PassoEditCtrl.$inject = ['$routeParams', '$filter', '$location', 'PassoFactory'];
 
-    function CampoEditCtrl($routeParams, $filter, $location, CampoFactory) {
+    function PassoEditCtrl($routeParams, $filter, $location, PassoFactory) {
         var vm = this;
         var id = $routeParams.id;
-        vm.campo = {};
-
-        vm.atributos = ['Number(ORA) ou Integer(IFX)', 'Varchar2(ORA) ou Varchar(IFX)', 'Date(ORA) ou Datetime Year to Second(IFX)',
-            'Number(ORA) ou Decimal(IFX)', 'Long Row(ORA) ou Byte(IFX)', 'Long(ORA) ou Text(IFX)'];
-        vm.tipoCampos = ['Primary Key', 'Foreign Key', 'Código', 'Número', 'Data/Hora', 'Descrição', 'Nome', 'Valor',
-            'Tipo', 'Sim/Não', 'Sigla', 'Imagem/Arquivo', 'Texto', 'Quantidade', 'Situação/Status', 'Indicação'];
+        vm.passo = {};
 
         activate();
         vm.save = save;
         vm.cancel = cancel;
-
+        vm.seeTables = seeTables;
+        
         function activate() {
-            getCampo();
+            getPasso();
         }
 
-        function getCampo() {
-            CampoFactory.getById(id)
+        function getPasso() {
+            PassoFactory.getById(id)
                  .success(success)
                  .catch(fail);
 
             function success(response) {
-                vm.campo = response;
+                vm.passo = response;                
                 /*var arDate = response.dataNascimento.substring(0, 10).split('-');
-                vm.campo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
+                vm.passo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                 */
             }
 
@@ -51,13 +47,13 @@
         }
 
         function save() {
-            CampoFactory.put(vm.campo)
+            PassoFactory.put(vm.passo)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
-                toastr.success("Campo <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Campo Cadastrada");
-                $location.path('/campos/' + vm.campo.scriptId);
+                toastr.success("Passo <strong>" + response.nome + "</strong> cadastrado com sucesso<br/><button type='button' class='btn clear'>Ok</button>", "Passo Cadastrada");
+                $location.path('/passos');
             }
 
             function fail(error) {
@@ -81,7 +77,11 @@
         }
 
         function cancel() {
-            $location.path('/campos/' + vm.campo.scriptId);
+            $location.path('/passos');
+        }
+
+        function seeTables() {
+            $location.path('/scripts/' + vm.passo.id);
         }
     }
 })();

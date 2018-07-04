@@ -1,31 +1,31 @@
 ﻿(function () {
     'use strict';
-    angular.module('devTeamUtil').controller('CampoRemoveCtrl', CampoRemoveCtrl);
+    angular.module('devTeamUtil').controller('PassoRemoveCtrl', PassoRemoveCtrl);
 
-    CampoRemoveCtrl.$inject = ['$routeParams', '$filter', '$location', 'CampoFactory'];
+    PassoRemoveCtrl.$inject = ['$routeParams', '$filter', '$location', 'PassoFactory'];
 
-    function CampoRemoveCtrl($routeParams, $filter, $location, CampoFactory) {
+    function PassoRemoveCtrl($routeParams, $filter, $location, PassoFactory) {
         var vm = this;
         var id = $routeParams.id;
-        vm.campo = {};
+        vm.passo = {};
 
         activate();
         vm.remove = remove;
         vm.cancel = cancel;
 
         function activate() {
-            getCampo();
+            getPasso();
         }
 
-        function getCampo() {
-            CampoFactory.getById(id)
+        function getPasso() {
+            PassoFactory.getById(id)
                  .success(success)
                  .catch(fail);
 
             function success(response) {
-                vm.campo = response;
+                vm.passo = response;
                 //var arDate = response.dataNascimento.substring(0, 10).split('-');
-                //vm.campo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
+                //vm.passo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
             }
 
             function fail(error) {
@@ -42,13 +42,13 @@
         }
 
         function remove() {
-            CampoFactory.remove(vm.campo)
+            PassoFactory.remove(vm.passo)
                 .success(success)
                 .catch(fail);
 
             function success(response) {
-                toastr["success"]("Campo <strong>" + response.nome + "</strong> removida com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Campo Removido');
-                $location.path('/campos/' + vm.campo.scriptId);
+                toastr["success"]("Passo <strong>" + response.nome + "</strong> removida com sucesso<br/><button type='button' class='btn clear'>Ok</button>", 'Passo Removido');
+                $location.path('/passos');
             }
 
             function fail(error) {
@@ -72,7 +72,7 @@
         }
 
         function cancel() {
-            $location.path('/campos/' + vm.campo.scriptId);
+            $location.path('/passos');
         }
     }
 })();

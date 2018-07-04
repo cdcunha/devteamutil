@@ -1,0 +1,122 @@
+﻿<h3>Nova Script</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <form name="formScript">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Script</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="passoId">Id do Passo</label>
+                            <input ng-model="vm.script.passoId"
+                                   type="text"
+                                   class="form-control"
+                                   id="passoId"
+                                   name="passoId"
+                                   readonly />
+                        </div>
+                        
+                        <div class="form-group" ng-class="{ 'has-error' : nome.$invalid }">
+                            <label for="nomeServidor">Nome da Script</label>
+                            <input ng-model="vm.script.nomeScript"
+                                   ng-minlength="3"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="nome"
+                                   name="nome"
+                                   placeholder="Ex.: TB_FUNCIONARIO"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formScript.nome.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : descricao.$invalid }">
+                            <label for="ip">Descrição</label>
+                            <input ng-model="vm.script.descricaoScript"
+                                   ng-minlength="1"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="descricao"
+                                   name="descricao"
+                                   placeholder="Ex.: Script de funcionários"
+                                   required />
+                            <div class="alert-danger">
+                                <div ng-messages="formScript.descricao.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : tipoScript.$invalid }">
+                            <label for="tipoScript">Tipo</label>
+                            <select ng-model="vm.script.tipo" ng-options="x for x in vm.tipos"
+                                    class="form-control"
+                                    id="tipoScript"
+                                    name="tipoScript"
+                                    placeholder="Ex.: CREATE"
+                                    required></select>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : mnemonico.$invalid }">
+                            <label for="mnemonico">Mnemônico</label>
+                            <input ng-model="vm.script.mnemonico"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="mnemonico"
+                                   name="mnemonico"
+                                   placeholder="Ex.: FUNCIO" />
+                            <div class="alert-danger">
+                                <div ng-messages="formScript.mnemonico.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : txtScript.$invalid }">
+                            <label for="script">Script</label>
+                            <input ng-model="vm.script.txtScript"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="txtScript"
+                                   name="txtScript"
+                                   placeholder="Ex.: select * from tb_funcionario" />
+                            <div class="alert-danger">
+                                <div ng-messages="formScript.txtScript.$error">
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center">
+                            <button type="button"
+                                    class="btn btn-primary btn-lg"
+                                    ng-disabled="formScript.$invalid"
+                                    ng-click="vm.save()">
+                                Salvar
+                            </button>
+                            <button type="button"
+                                    class="btn btn-default btn-lg"
+                                    ng-click="vm.cancel()">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!--<pre>formScript = {{formScript | json}}</pre><br />-->
+
+    </div>
+</div>

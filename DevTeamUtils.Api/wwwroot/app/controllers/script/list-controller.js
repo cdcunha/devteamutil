@@ -1,32 +1,33 @@
 ﻿(function () {
     'use strict';
-    angular.module('devTeamUtil').controller('CampoListCtrl', CampoListCtrl);
+    angular.module('devTeamUtil').controller('ScriptListCtrl', ScriptListCtrl);
 
-    CampoListCtrl.$inject = ['$routeParams', '$location', 'CampoFactory'];
+    ScriptListCtrl.$inject = ['$routeParams', '$location', 'ScriptFactory'];
     
-    function CampoListCtrl($routeParams, $location, CampoFactory) {
+    function ScriptListCtrl($routeParams, $location, ScriptFactory) {
         var vm = this;
-        vm.campos = [];
-        vm.scriptId = $routeParams.scriptId;
-        vm.backToTable = backToTable;
+        vm.scripts = [];
+        vm.passoId = $routeParams.passoId;
+
+        vm.backToProject = backToProject;
         
         activate();
         
         function activate() {
-            getCampos();            
+            getScripts();            
         }
 
-        function getCampos() {
-            CampoFactory.get(vm.scriptId)
+        function getScripts() {
+            ScriptFactory.get(vm.passoId)
                  .success(success)
                  .catch(fail);
 
             function success(response) {
-                vm.campos = response;
-                /*vm.campos.forEach(function (campo) {
-                    if (campo.dataNascimento != null) {
-                        var arDate = campo.dataNascimento.substring(0, 10).split('-');
-                        campo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
+                vm.scripts = response;
+                /*vm.scripts.forEach(function (script) {
+                    if (script.dataNascimento != null) {
+                        var arDate = script.dataNascimento.substring(0, 10).split('-');
+                        script.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                     }
                 });*/
             }
@@ -51,8 +52,8 @@
             }
         }
 
-        function backToTable() {
-            $location.path('/scripts/edit/' + vm.scriptId);
+        function backToProject() {
+            $location.path('/passos/edit/' + vm.passoId);
         }
     }
 })();

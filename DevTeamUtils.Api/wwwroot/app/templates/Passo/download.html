@@ -1,0 +1,49 @@
+﻿<h3>Arquivo passo do passo</h3>
+
+<div class="container-fluid">
+    <div class="row content">
+        <form name="formPasso">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Gerando arquivo Passo</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="id">Id</label>
+                            <input ng-model="vm.passo.id"
+                                   type="text"
+                                   class="form-control"
+                                   id="id"
+                                   name="id"
+                                   readonly />
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : codigo.$invalid }">
+                            <label for="nome">Código do Passo</label>
+                            <input ng-model="vm.passo.codigo"
+                                   ng-minlength="3"
+                                   ng-maxlength="100"
+                                   type="text"
+                                   class="form-control"
+                                   id="codigo"
+                                   name="codigo"
+                                   placeholder="Código do Passo"
+                                   readonly />
+                        </div>
+
+                        <br />
+                        <div class="clearfix"></div>
+
+                        <p class="text-center">
+                            <button class="btn btn-primary btn-lg" ng-click="vm.download()">
+                                Gerar arquivo INI
+                            </button>
+                            <button class="btn btn-secondary btn-lg" ng-click="vm.cancel()" ng-show="vm.passo.id != 0">
+                                Cancelar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,32 +1,30 @@
 ﻿(function () {
     'use strict';
-    angular.module('devTeamUtil').controller('CampoListCtrl', CampoListCtrl);
+    angular.module('devTeamUtil').controller('PassoListCtrl', PassoListCtrl);
 
-    CampoListCtrl.$inject = ['$routeParams', '$location', 'CampoFactory'];
+    PassoListCtrl.$inject = ['PassoFactory'];
     
-    function CampoListCtrl($routeParams, $location, CampoFactory) {
+    function PassoListCtrl(PassoFactory) {
         var vm = this;
-        vm.campos = [];
-        vm.scriptId = $routeParams.scriptId;
-        vm.backToTable = backToTable;
+        vm.passos = [];
         
         activate();
-        
+
         function activate() {
-            getCampos();            
+            getPassos();            
         }
 
-        function getCampos() {
-            CampoFactory.get(vm.scriptId)
+        function getPassos() {
+            PassoFactory.get()
                  .success(success)
                  .catch(fail);
 
             function success(response) {
-                vm.campos = response;
-                /*vm.campos.forEach(function (campo) {
-                    if (campo.dataNascimento != null) {
-                        var arDate = campo.dataNascimento.substring(0, 10).split('-');
-                        campo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
+                vm.passos = response;
+                /*vm.passos.forEach(function (passo) {
+                    if (passo.dataNascimento != null) {
+                        var arDate = passo.dataNascimento.substring(0, 10).split('-');
+                        passo.dataNascimento = new Date(arDate[1] + '/' + arDate[2] + '/' + arDate[0]);
                     }
                 });*/
             }
@@ -49,10 +47,6 @@
                     }
                 }
             }
-        }
-
-        function backToTable() {
-            $location.path('/scripts/edit/' + vm.scriptId);
         }
     }
 })();

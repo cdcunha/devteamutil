@@ -70,65 +70,65 @@ angular.module('devTeamUtil')
                     redirectTo: '/'
                 })
                 /****************************************
-                * Projetos
+                * Passos
                 *****************************************/
-                .when('/projetos', {
-                    controller: 'ProjetoListCtrl',
+                .when('/passos', {
+                    controller: 'PassoListCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Projeto/index.html'
+                    templateUrl: 'app/templates/Passo/index.html'
                 })
-                .when('/projetos/create', {
-                    controller: 'ProjetoCreateCtrl',
+                .when('/passos/create', {
+                    controller: 'PassoCreateCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Projeto/create.html'
+                    templateUrl: 'app/templates/Passo/create.html'
                 })
-                .when('/projetos/edit/:id', {
-                    controller: 'ProjetoEditCtrl',
+                .when('/passos/edit/:id', {
+                    controller: 'PassoEditCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Projeto/edit.html'
+                    templateUrl: 'app/templates/Passo/edit.html'
                 })
-                .when('/projetos/remove/:id', {
-                    controller: 'ProjetoRemoveCtrl',
+                .when('/passos/remove/:id', {
+                    controller: 'PassoRemoveCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Projeto/remove.html'
+                    templateUrl: 'app/templates/Passo/remove.html'
                 })
-                .when('/projetos/download/:id/:nomeServidor', {
-                    controller: 'ProjetoDownloadCtrl',
+                .when('/passos/download/:id/:nomeServidor', {
+                    controller: 'PassoDownloadCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Projeto/download.html'
+                    templateUrl: 'app/templates/Passo/download.html'
                 })
                 /****************************************
-                * Tabelas
+                * Scripts
                 *****************************************/
-                .when('/tabelas/:projetoId', {
-                    controller: 'TabelaListCtrl',
+                .when('/scripts/:passoId', {
+                    controller: 'ScriptListCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Tabela/index.html'
+                    templateUrl: 'app/templates/Script/index.html'
                 })
-                .when('/tabelas/create/:projetoId', {
-                    controller: 'TabelaCreateCtrl',
+                .when('/scripts/create/:passoId', {
+                    controller: 'ScriptCreateCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Tabela/create.html'
+                    templateUrl: 'app/templates/Script/create.html'
                 })
-                .when('/tabelas/edit/:id', {
-                    controller: 'TabelaEditCtrl',
+                .when('/scripts/edit/:id', {
+                    controller: 'ScriptEditCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Tabela/edit.html'
+                    templateUrl: 'app/templates/Script/edit.html'
                 })
-                .when('/tabelas/remove/:id', {
-                    controller: 'TabelaRemoveCtrl',
+                .when('/scripts/remove/:id', {
+                    controller: 'ScriptRemoveCtrl',
                     controllerAs: 'vm',
-                    templateUrl: 'app/templates/Tabela/remove.html'
+                    templateUrl: 'app/templates/Script/remove.html'
                 })
                 /****************************************
                 * Campos
                 *****************************************/
-                .when('/campos/:tabelaId', {
+                .when('/campos/:scriptId', {
                     controller: 'CampoListCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/index.html'
                 })
-                .when('/campos/create/:tabelaId', {
+                .when('/campos/create/:scriptId', {
                     controller: 'CampoCreateCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/create.html'

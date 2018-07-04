@@ -12,23 +12,23 @@ using System.Threading.Tasks;
 namespace DevTeamUtils.Api.Controllers
 {
     [Controller]
-    public class CampoController : Controller
+    public class ScriptController : Controller
     {
-        private readonly ICampoRepository _campoRepository;
+        private readonly IScriptRepository _scriptRepository;
 
-        public CampoController(MongoDbContext context)
+        public ScriptController(MongoDbContext context)
         {
-            _campoRepository = context.GetCampoRepository();
+            _scriptRepository = context.GetScriptRepository();
         }
 
-        [HttpGet("api/[controller]/idScript/{scriptId}")]
+        [HttpGet("api/[controller]/idPasso/{passoId}")]
         [EnableCors("AllowAll")]
-        public IEnumerable<Campo> GetAllByTable(Guid scriptId)
+        public IEnumerable<Script> GetAllByProject(Guid passoId)
         {
-            return _campoRepository.GetAllByTable(scriptId);
+            return _scriptRepository.GetAllByProject(passoId);
         }
 
-        [HttpGet("api/[controller]/{id}", Name = "GetCampo")]
+        [HttpGet("api/[controller]/{id}", Name = "GetScript")]
         public IActionResult GetById(Guid id)
         {
             if (id == Guid.Empty)
@@ -43,12 +43,11 @@ namespace DevTeamUtils.Api.Controllers
             }
             else
             {
-                var item = _campoRepository.Find(id);
+                var item = _scriptRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound();
                 }
-
                 return new ObjectResult(item);
             }
         }
@@ -61,19 +60,19 @@ namespace DevTeamUtils.Api.Controllers
             {
                 return BadRequest();
             }
-            Campo campo = body.ToObject<Campo>();            
+            Script script = body.ToObject<Script>();
 
             //Verifica se há inconsistência nos dados
-            CampoAssertion campoAssertion = new CampoAssertion(campo, true);
-            if (campoAssertion.Notifications.HasNotifications())
+            ScriptAssertion scriptAssertion = new ScriptAssertion(script, true);
+            if (scriptAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(campoAssertion.Notifications.Notify());
+                return new ObjectResult(scriptAssertion.Notifications.Notify());
             }
 
-            _campoRepository.Add(campo);
+            _scriptRepository.Add(script);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status201Created;
-            return new ObjectResult(campo);
+            return new ObjectResult(script);
         }
 
         [HttpPut("api/[controller]/{id}")]
@@ -86,41 +85,41 @@ namespace DevTeamUtils.Api.Controllers
             }
 
             //Verifica se o registro existe na base
-            var campoFounded = _campoRepository.Find(id);
-            if (campoFounded == null)
+            var scriptFounded = _scriptRepository.Find(id);
+            if (scriptFounded == null)
             {
                 return NotFound();
             }
 
-            Campo campoNew = body.ToObject<Campo>();
-            campoNew.SetDataAlteracao();
+            Script scriptNew = body.ToObject<Script>();
+            scriptNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados
-            CampoAssertion campoAssertion = new CampoAssertion(campoNew);
-            if (campoAssertion.Notifications.HasNotifications())
+            ScriptAssertion scriptAssertion = new ScriptAssertion(scriptNew);
+            if (scriptAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(campoAssertion.Notifications.Notify());
+                return new ObjectResult(scriptAssertion.Notifications.Notify());
             }
-            _campoRepository.Update(campoNew);
+            _scriptRepository.Update(scriptNew);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(campoNew);
+            return new ObjectResult(scriptNew);
         }
 
         [HttpDelete("api/[controller]/{id}")]
         [EnableCors("AllowAll")]
         public IActionResult Delete(Guid id)
         {
-            var campo = _campoRepository.Find(id);
-            if (campo == null)
+            var script = _scriptRepository.Find(id);
+            if (script == null)
             {
                 return NotFound();
             }
 
-            _campoRepository.Remove(id);
+            _scriptRepository.Remove(id);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(campo);
+            return new ObjectResult(script);
         }
     }
 }

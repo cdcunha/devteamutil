@@ -15,7 +15,7 @@
     function CampoCreateCtrl($routeParams, $location, CampoFactory) {
         var vm = this;
 
-        clearCampo($routeParams.tabelaId);
+        clearCampo($routeParams.scriptId);
 
         vm.save = save;
         vm.cancel = cancel;
@@ -37,7 +37,7 @@
 
             function success(response) {
                 toastr.success("Campo <strong>" + response.nome + "</strong> cadastrada com sucesso<br/><br/><button type='button' class='btn clear'>Yes</button>", "Campo Cadastrado");
-                $location.path('/campos/' + vm.campo.tabelaId);
+                $location.path('/campos/' + vm.campo.scriptId);
             }
 
             function fail(error){
@@ -74,12 +74,12 @@
         */
         function cancel() {
             //clearCampo();
-            $location.path('/campos/' + vm.campo.tabelaId);
+            $location.path('/campos/' + vm.campo.scriptId);
         }
 
-        function clearCampo(tabelaId) {
+        function clearCampo(scriptId) {
             vm.campo = {
-                tabelaId: tabelaId
+                scriptId: scriptId
             };
 
             vm.selectedTipo = { 'id': 1, 'description': 'Number(ORA) ou Integer(IFX)' };

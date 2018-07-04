@@ -1,0 +1,47 @@
+﻿<h3 class="text-center">Scripts</h3>
+
+<div class="form-group">
+    <div class="col-md-6">
+        <button class="btn btn-default btn-lg glyphicon glyphicon-share-alt" ng-click="vm.backToProject()" data-toggle="tooltip" title="Voltar para o Passo [id = {{vm.passoId}}]"></button>
+    </div>
+    <div class="col-md-6">
+        <a href="#/scripts/create/{{vm.passoId}}" class="btn btn-success btn-lg pull-right" data-toggle="tooltip" title="Adicionar nova Script">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Nome da Script</th>
+            <th class="text-left">Descrição</th>
+            <th class="text-left">Tipo</th>
+            <th class="text-left">Mnemônico</th>
+            <th class="text-left">Validado</th>
+            <th class="text-left">Data</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="8">
+                <input type="text" class="form-control" ng-model="filter_script" value="" placeholder="Filtrar..." />
+            </td>
+        </tr>
+        <tr ng-repeat="script in vm.scripts | filter: filter_script">
+            <td class="text-left">{{ script.nomeScript }}</td>
+            <td class="text-left">{{ script.descricaoScript }}</td>
+			<td class="text-left">{{ script.tipoScript }}</td>
+            <td class="text-left">{{ script.mnemonico }}</td>
+            <td class="text-left">{{ script.validado }}</td>
+            <td class="text-left">{{ script.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <a href="#/scripts/edit/{{ script.id }}" class="btn btn-group btn-default btn-sm" data-toggle="tooltip" title="Editar Script"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="#/scripts/remove/{{ script.id }}" class="btn btn-group btn-danger btn-sm" data-toggle="tooltip" title="Apagar Script"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </td>
+        </tr>
+    <!--</tbody>-->
+</table>

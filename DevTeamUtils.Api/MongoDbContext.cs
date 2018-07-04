@@ -15,8 +15,8 @@ namespace DevTeamUtils.Api
             
             Conexoes = (_mongoDatabase.GetCollection<Conexao>("Conexao")) as MongoCollectionBase<Conexao>;
             Contatos = (_mongoDatabase.GetCollection<Contato>("Contato")) as MongoCollectionBase<Contato>;
-            Projetos = (_mongoDatabase.GetCollection<Projeto>("Projeto")) as MongoCollectionBase<Projeto>;
-            Tabelas = (_mongoDatabase.GetCollection<Tabela>("Tabela")) as MongoCollectionBase<Tabela>;
+            Passos = (_mongoDatabase.GetCollection<Passo>("Passo")) as MongoCollectionBase<Passo>;
+            Scripts = (_mongoDatabase.GetCollection<Script>("Script")) as MongoCollectionBase<Script>;
             Campos = (_mongoDatabase.GetCollection<Campo>("Campo")) as MongoCollectionBase<Campo>;
         }
 
@@ -30,14 +30,14 @@ namespace DevTeamUtils.Api
             return new ContatoRepository(this);
         }
 
-        public IProjetoRepository GetProjetoRepository()
+        public IPassoRepository GetPassoRepository()
         {
-            return new ProjetoRepository(this);
+            return new PassoRepository(this);
         }
 
-        public ITabelaRepository GetTabelaRepository()
+        public IScriptRepository GetScriptRepository()
         {
-            return new TabelaRepository(this);
+            return new ScriptRepository(this);
         }
 
         public ICampoRepository GetCampoRepository()
@@ -47,8 +47,8 @@ namespace DevTeamUtils.Api
 
         public MongoCollectionBase<Conexao> Conexoes { get; set; }
         public MongoCollectionBase<Contato> Contatos { get; set; }
-        public MongoCollectionBase<Projeto> Projetos { get; set; }
-        public MongoCollectionBase<Tabela> Tabelas { get; set; }
+        public MongoCollectionBase<Passo> Passos { get; set; }
+        public MongoCollectionBase<Script> Scripts { get; set; }
         public MongoCollectionBase<Campo> Campos { get; set; }
     }
 }

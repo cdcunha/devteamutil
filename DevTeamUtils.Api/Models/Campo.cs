@@ -8,7 +8,7 @@ namespace DevTeamUtils.Api.Models
     public class Campo : BaseModel
     {
         [DataMember]
-        public System.Guid TabelaId { get; set; }
+        public System.Guid ScriptId { get; set; }
 
         [DataMember]
         public string NomeCampo { get; set; }
