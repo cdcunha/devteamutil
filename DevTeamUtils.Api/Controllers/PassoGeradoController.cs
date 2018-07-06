@@ -12,23 +12,23 @@ using System.Threading.Tasks;
 namespace DevTeamUtils.Api.Controllers
 {
     [Controller]
-    public class CampoController : Controller
+    public class PassoGeradoController : Controller
     {
-        private readonly ICampoRepository _campoRepository;
+        private readonly IPassoGeradoRepository _passoGeradoRepository;
 
-        public CampoController(MongoDbContext context)
+        public PassoGeradoController(MongoDbContext context)
         {
-            _campoRepository = context.GetCampoRepository();
+            _passoGeradoRepository = context.GetPassoGeradoRepository();
         }
 
         [HttpGet("api/[controller]/idScript/{scriptId}")]
         [EnableCors("AllowAll")]
-        public IEnumerable<Campo> GetAllByScript(Guid scriptId)
+        public IEnumerable<PassoGerado> GetAllByPasso(Guid passoId)
         {
-            return _campoRepository.GetAllByScript(scriptId);
+            return _passoGeradoRepository.GetAllByPasso(passoId);
         }
 
-        [HttpGet("api/[controller]/{id}", Name = "GetCampo")]
+        [HttpGet("api/[controller]/{id}", Name = "GetPassoGerado")]
         public IActionResult GetById(Guid id)
         {
             if (id == Guid.Empty)
@@ -43,7 +43,7 @@ namespace DevTeamUtils.Api.Controllers
             }
             else
             {
-                var item = _campoRepository.Find(id);
+                var item = _passoGeradoRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound();
@@ -62,21 +62,21 @@ namespace DevTeamUtils.Api.Controllers
                 return BadRequest();
             }
 
-            Campo campo = new Campo();
-            campo.DeserializeJson(body); //Converte Json para o objeto 
-            //Campo campo = body.ToObject<Campo>();            
+            //PassoGerado passoGerado = new PassoGerado();
+            //passoGerado.DeserializeJson(body); //Converte Json para o objeto 
+            PassoGerado passoGerado = body.ToObject<PassoGerado>();            
 
             //Verifica se há inconsistência nos dados
-            CampoAssertion campoAssertion = new CampoAssertion(campo, true);
-            if (campoAssertion.Notifications.HasNotifications())
+            PassoGeradoAssertion passoGeradoAssertion = new PassoGeradoAssertion(passoGerado, true);
+            if (passoGeradoAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(campoAssertion.Notifications.Notify());
+                return new ObjectResult(passoGeradoAssertion.Notifications.Notify());
             }
 
-            _campoRepository.Add(campo);
+            _passoGeradoRepository.Add(passoGerado);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status201Created;
-            return new ObjectResult(campo);
+            return new ObjectResult(passoGerado);
         }
 
         [HttpPut("api/[controller]/{id}")]
@@ -89,41 +89,41 @@ namespace DevTeamUtils.Api.Controllers
             }
 
             //Verifica se o registro existe na base
-            var campoFounded = _campoRepository.Find(id);
-            if (campoFounded == null)
+            var passoGeradoFounded = _passoGeradoRepository.Find(id);
+            if (passoGeradoFounded == null)
             {
                 return NotFound();
             }
 
-            Campo campoNew = body.ToObject<Campo>();
-            campoNew.SetDataAlteracao();
+            PassoGerado passoGeradoNew = body.ToObject<PassoGerado>();
+            passoGeradoNew.SetDataAlteracao();
 
             //Verifica se há inconsistência nos dados
-            CampoAssertion campoAssertion = new CampoAssertion(campoNew);
-            if (campoAssertion.Notifications.HasNotifications())
+            PassoGeradoAssertion passoGeradoAssertion = new PassoGeradoAssertion(passoGeradoNew);
+            if (passoGeradoAssertion.Notifications.HasNotifications())
             {
                 Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
-                return new ObjectResult(campoAssertion.Notifications.Notify());
+                return new ObjectResult(passoGeradoAssertion.Notifications.Notify());
             }
-            _campoRepository.Update(campoNew);
+            _passoGeradoRepository.Update(passoGeradoNew);
             //return new NoContentResult();
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(campoNew);
+            return new ObjectResult(passoGeradoNew);
         }
 
         [HttpDelete("api/[controller]/{id}")]
         [EnableCors("AllowAll")]
         public IActionResult Delete(Guid id)
         {
-            var campo = _campoRepository.Find(id);
-            if (campo == null)
+            var passoGerado = _passoGeradoRepository.Find(id);
+            if (passoGerado == null)
             {
                 return NotFound();
             }
 
-            _campoRepository.Remove(id);
+            _passoGeradoRepository.Remove(id);
             Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK;
-            return new ObjectResult(campo);
+            return new ObjectResult(passoGerado);
         }
     }
 }

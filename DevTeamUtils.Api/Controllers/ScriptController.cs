@@ -23,9 +23,9 @@ namespace DevTeamUtils.Api.Controllers
 
         [HttpGet("api/[controller]/idPasso/{passoId}")]
         [EnableCors("AllowAll")]
-        public IEnumerable<Script> GetAllByProject(Guid passoId)
+        public IEnumerable<Script> GetAllByPasso(Guid passoId)
         {
-            return _scriptRepository.GetAllByProject(passoId);
+            return _scriptRepository.GetAllByPasso(passoId);
         }
 
         [HttpGet("api/[controller]/{id}", Name = "GetScript")]

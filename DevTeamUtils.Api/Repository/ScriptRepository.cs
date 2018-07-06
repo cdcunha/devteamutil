@@ -28,7 +28,7 @@ namespace DevTeamUtils.Api.Repository
             return resultado;
         }
 
-        public IEnumerable<Script> GetAllByProject(Guid passoId)
+        public IEnumerable<Script> GetAllByPasso(Guid passoId)
         {
             //var resultado = _context.Scripts.Find(FilterDefinition<Script>.Empty).SortBy(it => it.Nome);//.Skip(0).Limit(50)
             var resultado = _context.Scripts.AsQueryable().Where(t => t.PassoId == passoId).OrderBy(t => t.NomeScript);

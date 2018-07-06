@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 namespace DevTeamUtils.Api.Assertions
 {
     public class ArquivoPassoAssertion : BaseAssertion
-    {
-        public ArquivoPassoAssertion(string passo, bool validado) : base()
+    {   
+        public ArquivoPassoAssertion() : base(){}
+
+        public ArquivoPassoAssertion(string passo) : base()
         {
-            if (!validado)
-                SetNofication("500", "O passo deve estar validado. Valide o passo");
+            CheckPassoAssertion(passo);
+        }
+
+        public void CheckPassoAssertion(string passo)
+        {
             if (string.IsNullOrEmpty(passo.Trim()))
                 SetNofication("500", "O passo não pode ser vazio. Crie os scripts e gere o passo");
+        }
+
+        public void CheckPassoValidadoAssertion(bool validado)
+        {
+            if (!validado)
+                SetNofication("500", "O passo não foi validado. Valide o passo primeiro");
         }
     }
 }

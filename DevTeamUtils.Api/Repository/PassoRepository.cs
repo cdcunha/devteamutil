@@ -45,7 +45,7 @@ namespace DevTeamUtils.Api.Repository
             _context.Passos.ReplaceOne(Builders<Passo>.Filter.Eq(p => p.Id, passo.Id), passo);
         }
 
-        public System.IO.Stream DownloadArquivoPasso(string passo)
+        public System.IO.MemoryStream CreateFile(string passo)
         {
             return Utils.FileHelper.CriarArquivoPasso(passo);
         }

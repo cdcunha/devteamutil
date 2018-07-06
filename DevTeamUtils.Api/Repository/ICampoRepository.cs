@@ -7,7 +7,7 @@ namespace DevTeamUtils.Api.Repository
     public interface ICampoRepository
     {
         void Add(Campo campo);
-        IEnumerable<Campo> GetAllByTable(Guid scriptId);
+        IEnumerable<Campo> GetAllByScript(Guid scriptId);
         Campo Find(Guid id);
         void Remove(Guid id);
         void Update(Campo campo);

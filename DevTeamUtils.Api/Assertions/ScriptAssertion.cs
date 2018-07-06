@@ -44,11 +44,6 @@ namespace DevTeamUtils.Api.Assertions
             {
                 SetNofication("500", "Informe o Mnemônico");
             }
-
-            if (string.IsNullOrEmpty(script.TxtScript))
-            {
-                SetNofication("500", "Informe o Script");
-            }
         }
     }
 }

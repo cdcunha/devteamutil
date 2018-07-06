@@ -28,7 +28,7 @@ namespace DevTeamUtils.Api.Repository
             return resultado;
         }
 
-        public IEnumerable<Campo> GetAllByTable(Guid scriptId)
+        public IEnumerable<Campo> GetAllByScript(Guid scriptId)
         {
             //var resultado = _context.Campos.Find(FilterDefinition<Campo>.Empty).SortBy(it => it.NomeCampo);//.Skip(0).Limit(50)
             var resultado = _context.Campos.AsQueryable().Where(p => p.ScriptId == scriptId).OrderBy(t => t.NomeCampo);

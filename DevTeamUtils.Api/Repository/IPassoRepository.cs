@@ -13,6 +13,6 @@ namespace DevTeamUtils.Api.Repository
         Passo Find(Guid id);
         void Remove(Guid id);
         void Update(Passo passo);
-        System.IO.Stream DownloadArquivoPasso(string passo);
+        System.IO.MemoryStream CreateFile(string passo);
     }
 }

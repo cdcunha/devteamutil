@@ -7,7 +7,7 @@ namespace DevTeamUtils.Api.Repository
     public interface IScriptRepository
     {
         void Add(Script script);
-        IEnumerable<Script> GetAllByProject(Guid passoId);
+        IEnumerable<Script> GetAllByPasso(Guid passoId);
         Script Find(Guid id);
         void Remove(Guid id);
         void Update(Script script);

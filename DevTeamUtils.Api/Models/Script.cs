@@ -30,7 +30,7 @@ namespace DevTeamUtils.Api.Models
         public string NomeTabelaPai { get; set; }
 
         [DataMember]
-        public string TxtScript { get; set; }
+        public bool Legado { get; set; }
 
         [DataMember]
         public bool Validado { get; set; }
@@ -47,7 +47,9 @@ namespace DevTeamUtils.Api.Models
             TipoObjeto = (TipoObjeto)System.Enum.Parse(typeof(TipoObjeto), getTokenValue(json, "tipoObjeto"));
             Mnemonico = getTokenValue(json, "mnemonico");
             NomeTabelaPai = getTokenValue(json, "nomeTabelaPai");
-            TxtScript = getTokenValue(json, "txtScript");
+            Legado = false;
+            if (!string.IsNullOrEmpty(getTokenValue(json, "legado")))
+                Legado = System.Convert.ToBoolean(getTokenValue(json, "legado"));
 
             Validado = false;
             if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))

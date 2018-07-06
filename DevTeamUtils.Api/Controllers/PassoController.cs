@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 
 namespace DevTeamUtils.Api.Controllers
 {
@@ -13,10 +14,12 @@ namespace DevTeamUtils.Api.Controllers
     public class PassoController : Controller
     {
         private readonly IPassoRepository _passoRepository;
+        private readonly MongoDbContext _context;
 
         public PassoController(MongoDbContext context)
         {
             _passoRepository = context.GetPassoRepository();
+            _context = context;
         }
 
         [HttpGet("api/[controller]")]
@@ -125,6 +128,9 @@ namespace DevTeamUtils.Api.Controllers
         [HttpGet("api/[controller]/download/{id}", Name = "DownloadPasso")]
         public IActionResult Download(Guid id)
         {
+            FileStreamResult response;
+            List<System.IO.MemoryStream> streams = new List<System.IO.MemoryStream>();
+            
             var passo = _passoRepository.Find(id);
             if (passo == null)
             {
@@ -132,17 +138,43 @@ namespace DevTeamUtils.Api.Controllers
             }
             else
             {
-                //Verifica se há inconsistência nos dados
-                ArquivoPassoAssertion arquivoPassoAssertion = new ArquivoPassoAssertion(passo.TxtPasso, passo.Validado);
+                ArquivoPassoAssertion arquivoPassoAssertion = new ArquivoPassoAssertion();
+                arquivoPassoAssertion.CheckPassoValidadoAssertion(passo.Validado);
+
+                var passosGerados = new PassoGeradoController(_context).GetAllByPasso(id);
+                foreach (PassoGerado item in passosGerados)
+                {
+                    //Verifica se há inconsistência nos dados
+                    arquivoPassoAssertion.CheckPassoAssertion(item.Passo);
+
+                    streams.Add(_passoRepository.CreateFile(item.Passo));
+                }
+
+                #region Verifica inconsistências
                 if (arquivoPassoAssertion.Notifications.HasNotifications())
-                {   
+                {
                     Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
                     return new ObjectResult(arquivoPassoAssertion.Notifications.Notify());
                 }
+                #endregion
+
+                #region Lê lista de streams e compacta
+                using (System.IO.MemoryStream streamGZip = new System.IO.MemoryStream())
+                {
+                    foreach (System.IO.MemoryStream stream in streams)
+                    {
+                        using (GZipStream compressionStream = new GZipStream(stream, CompressionMode.Compress))
+                        {
+                            streamGZip.CopyTo(compressionStream);
+
+                        }
+                    }
+
+                    response = File(streamGZip, "text/plain"); // FileStreamResult
+                }
+                #endregion
             }
 
-            var stream = _passoRepository.DownloadArquivoPasso(passo.TxtPasso);
-            var response = File(stream, "text/plain"); // FileStreamResult
             return response;
         }
     }

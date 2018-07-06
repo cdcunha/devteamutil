@@ -24,32 +24,7 @@ namespace DevTeamUtils.Api.Models
         public string Descricao { get; set; }
 
         [DataMember]
-        public string TxtPasso { get; set; }
-
-        [DataMember]
-        public bool Validado {
-            get
-            {
-                bool validado = true;
-                /*if (Scripts != null)
-                {
-                    for (int i = 0; i <= Scripts.Count - 1; i++)
-                    {
-                        if (!Scripts[i].Validado)
-                        {
-                            validado = Scripts[i].Validado;
-                        }
-                    }
-                }
-                else
-                {
-                    validado = false;
-                }
-                */
-                return validado;
-            }
-            private set { }
-        }
+        public bool Validado { get; private set;  }
 
         [BsonConstructor]
         public Passo() : base(){}
@@ -62,7 +37,6 @@ namespace DevTeamUtils.Api.Models
             Autor = getTokenValue(json, "autor");
             Tarefa = int.Parse(getTokenValue(json, "tarefa"));
             Descricao = getTokenValue(json, "descricao");
-            TxtPasso = getTokenValue(json, "txtPasso");
             Validado = false;
             if (!string.IsNullOrEmpty(getTokenValue(json, "validado")))
                 Validado = System.Convert.ToBoolean(getTokenValue(json, "validado"));
