@@ -20,6 +20,7 @@ namespace DevTeamUtils.Api
             Campos = (_mongoDatabase.GetCollection<Campo>("Campo")) as MongoCollectionBase<Campo>;
             ScriptGerados = (_mongoDatabase.GetCollection<ScriptGerado>("ScriptGerado")) as MongoCollectionBase<ScriptGerado>;
             PassoGerados = (_mongoDatabase.GetCollection<PassoGerado>("PassoGerado")) as MongoCollectionBase<PassoGerado>;
+            Ifxerrors = (_mongoDatabase.GetCollection<IfxError>("IfxError")) as MongoCollectionBase<IfxError>;
         }
 
         ///<summary>
@@ -67,6 +68,11 @@ namespace DevTeamUtils.Api
             return new PassoGeradoRepository(this);
         }
 
+        public IIfxerroRepository GetIfxerroRepository()
+        {
+            return new IfxerrorRepository(this);
+        }
+
         public MongoCollectionBase<Conexao> Conexoes { get; set; }
         public MongoCollectionBase<Contato> Contatos { get; set; }
         public MongoCollectionBase<Passo> Passos { get; set; }
@@ -74,5 +80,6 @@ namespace DevTeamUtils.Api
         public MongoCollectionBase<Campo> Campos { get; set; }
         public MongoCollectionBase<ScriptGerado> ScriptGerados { get; set; }
         public MongoCollectionBase<PassoGerado> PassoGerados { get; set; }
+        public MongoCollectionBase<IfxError> Ifxerrors { get; set; }
     }
 }

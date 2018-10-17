@@ -1,0 +1,57 @@
+﻿<div class="container-fluid">
+    <div class="row content">
+        <form name="formSearch">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Buscar Erro pelo código</div>
+                    <div class="panel-body">
+                        <div class="form-group" ng-class="{ 'has-error' : code.$invalid }">
+                            <label for="id">Código</label>
+                            <input ng-model="vm.ifxerro.code" type="text" class="form-control" id="code" name="code" required/>
+                            <div class="alert-danger">
+                                <div ng-messages="formSearch.code.$error">
+                                    <div ng-repeat="errorMessage in errorMessages">
+                                        <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+                                    </div>
+                                    <div ng-messages-include="app/templates/messages.html"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <p class="text-center">
+                            <button class="btn btn-primary btn-lg" ng-click="vm.search()" ng-disabled="formSearch.$invalid">Buscar</button>
+                            <button class="btn btn-secondary btn-lg" ng-click="vm.cancel()">Cancelar</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form name="formIfxerro">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Erro</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input ng-model="vm.ifxerro.code" class="form-control" type="text" id="code" name="code" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Descrição</label>
+                            <input ng-model="vm.ifxerro.description" class="form-control" type="text" id="description" name="description" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="detail">Detalhe</label>
+                            <textarea ng-model="vm.ifxerro.detail" class="form-control" rows="5" id="detail" name="detail" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

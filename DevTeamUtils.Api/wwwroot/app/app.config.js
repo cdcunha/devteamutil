@@ -142,6 +142,14 @@ angular.module('devTeamUtil')
                     controller: 'CampoRemoveCtrl',
                     controllerAs: 'vm',
                     templateUrl: 'app/templates/Campo/remove.html'
+                })
+                /****************************************
+                * Ifxerros
+                *****************************************/
+                .when('/ifxerros', {
+                    controller: 'IfxerroSearchCtrl',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/templates/Ifxerro/index.html'
                 });
         }
     ]);
