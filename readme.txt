@@ -1,3 +1,10 @@
+###################################################################################################################
+# 
+#                     A T E N Ç Ã O
+# Este repositório foi descontinuado por motivos de segurança.
+# Foi movido para Team Foundation Server
+###################################################################################################################
+
 Aplicação Web para Facilitar o dia a dia da equipe de desenvolvimento
 
 A aplicação possui 3 módulos:
